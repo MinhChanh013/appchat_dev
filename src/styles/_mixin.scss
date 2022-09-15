@@ -1,0 +1,7 @@
+@import url(./_variable.scss);
+
+@mixin flex($aligin-item, $justify-content) {
+  display: flex;
+  align-items: $aligin-item;
+  justify-content: $justify-content;
+}
