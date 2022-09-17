@@ -1,21 +1,326 @@
 .auth {
-  position: relative;
-  overflow: hidden;
-  height: 100vh;
-
-  .auth_container {
-    background-color: #fff;
-    width: 80%;
-    height: 100%;
-    overflow: hidden;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #795381 5%, #ba92a0 90%);
+  .auth-container {
     position: relative;
-  }
-
-  .auh_background {
-    position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    z-index: -1;
+    overflow: hidden;
+    .auth-container__main {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      .auth__mountain {
+        position: absolute;
+        object-fit: cover;
+
+        &:nth-child(1) {
+          width: 95%;
+          right: 10%;
+          bottom: 33%;
+        }
+        &:nth-child(2) {
+          width: 40%;
+          right: 20%;
+          bottom: 35%;
+        }
+        &:nth-child(3) {
+          width: 45%;
+          left: 12%;
+          bottom: 26%;
+        }
+      }
+      .auth_city {
+        position: absolute;
+        width: 100%;
+        object-fit: cover;
+        bottom: 5%;
+      }
+      .auth_rock {
+        position: absolute;
+        bottom: -7%;
+        width: 100%;
+      }
+      .auth_rockBack {
+        position: absolute;
+        bottom: 0;
+        height: 5%;
+        width: 100%;
+      }
+
+      .auth_cloud {
+        position: absolute;
+        width: 25%;
+        height: 5%;
+        image-rendering: pixelated;
+
+        &:nth-child(1) {
+          opacity: 0;
+          animation: animate_Cloud_1 linear forwards infinite 6s;
+          animation-delay: 2s;
+        }
+        &:nth-child(2) {
+          opacity: 0;
+          animation: animate_Cloud_2 linear forwards infinite 6s;
+          animation-delay: 4s;
+        }
+        &:nth-child(3) {
+          opacity: 0;
+          animation: animate_Cloud_3 linear forwards infinite 6s;
+          animation-delay: 1s;
+        }
+        &:nth-child(4) {
+          opacity: 0;
+          animation: animate_Cloud_4 linear forwards infinite 6s;
+          animation-delay: 6s;
+        }
+        &:nth-child(5) {
+          opacity: 0;
+          animation: animate_Cloud_5 linear forwards infinite 6s;
+          animation-delay: 3s;
+        }
+
+        @keyframes animate_Cloud_1 {
+          0% {
+            left: 2%;
+            top: 5%;
+            opacity: 0.1;
+          }
+          33% {
+            left: 5%;
+            top: 5%;
+            opacity: 1;
+          }
+          66% {
+            left: 9%;
+            top: 5%;
+            opacity: 0.5;
+          }
+          100% {
+            left: 13%;
+            top: 5%;
+            opacity: 0;
+          }
+        }
+        @keyframes animate_Cloud_2 {
+          0% {
+            left: 17%;
+            top: 15%;
+            opacity: 0.1;
+          }
+          33% {
+            left: 20%;
+            top: 15%;
+            opacity: 0.5;
+          }
+          66% {
+            left: 24%;
+            top: 15%;
+            opacity: 0.5;
+          }
+          100% {
+            left: 28%;
+            top: 15%;
+            opacity: 0;
+          }
+        }
+        @keyframes animate_Cloud_3 {
+          0% {
+            left: 27%;
+            top: 35%;
+            opacity: 0.1;
+          }
+          33% {
+            left: 30%;
+            top: 35%;
+            opacity: 1;
+          }
+          66% {
+            left: 34%;
+            top: 35%;
+            opacity: 0.5;
+          }
+          100% {
+            left: 38%;
+            top: 35%;
+            opacity: 0;
+          }
+        }
+        @keyframes animate_Cloud_4 {
+          0% {
+            left: 67%;
+            top: 30%;
+            opacity: 0.1;
+          }
+          33% {
+            left: 70%;
+            top: 30%;
+            opacity: 1;
+          }
+          66% {
+            left: 74%;
+            top: 30%;
+            opacity: 0.5;
+          }
+          100% {
+            left: 78%;
+            top: 30%;
+            opacity: 0;
+          }
+        }
+        @keyframes animate_Cloud_5 {
+          0% {
+            left: 57%;
+            top: 15%;
+            opacity: 0.1;
+          }
+          33% {
+            left: 60%;
+            top: 15%;
+            opacity: 1;
+          }
+          66% {
+            left: 64%;
+            top: 15%;
+            opacity: 0.5;
+          }
+          100% {
+            left: 68%;
+            top: 15%;
+            opacity: 0;
+          }
+        }
+      }
+      .auth-main__content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        padding: 50px;
+        flex-direction: column;
+        align-items: center;
+        .auth-content__img {
+          width: 100px;
+          height: 100px;
+          animation: animation_logo linear infinite forwards reverse 2s;
+        }
+
+        @keyframes animation_logo {
+          0% {
+            transform: translateY(0);
+          }
+          25% {
+            transform: translateY(-5px);
+          }
+          50% {
+            transform: translateY(0px);
+          }
+          75% {
+            transform: translateY(5px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
+        }
+        .auth-content__text {
+          color: #fff;
+          &:nth-child(2) {
+            font-size: 35px;
+            margin-top: 10px;
+            letter-spacing: 10px;
+            font-weight: 600;
+            text-align: center;
+          }
+
+          &:nth-child(3) {
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-align: center;
+          }
+        }
+      }
+      .auth-content__button {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+
+        .MuiButtonBase-root {
+          color: #fff;
+          text-transform: unset;
+          font-size: 18px;
+          font-weight: 600;
+          letter-spacing: 2px;
+          width: 200px;
+          border: 1.5px solid #fff;
+          transition: all 0.5s ease;
+
+          &:hover {
+            letter-spacing: 4px;
+            border: 2px solid #412663;
+            color: #412663;
+          }
+        }
+      }
+      .auth-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .auth-main__register {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        .auth-register__form {
+          border-radius: 8px;
+          overflow: hidden;
+          border: 3px solid #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          width: 30%;
+          height: auto;
+          padding: 20px 25px;
+          margin-top: 80px;
+          margin-left: 40px;
+          position: relative;
+
+          .auth-form__title {
+            font-size: 28px;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 3px;
+
+            span {
+              display: inline-block;
+              animation: waviy 3s infinite;
+              animation-delay: calc(0.1s * var(--i));
+              margin-bottom: 20px;
+              margin-top: 5px;
+            }
+            @keyframes waviy {
+              0%,
+              40%,
+              100% {
+                transform: translateY(0);
+              }
+              20% {
+                transform: translateY(-10px);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
