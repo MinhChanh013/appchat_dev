@@ -1,0 +1,106 @@
+.header-login {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  height: 80px;
+
+  &.active {
+    top: 0px;
+    background-color: rgba($color: #1a0d39, $alpha: 0.8);
+    height: 60px;
+
+    li {
+      font-size: 16px;
+      &:nth-child(4) {
+        padding-top: .4%;
+        img {
+          width: 48px;
+          height: 48px;
+          animation: none;
+        }
+      }
+    }
+  }
+
+  header {
+    position: relative;
+    ul {
+      display: flex;
+      justify-content: space-around;
+      padding: 0 20px;  
+
+      li {
+        list-style: none;
+        padding: 15px 50px;
+        cursor: pointer;
+        display: inline-block;
+        height: 100%;
+        color: #fff;
+        transition: all 0.3s ease;
+        position: relative;
+        font-size: 17px;
+        font-weight: 400;
+
+        &:nth-child(4) {
+          padding-top: 2%;
+          padding-right: 8%;
+          img {
+            transition: all .3s ease;
+            width: 100px;
+            height: 100px;
+            animation: animation_logo linear infinite forwards reverse 2s;
+          }
+          @keyframes animation_logo {
+            0% {
+              transform: translateY(0);
+            }
+            25% {
+              transform: translateY(-5px);
+            }
+            50% {
+              transform: translateY(0px);
+            }
+            75% {
+              transform: translateY(5px);
+            }
+            100% {
+              transform: translateY(0px);
+            }
+          }
+
+          &:hover {
+            &::before {
+              width: 0%;
+            }
+          }
+        }
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0%;
+          height: 2px;
+          background: #f55861;
+          transition: all 0.3s ease;
+        }
+        &:hover {
+          color: #f55861;
+          &::before {
+            width: 60%;
+          }
+        }
+
+        &.active {
+          color: #f55861;
+          &::before {
+            width: 60%;
+          }
+        }
+      }
+    }
+  }
+}

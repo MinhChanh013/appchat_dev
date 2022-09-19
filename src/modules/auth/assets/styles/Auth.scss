@@ -1,11 +1,22 @@
 .auth {
-  min-height: 100vh;
+  height: 100vh;
   background: linear-gradient(to bottom, #795381 5%, #ba92a0 90%);
+  overflow: hidden;
   .auth-container {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    transform: translateY(0);
+    transition: all 1s ease;
+
+    &.register {
+      transform: translateY(-100vh);
+    }
+
+    &.sigin {
+      transform: translateY(-200vh);
+    }
+
     .auth-container__main {
       position: relative;
       width: 100%;
@@ -202,6 +213,7 @@
         flex-direction: column;
         align-items: center;
         .auth-content__img {
+          opacity: 0;
           width: 100px;
           height: 100px;
           animation: animation_logo linear infinite forwards reverse 2s;
@@ -253,17 +265,18 @@
         .MuiButtonBase-root {
           color: #fff;
           text-transform: unset;
-          font-size: 18px;
-          font-weight: 600;
-          letter-spacing: 2px;
-          width: 200px;
-          border: 1.5px solid #fff;
+          font-size: 17px;
+          font-weight: 500;
+          letter-spacing: 1px;
+          width: 250px;
+          margin-top: 5px;
+          border: 1.5px solid #f55861;
+          background-color: #f55861;
           transition: all 0.5s ease;
 
           &:hover {
-            letter-spacing: 4px;
-            border: 2px solid #412663;
-            color: #412663;
+            letter-spacing: 2px;
+            border: 2px solid #fff;
           }
         }
       }
@@ -273,40 +286,57 @@
         object-fit: cover;
       }
 
-      .auth-main__register {
+      .auth-main__register,
+      .auth-main__login {
         position: absolute;
         top: 0;
-        left: 0;
-        width: 100%;
+        right: 0;
+        width: 65%;
         height: 100%;
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 10px;
 
-        .auth-register__form {
+        .auth-register__form,
+        .auth-login__form {
           border-radius: 8px;
           overflow: hidden;
-          border: 3px solid #fff;
           display: flex;
-          justify-content: center;
           align-items: center;
+          text-align: center;
           flex-direction: column;
-          width: 30%;
+          width: 100%;
           height: auto;
           padding: 20px 25px;
-          margin-top: 80px;
-          margin-left: 40px;
+          margin-top: 50px;
+          margin-right: 25px;
           position: relative;
 
-          .auth-form__title {
-            font-size: 28px;
+          .auth-form__step {
+            color: #f55861;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+          }
+
+          .auth-form__description {
             color: #fff;
-            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1.1px;
+            font-weight: 200;
+            margin-bottom: 20px;
+          }
+          .auth-form__title {
+            font-size: 35px;
+            color: #fff;
+            font-weight: 800;
             letter-spacing: 3px;
 
             span {
               display: inline-block;
               animation: waviy 3s infinite;
               animation-delay: calc(0.1s * var(--i));
-              margin-bottom: 20px;
-              margin-top: 5px;
+              margin: 5px 0;
             }
             @keyframes waviy {
               0%,
@@ -315,9 +345,82 @@
                 transform: translateY(0);
               }
               20% {
-                transform: translateY(-10px);
+                transform: translateY(-5px);
               }
             }
+          }
+          .auth-form__container {
+            position: relative;
+            padding: 30px 35px;
+            padding-top: 0px;
+            border-radius: 8px;
+            overflow: hidden;
+
+            .MuiButtonBase-root {
+              width: 100%;
+              margin-top: 15px;
+              height: 45px;
+              text-transform: unset;
+              color: #fff;
+              border-color: #f55861;
+              background-color: #f55861;
+              font-size: 15px;
+              transition: all 0.2s ease-in-out;
+
+              &:hover {
+                border-color: #fff;
+                font-size: 16px;
+              }
+            }
+            .auth-change__login {
+              position: relative;
+              color: #fff;
+              margin-top: 15px;
+              font-weight: 400;
+              font-size: 15px;
+              a {
+                color: #f55861;
+                font-weight: 500;
+              }
+            }
+          }
+        }
+
+        .auth-register__background {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .auth-background__register {
+            width: 105%;
+            margin-bottom: 60px;
+          }
+        }
+      }
+
+      .auth-main__login {
+        left: 0;
+        grid-template-columns: 0.9fr 1.1fr;
+
+        .auth-form__forgot {
+          display: flex;
+          justify-content: flex-end;
+          color: #f55861;
+          font-size: 15px;
+
+          &:hover {
+            color: #f87d83;
+          }
+        }
+        .auth-login__background {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .auth-background__login {
+            width: 105%;
+            transform: rotate(-5deg);
           }
         }
       }

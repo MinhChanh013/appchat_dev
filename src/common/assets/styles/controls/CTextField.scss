@@ -2,18 +2,18 @@
   width: 100%;
   color: #fff;
   .MuiFormControl-root {
-    margin: 8px 0;
+    margin: 11px 0;
     width: 100%;
     &:hover {
       .MuiOutlinedInput-notchedOutline {
-        border-color: #fff;
+        border-color: #f55861;
       }
     }
   }
 
   .MuiInputLabel-root.Mui-focused {
     transform: translate(14px, -9px) scale(0.75);
-    color: #fff;
+    color: #f55861;
   }
 
   .MuiFormLabel-root {
@@ -35,7 +35,7 @@
   }
 
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: #fff;
+    border-color: #f55861;
   }
 
   .MuiOutlinedInput-root.Mui-hover .MuiOutlinedInput-notchedOutline {
