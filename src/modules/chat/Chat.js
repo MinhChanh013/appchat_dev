@@ -1,11 +1,18 @@
-import React from 'react'
-
-const Chat = () => {
+import React from "react";
+// library
+// component
+import RoutesChat from "../../routers/Routes_Chat";
+import Header from "./components/layouts/Header";
+import "./assets/styles/Chat.scss";
+const Chat = ({ darkmode }) => {
   return (
-    <div>
-      <h2>Chat</h2>
+    <div className="chat">
+      <Header darkmode={darkmode} />
+      <div>
+        <RoutesChat />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Chat
+export default Chat;

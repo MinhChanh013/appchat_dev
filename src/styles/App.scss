@@ -24,3 +24,21 @@ button {
 a {
   text-decoration: none;
 }
+
+li {
+  list-style: none;
+}
+
+.App {
+  &.mode {
+    background-color: #fff;
+  }
+
+  &.dark {
+    .chat {
+      header {
+        background-color: #18171d;
+      }
+    }
+  }
+}

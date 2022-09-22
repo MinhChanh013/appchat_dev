@@ -1,0 +1,108 @@
+.header__main {
+  position: relative;
+  height: 100vh;
+  width: 70px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #fff;
+
+  .header-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+
+    .header-container__infor {
+      position: relative;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+
+      .header-infor__logo {
+        width: 45px;
+        height: 45px;
+        cursor: pointer;
+      }
+    }
+
+    .header-container__main {
+      position: relative;
+      width: 100%;
+      padding-top: 50px;
+
+      .header-main__function {
+        margin-bottom: 25px;
+        position: relative;
+        &:nth-child(1):before {
+          content: "";
+          position: absolute;
+          bottom: -12.5px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 70%;
+          height: 1px;
+          background-color: rgb(234, 231, 231);
+        }
+
+        .nav__link {
+          width: 100%;
+          position: relative;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+            width: 3px;
+            height: 30px;
+            background-color: transparent;
+          }
+
+          li {
+            width: 100%;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+              background-color: #e9e9e9;
+            }
+          }
+          .MuiSvgIcon-root {
+            color: #c7c7c7;
+          }
+
+          &.active {
+            .MuiSvgIcon-root {
+              fill: url(#linearColors);
+            }
+
+            &::before {
+              background-image: linear-gradient(to right, #128099, #17a4c4);
+            }
+          }
+
+          :hover {
+            .MuiSvgIcon-root {
+              fill: url(#linearColors);
+            }
+          }
+        }
+      }
+    }
+
+    .header-container__system {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      .MuiFormControlLabel-root {
+        margin: 0;
+      }
+    }
+  }
+}
