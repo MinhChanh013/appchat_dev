@@ -2,9 +2,9 @@
   position: relative;
   height: 100vh;
   width: 70px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   background-color: #fff;
-
+  box-shadow: rgba(160, 159, 159, 0.2) 0px 2px 8px 0px;
+  z-index: 999;
   .header-container {
     position: relative;
     width: 100%;
@@ -13,15 +13,16 @@
     .header-container__infor {
       position: relative;
       padding: 20px 0;
+      padding-top: 0px;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      gap: 20px;
 
       .header-infor__logo {
-        width: 45px;
-        height: 45px;
+        width: 110px;
+        height: 80px;
+        transform: translateX(2px);
         cursor: pointer;
       }
     }

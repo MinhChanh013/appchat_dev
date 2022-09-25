@@ -9,7 +9,7 @@ import BackgroundIcon from '../others/BackgroundIcon'
 import CTooltip from '@common/components/controls/CTooltip'
 // image
 import AvatarImgae from "@common/assets/images/avatar.jpg"
-import logo from "@common/assets/images/logo.svg"
+import logo from "@common/assets/images/logo.png"
 // icon
 import CommentIcon from '@mui/icons-material/Comment';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';

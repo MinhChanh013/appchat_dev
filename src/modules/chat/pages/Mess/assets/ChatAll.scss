@@ -1,0 +1,37 @@
+.chatall {
+  position: relative;
+  width: 300px;
+  background-color: #FAFAFA;
+  height: 100vh;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 6px 10px;
+  .chatall-container {
+    width: 100%;
+    padding: 15px 0;
+    .chatall-container__contact {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: -13px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 1px;
+        width: 90%;
+        background-color: rgb(236, 233, 233);
+      }
+
+      .swiper {
+        width: 90%;
+        .swiper-button-prev,
+        .swiper-button-next {
+          display: none;
+        }
+      }
+    }
+
+  }
+}

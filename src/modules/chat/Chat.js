@@ -8,7 +8,7 @@ const Chat = ({ darkmode }) => {
   return (
     <div className="chat">
       <Header darkmode={darkmode} />
-      <div>
+      <div style={{ width: "100%" }}>
         <RoutesChat />
       </div>
     </div>
