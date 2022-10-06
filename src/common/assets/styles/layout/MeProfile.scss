@@ -1,0 +1,99 @@
+.meProfile-container {
+  position: relative;
+  width: 100%;
+  .meProfile-container__header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+
+    svg {
+      font-size: 25px;
+      color: #17a4c4;
+    }
+    span {
+      font-size: 17px;
+      color: rgb(100, 99, 99);
+      margin-left: 10px;
+    }
+  }
+  .meProfile-container__main {
+    position: relative;
+    .meProfile-background {
+      position: relative;
+      height: 160px;
+      background-image: url("https://cdn.dribbble.com/users/966188/screenshots/15283925/media/8b8663dc8f6e6a2fd80a201aec1ffbb6.jpg?compress=1&resize=1000x750&vertical=top");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      .meProfile-infor__avatar {
+        position: absolute;
+        bottom: -45px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        .MuiAvatar-root {
+          width: 90px;
+          height: 90px;
+        }
+      }
+    }
+    .meProfile-information {
+      position: relative;
+      padding: 20px;
+      padding-top: 55px;
+      .meProfile-information__name {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h3 {
+          font-size: 22px;
+          font-weight: 500;
+        }
+      }
+      .meProfile-information__content {
+        padding-top: 20px;
+        height: 250px;
+        .meProfile-content__infor {
+          position: relative;
+          margin-bottom: 5px;
+          display: grid;
+          grid-template-columns: 1fr 0.7fr;
+          padding: 8px 0;
+          .meProfile-infor__title {
+            display: flex;
+            align-items: center;
+            svg {
+              font-size: 21px;
+              color: #17a4c4;
+            }
+            span {
+              font-size: 15px;
+              font-weight: 400;
+              color: rgb(100, 99, 99);
+              margin-left: 10px;
+            }
+          }
+          h4 {
+            font-size: 15px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }
+  .meProfile-container__footer {
+    padding: 20px;
+    width: 100%;
+    .MuiButtonBase-root {
+      width: 100%;
+      height: 45px;
+
+      svg{
+        font-size: 18px;
+        margin-right: 10px;
+      }
+    }
+  }
+}

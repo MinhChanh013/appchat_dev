@@ -7,10 +7,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
+// components
+import MeProfile from "../layout/Profile/MeProfile/MeProfile";
+
+import "../../assets/styles/controls/CMenu.scss";
 const CMenu = ({ CAvatar }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -36,11 +39,12 @@ const CMenu = ({ CAvatar }) => {
         </Tooltip>
       </Box>
       <Menu
+        className="menu__main"
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
+        // onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -59,18 +63,15 @@ const CMenu = ({ CAvatar }) => {
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
       >
         <MenuItem>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
+          <MeProfile
+            children={
+              <div className="item-profile">
+                <Avatar /> My account
+              </div>
+            }
+          />
         </MenuItem>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
         <MenuItem>
           <ListItemIcon>
             <Settings fontSize="small" />
