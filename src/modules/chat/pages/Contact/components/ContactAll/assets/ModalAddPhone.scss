@@ -1,0 +1,148 @@
+.modal-addPhone__container {
+  .modal-addPhone__header {
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    svg {
+      font-size: 22px;
+      color: #17a4c4;
+    }
+    span {
+      font-size: 18px;
+      color: rgb(100, 99, 99);
+      font-weight: 400;
+      margin-left: 5px;
+    }
+  }
+
+  .MuiOutlinedInput-root {
+    margin-bottom: 5px;
+  }
+
+  .MuiFormLabel-root {
+    color: rgb(100, 99, 99);
+    font-size: 15px;
+    transform: translate(14px, 14px) scale(1);
+    font-family: "Poppins", sans-serif;
+  }
+
+  .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+    transform: translate(14px, -9px) scale(0.75);
+    color: #17a4c4;
+  }
+
+  .MuiInputLabel-root.Mui-focused {
+    transform: translate(14px, -9px) scale(0.75);
+    color: #17a4c4;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: #17a4c4;
+  }
+
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #17a4c4;
+    border-width: 2px;
+  }
+
+  .MuiOutlinedInput-root.Mui-hover .MuiOutlinedInput-notchedOutline {
+    border-color: #17a4c4;
+  }
+
+  .MuiInputBase-input {
+    color: #000;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
+    padding: 4px;
+  }
+
+  .MuiFormControl-root {
+    &:hover {
+      .MuiOutlinedInput-notchedOutline {
+        border-color: #17a4c4;
+      }
+    }
+  }
+
+  .modal-addPhone__main {
+    position: relative;
+    padding-top: 10px;
+
+    .modal-addPhone__title {
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      svg {
+        font-size: 15px;
+        color: rgb(100, 99, 99);
+      }
+      span {
+        font-size: 14px;
+        color: rgb(100, 99, 99);
+        margin-left: 5px;
+      }
+    }
+
+    .modal-addPhone__results {
+      position: relative;
+      max-height: 300px;
+      overflow-y: scroll;
+      padding: 5px 0;
+
+      &::-webkit-scrollbar {
+        width: 7px;
+        background: rgba($color: #f0efef, $alpha: 0.5);
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba($color: #4190c1, $alpha: 0.8);
+        border-radius: calc(15px / 2);
+        &:hover {
+          background: rgba($color: #4190c1, $alpha: 0.5);
+        }
+        &:active {
+          background: rgba($color: #4190c1, $alpha: 0.5);
+        }
+      }
+      .modal-card__results {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        background-color: #fff;
+        padding: 10px 8px;
+        border-radius: 2px;
+        overflow: hidden;
+
+        &:hover {
+          background-color: #e6eef8;
+        }
+
+        .modal-results__infor {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .modal-results__name {
+            margin-left: 10px;
+
+            h4 {
+              font-size: 17px;
+              color: #000;
+              font-weight: 400;
+            }
+
+            span {
+              font-size: 14px;
+              color: rgb(100, 99, 99);
+            }
+          }
+        }
+      }
+    }
+  }
+}

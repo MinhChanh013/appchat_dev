@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 import Avatar from "@common/components/controls/CAvatar"
 import CSwitch from '@common/components/controls/CSwitch'
 import CMenu from '@common/components/controls/CMenu'
-import BackgroundIcon from '../others/BackgroundIcon'
+import BackgroundIcon from '@common/components/others/BackgroundIcon'
 import CTooltip from '@common/components/controls/CTooltip'
 // image
 import AvatarImgae from "@common/assets/images/avatar.jpg"
@@ -40,7 +40,7 @@ const Header = () => {
             <div className="header-container">
                 <div className="header-container__infor">
                     <img src={logo} className="header-infor__logo" alt="" />
-                    <CMenu CAvatar={<Avatar image={AvatarImgae} />} />
+                    <CMenu CAvatar={<Avatar border image={AvatarImgae} />} />
                 </div>
                 <div className="header-container__main">
                     <ul>

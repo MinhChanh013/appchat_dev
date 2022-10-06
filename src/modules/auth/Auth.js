@@ -132,7 +132,7 @@ const Auth = () => {
                 <a href={() => false} className="auth-form__forgot">
                   Forgot password ?
                 </a>
-                <Link to="/chats"><Button variant="outlined">Login</Button></Link>
+                <Link to="/chats/message"><Button variant="outlined">Login</Button></Link>
                 <p className="auth-change__login">
                   If you not account?{" "}
                   <a

@@ -1,0 +1,179 @@
+.ContactAll {
+  position: relative;
+  width: 100%;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+
+  .contactAll-control {
+    width: 300px;
+    height: 100%;
+    background-color: #fafafa;
+
+    .contactAll-container__header {
+      position: relative;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h3 {
+        font-weight: 500;
+        font-size: 18;
+        color: rgb(100, 99, 99);
+      }
+      .MuiSvgIcon-root {
+        cursor: pointer;
+        fill: url(#linearColors);
+        margin-right: 5px;
+      }
+    }
+    .contactAll-container__function {
+      position: relative;
+      padding: 20px 0;
+      border-top: 1px solid rgb(236, 234, 234);
+      padding-bottom: 10px;
+      .contact-function__header {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        padding-bottom: 15px;
+        svg {
+          font-size: 18px;
+          margin-right: 10px;
+          color: rgb(100, 99, 99);
+        }
+        span {
+          font-size: 13px;
+          color: rgb(100, 99, 99);
+          display: flex;
+          align-items: flex-start;
+          cursor: pointer;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+      }
+      .contactAll-function__main {
+        position: relative;
+        width: 100%;
+        padding: 15px 20px;
+        white-space: nowrap;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        svg {
+          cursor: pointer;
+          font-size: 20px;
+          color: #17a4c4;
+        }
+
+        span {
+          margin-left: 15px;
+          font-size: 15px;
+          font-weight: 400;
+          color: rgb(100, 99, 99);
+        }
+
+        &.active {
+          background-color: #e6eef8;
+
+          span {
+            color: #17a4c4;
+          }
+        }
+        &:hover {
+          background-color: #e6eef8;
+
+          span {
+            color: #17a4c4;
+          }
+        }
+      }
+    }
+
+    .contactAll-container__friend {
+      position: relative;
+      padding: 20px 0;
+      border-top: 1px solid rgb(236, 234, 234);
+
+      .contactAll-friend__header {
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+
+        svg {
+          font-size: 18px;
+          margin-right: 10px;
+          color: rgb(100, 99, 99);
+        }
+        span {
+          font-size: 13px;
+          color: rgb(100, 99, 99);
+          display: flex;
+          align-items: flex-start;
+          cursor: pointer;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+      }
+
+      .contactAll-friend__list {
+        position: relative;
+        .chatAll-list__search {
+          padding: 15px;
+          padding-bottom: 15px;
+          .MuiOutlinedInput-root {
+            border-radius: 12px;
+            padding: 10px 20px;
+            padding-right: 40px;
+          }
+
+          .MuiOutlinedInput-notchedOutline {
+            border: 2px solid rgb(101, 174, 239);
+
+            &:hover {
+              border: 2px solid rgb(55, 121, 180);
+            }
+          }
+        }
+        .chatAll-list__main {
+          padding: 5px 0px;
+          height: calc(100vh - 355px);
+          overflow-y: scroll;
+
+          &::-webkit-scrollbar {
+            width: 7px;
+            background: rgba($color: #f0efef, $alpha: 0.5);
+          }
+          &::-webkit-scrollbar-thumb {
+            background: rgba($color: #4190c1, $alpha: 0.8);
+            border-radius: calc(15px / 2);
+            &:hover {
+              background: rgba($color: #4190c1, $alpha: 0.5);
+            }
+            &:active {
+              background: rgba($color: #4190c1, $alpha: 0.5);
+            }
+          }
+
+          .chatAll-main__person {
+            width: 100%;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            &:hover {
+              background-color: #e6eef8;
+            }
+          }
+        }
+      }
+    }
+  }
+  .contactAll-main{
+    width: 100%;
+    position: relative;
+  }
+}

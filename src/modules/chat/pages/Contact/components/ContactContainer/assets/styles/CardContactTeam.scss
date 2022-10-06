@@ -1,0 +1,65 @@
+.card-team {
+  position: relative;
+  width: 230px;
+  height: 270px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 3px 0px,
+    rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+  border-radius: 8px;
+  overflow: hidden;
+  .card-team-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    cursor: pointer;
+    position: relative;
+
+    .tooltip {
+      .MuiTooltip-popper[data-popper-placement*="bottom"]
+        .MuiTooltip-tooltip {
+        background-color: red;
+      }
+    }
+
+    .cardTeam-out {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      opacity: 0;
+      transition: all 0.2s ease;
+      span {
+        color: rgb(226, 93, 93);
+      }
+      &:hover {
+        svg {
+          color: rgb(226, 93, 93);
+        }
+      }
+    }
+
+    &:hover {
+      .cardTeam-out {
+        opacity: 1;
+      }
+    }
+
+    h3 {
+      font-size: 19px;
+      font-weight: 400;
+      color: rgb(100, 99, 99);
+      margin-top: 25px;
+    }
+    .card-number {
+      font-size: 15px;
+      color: #17a4c4;
+      margin-top: 5px;
+    }
+
+    .MuiAvatar-root {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}

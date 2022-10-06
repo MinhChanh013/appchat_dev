@@ -6,6 +6,7 @@
   box-shadow: rgba(160, 159, 159, 0.2) 0px 2px 8px 0px;
   z-index: 999;
   .header-container {
+    overflow: hidden;
     position: relative;
     width: 100%;
     height: 100vh;

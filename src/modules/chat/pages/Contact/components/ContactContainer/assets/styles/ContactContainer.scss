@@ -1,0 +1,65 @@
+.container-contact {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #fafafa;
+  .container-contact__main {
+    padding: 20px 40px;
+    height: 100vh;
+    .contact-team__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .contact-team__name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          font-size: 25px;
+          color: #17a4c4;
+        }
+        h3 {
+          font-weight: 400;
+          font-size: 18px;
+          color: rgb(100, 99, 99);
+          margin-left: 5px;
+        }
+
+        span {
+          font-size: 17px;
+          margin-left: 3px;
+          color: #17a4c4;
+          font-weight: 500;
+        }
+      }
+    }
+    .contact-team__main {
+      position: relative;
+      padding-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      max-height: calc(100% - 64px);
+      overflow-y: scroll;
+      padding-bottom: 10px;
+
+      &::-webkit-scrollbar {
+        width: 7px;
+        background: rgba($color: #f0efef, $alpha: 0.5);
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba($color: #4190c1, $alpha: 0.8);
+        border-radius: calc(15px / 2);
+        &:hover {
+          background: rgba($color: #4190c1, $alpha: 0.5);
+        }
+        &:active {
+          background: rgba($color: #4190c1, $alpha: 0.5);
+        }
+      }
+    }
+  }
+}

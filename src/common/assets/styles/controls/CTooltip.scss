@@ -4,4 +4,8 @@
     font-size: 14px;
     background-color: rgba($color: #8b8989, $alpha: 0.7);
   }
+
+  &[data-popper-placement*="bottom"] .MuiTooltip-tooltip {
+    margin-top: 1px;
+  }
 }

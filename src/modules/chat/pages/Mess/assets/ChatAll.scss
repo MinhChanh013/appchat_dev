@@ -1,7 +1,7 @@
 .chatall {
   position: relative;
   width: 300px;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   height: 100vh;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 6px 10px;
   .chatall-container {
@@ -23,7 +23,6 @@
         width: 90%;
         background-color: rgb(236, 233, 233);
       }
-
       .swiper {
         width: 90%;
         .swiper-button-prev,
@@ -32,6 +31,114 @@
         }
       }
     }
+    .chatall-container__mess {
+      padding: 20px 0;
+      position: relative;
+      .chatall-mess__header {
+        position: relative;
+        padding: 5px 20px;
+        width: 100%;
+        .chattall-header__title {
+          display: flex;
+          padding: 10px 0;
+          justify-content: space-between;
+          align-items: center;
+          .chattall-title__info {
+            display: flex;
+            align-items: flex-end;
+            h3 {
+              font-weight: 500;
+              font-size: 18;
+              color: rgb(100, 99, 99);
+            }
+            .chatall-info__number {
+              font-size: 16px;
+              margin-left: 5px;
+              font-weight: 500;
+              background: linear-gradient(to right, #128099, #17a4c4);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
 
+              span {
+                font-size: 14px;
+              }
+            }
+          }
+          .chatall-title__function {
+            display: flex;
+            cursor: pointer;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            .MuiSvgIcon-root {
+              fill: url(#linearColors);
+            }
+          }
+        }
+        .chattall-header__search {
+          padding: 10px 0;
+
+          .MuiOutlinedInput-root {
+            border-radius: 12px;
+            padding: 10px 20px;
+            padding-right: 40px;
+          }
+
+          .MuiOutlinedInput-notchedOutline {
+            border: 2px solid rgb(101, 174, 239);
+
+            &:hover{
+            border: 2px solid rgb(55, 121, 180);
+            }
+          }
+        }
+      }
+      .chatall-mess__main {
+        position: relative;
+        padding-top: 20px;
+        height: calc(100vh - 213px);
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+          width: 7px;
+          background: #f0efef;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: #4190c1;
+          border-radius: calc(15px / 2);
+          &:hover {
+            background: darken(#4190c1, 5%);
+          }
+
+          &:active {
+            background: darken(#4190c1, 8%);
+          }
+        }
+
+        .chatall-main__pin,
+        .chatall-main__all {
+          position: relative;
+          .chatall-pin__header {
+            padding-left: 20px;
+            font-size: 12px;
+            color: rgb(100, 99, 99);
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            .MuiSvgIcon-root {
+              font-size: 18px;
+              margin-right: 10px;
+            }
+          }
+          .chatall-pin__main {
+            padding-top: 10px;
+          }
+        }
+
+        .chatall-main__all {
+          margin-top: 25px;
+        }
+      }
+    }
   }
 }

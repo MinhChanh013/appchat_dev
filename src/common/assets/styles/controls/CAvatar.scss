@@ -1,6 +1,8 @@
 .avatar {
-  border: 1.6px solid #24a2be;
   padding: 1.8px;
   border-radius: 50%;
   cursor: pointer;
+  &.border {
+    border: 1.6px solid #24a2be;
+  }
 }

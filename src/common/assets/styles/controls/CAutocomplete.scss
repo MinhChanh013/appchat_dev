@@ -1,5 +1,12 @@
 .autocomplete {
+  .MuiInputBase-input{
+    font-size: 15px;
+  }
   &.MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
-    padding: 5px;
+    padding: 0px;
+  }
+  &.css-gcwvw8-MuiAutocomplete-root .MuiOutlinedInput-root{
+    padding: 10px;
+    padding-left: 15px;
   }
 }

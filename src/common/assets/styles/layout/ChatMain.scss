@@ -1,0 +1,235 @@
+.chatmain {
+  width: 100%;
+  display: flex;
+  .chatmain-container {
+    position: relative;
+    width: 100%;
+    .chatmain-container__header {
+      z-index: 999;
+      position: absolute;
+      top: 0;
+      left: 0;
+      backdrop-filter: blur(5px);
+      width: 100%;
+      padding: 10px;
+      background-color: rgba($color: #fff, $alpha: 0.4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .chatmain-header__infor {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+
+        .chatmain-infor__content {
+          margin-left: 5px;
+          .chatmain-content__name {
+            display: flex;
+            cursor: pointer;
+            &:hover {
+              .MuiSvgIcon-root {
+                opacity: 1;
+                transition: all 0.3s ease;
+                &:hover {
+                  background-image: linear-gradient(to right, #128099, #17a4c4);
+                  color: #fff;
+                }
+              }
+            }
+            .MuiSvgIcon-root {
+              opacity: 0;
+              margin-left: 5px;
+              font-size: 24px;
+              padding: 4px;
+              border-radius: 50%;
+              background-color: transparent;
+              transition: all 0.3s ease;
+              color: #000;
+            }
+            h3 {
+              font-size: 17px;
+              font-weight: 500;
+            }
+          }
+          .chatmain-content__status {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2px;
+            .MuiSvgIcon-root {
+              font-size: 12px;
+              color: rgb(100, 99, 99);
+            }
+
+            span {
+              margin-left: 3px;
+              font-size: 13px;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+      .chatmain-header__function {
+        position: relative;
+        display: flex;
+        gap: 3px;
+        .MuiButtonBase-root {
+          transition: all 0.3s ease;
+          &:hover {
+            color: #17a4c4;
+          }
+        }
+        .setting-chat {
+          &.active {
+            color: #17a4c4;
+          }
+        }
+      }
+    }
+    .chatmain-container__main {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+
+      .chatmain-main__show {
+        position: relative;
+        height: 100%;
+        background: linear-gradient(45deg, #c6f4d7, #f1b9ba);
+        padding-top: 70px;
+        padding-bottom: 120px;
+        .chat-show__container {
+          padding: 15px 20px;
+          height: 100%;
+          overflow-y: scroll;
+          display: flex;
+          flex-direction: column-reverse;
+          width: 100%;
+
+          &::-webkit-scrollbar {
+            width: 7px;
+            background: rgba($color: #f0efef, $alpha: 0.5);
+          }
+          &::-webkit-scrollbar-thumb {
+            background: rgba($color: #4190c1, $alpha: 0.8);
+            border-radius: calc(15px / 2);
+            &:hover {
+              background: rgba($color: #4190c1, $alpha: 0.5);
+            }
+            &:active {
+              background: rgba($color: #4190c1, $alpha: 0.5);
+            }
+          }
+          .chat-container__friend {
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+          }
+          .chat-container__me {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
+      }
+      .chatmain-main__type {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 0 15px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 120px;
+        backdrop-filter: blur(3px);
+        background-color: rgba($color: #fff, $alpha: 0.4);
+
+        .chatmain-type__function {
+          height: 38px;
+          padding: 0px 45px;
+          transition: all 0.2s ease-in;
+          overflow: hidden;
+          .MuiButtonBase-root {
+            &:hover {
+              color: #17a4c4;
+            }
+          }
+        }
+
+        .chatmain-type__main {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .MuiAvatar-root {
+            width: 35px;
+            height: 35px;
+          }
+          .chatmain-type__input {
+            width: 100%;
+            position: relative;
+
+            .type-attach {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              left: 15px;
+              z-index: 999;
+              &:hover {
+                color: #17a4c4;
+              }
+            }
+
+            .type-send {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              right: 5px;
+              z-index: 999;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              &:hover {
+                color: #17a4c4;
+              }
+            }
+
+            .react-input-emoji--placeholder {
+              padding-left: 40px;
+            }
+
+            .react-input-emoji--input {
+              padding-left: 55px;
+              padding-right: 80px;
+              border: 2px solid rgb(101, 174, 239);
+              border-radius: 10px;
+
+              &:hover {
+                border: 2px solid rgb(60, 126, 184);
+              }
+
+              &:focus {
+                border: 2px solid rgb(60, 126, 184);
+              }
+            }
+            .react-input-emoji--button {
+              position: absolute;
+              top: 55%;
+              transform: translateY(-50%);
+              right: 50px;
+              z-index: 999;
+            }
+          }
+        }
+      }
+      // active input
+      &.active {
+        .chatmain-type__function {
+          height: 45px;
+          padding-left: 5px;
+        }
+      }
+    }
+  }
+}

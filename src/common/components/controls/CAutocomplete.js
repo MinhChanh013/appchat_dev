@@ -4,7 +4,7 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import "../../assets/styles/controls/CAutocomplete.scss";
 const filter = createFilterOptions();
 
-const CAutocomplete = ({ label, data }) => {
+const CAutocomplete = ({  data , placeholder}) => {
   const [value, setValue] = React.useState(null);
   return (
     <Autocomplete
@@ -35,14 +35,13 @@ const CAutocomplete = ({ label, data }) => {
         if (inputValue !== "" && !isExisting) {
           filtered.push({
             inputValue,
-            title: `Add "${inputValue}"`,
+            title: `"${inputValue}"`,
           });
         }
 
         return filtered;
       }}
       selectOnFocus
-      clearOnBlur
       handleHomeEndKeys
       id="free-solo-with-text-demo"
       options={data}
@@ -59,9 +58,10 @@ const CAutocomplete = ({ label, data }) => {
         return option.title;
       }}
       renderOption={(props, option) => <li {...props}>{option.title}</li>}
-      sx={{ width: 300 }}
+      sx={{ width: "100%" }}
       freeSolo
-      renderInput={(params) => <TextField {...params} label={label} />}
+      
+      renderInput={(params) => <TextField placeholder={placeholder} {...params} />}
     />
   );
 };

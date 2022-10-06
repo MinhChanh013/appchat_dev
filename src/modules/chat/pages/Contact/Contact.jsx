@@ -1,8 +1,11 @@
 import React from 'react'
 
+import ContactAll from "./components/ContactAll/ContactAll"
 const Contact = () => {
     return (
-        <div>Contact</div>
+        <div className='contact'>
+            <ContactAll />
+        </div>
     )
 }
 
