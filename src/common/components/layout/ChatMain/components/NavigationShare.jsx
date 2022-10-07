@@ -14,6 +14,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import CModalImage from '../../../controls/CModalImage';
 import "../assets/styles/NavigationShare.scss"
 const NavigationShare = () => {
     const [value, setValue] = React.useState(0);
@@ -38,12 +39,13 @@ const NavigationShare = () => {
             ) : (
                 <ImageList
                     cols={3}
-                    gap={10}
+                    gap={8}
                     rowHeight={100}
                 >
                     {data.map((course, index) => (
                         <ImageListItem key={index} >
-                            <img src={course.image} alt="" loading="lazy" />
+                            <CModalImage image={course.image} />
+                            {/* <img src={course.image} alt="" loading="lazy" /> */}
                         </ImageListItem>
                     ))}
                 </ImageList>

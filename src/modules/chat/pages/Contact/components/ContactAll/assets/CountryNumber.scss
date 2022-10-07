@@ -1,0 +1,64 @@
+.form_country {
+  .form-chat__country {
+    .MuiOutlinedInput-root {
+      margin-bottom: 5px;
+    }
+
+    .MuiFormLabel-root {
+      color: rgb(100, 99, 99);
+      font-size: 15px;
+      transform: translate(14px, 14px) scale(1);
+      font-family: "Poppins", sans-serif;
+    }
+
+    .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+      transform: translate(14px, -9px) scale(0.75);
+      color: #17a4c4;
+    }
+
+    .MuiInputLabel-root.Mui-focused {
+      transform: translate(14px, -9px) scale(0.75);
+      color: #17a4c4;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .MuiOutlinedInput-notchedOutline {
+      border-color: #17a4c4;
+    }
+
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: #17a4c4;
+      border-width: 2px;
+    }
+
+    .css-rnuy54-MuiAutocomplete-root
+      .MuiOutlinedInput-root
+      .MuiAutocomplete-input {
+      padding: 0;
+    }
+
+    .MuiOutlinedInput-root.Mui-hover .MuiOutlinedInput-notchedOutline {
+      border-color: #17a4c4;
+    }
+
+    .MuiInputBase-input {
+      color: #000;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .MuiOutlinedInput-root .MuiAutocomplete-input {
+      padding: 4px;
+    }
+    .MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
+      padding: 4px;
+    }
+
+    .MuiFormControl-root {
+      &:hover {
+        .MuiOutlinedInput-notchedOutline {
+          border-color: #17a4c4;
+        }
+      }
+    }
+  }
+}

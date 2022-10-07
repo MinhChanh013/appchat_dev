@@ -3,10 +3,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
+import "../assets/CountryNumber.scss"
 const CountryNumber = () => {
     return (
         <Autocomplete
-            id="country-select-demo"
+            id=""
             sx={{ width: 400 }}
             options={countries}
             autoHighlight
@@ -28,14 +29,17 @@ const CountryNumber = () => {
                 </Box>
             )}
             renderInput={(params) => (
-                <TextField
-                    {...params}
-                    label="Choose a country"
-                    inputProps={{
-                        ...params.inputProps,
-                        autoComplete: "new-password" // disable autocomplete and autofill
-                    }}
-                />
+                <span className='form_country'>
+                    <TextField
+                        {...params}
+                        className="form-chat__country"
+                        label="Choose a country"
+                        inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "new-password" // disable autocomplete and autofill
+                        }}
+                    />
+                </span>
             )}
         />
     )

@@ -7,6 +7,8 @@ import CSwitchBasic from "@common/components/controls/CSwitchBasic"
 import NavigationShare from './NavigationShare'
 import CButton from '@common/components/controls/CButton'
 import Button from '@mui/material/Button';
+import MeProfile from '../../Profile/MeProfile/MeProfile'
+import CModalRename from '../../../controls/CModalRename'
 
 // icon
 import { GoSettings, GoPlus } from "react-icons/go";
@@ -77,10 +79,10 @@ const ChatSetting = ({ isopen, team }) => {
                 </div>
                 <div className="chatSetting-container__main">
                     <div className="chatSetting-main__infor">
-                        <CAvatar />
+                        <MeProfile> <CAvatar /></MeProfile>
                         <div className="chatSetting-infor__name">
                             <h3>Duxica Team</h3>
-                            <CIconButton icon={<BiPaint />} />
+                            <CModalRename><CIconButton icon={<BiPaint />} /></CModalRename>
                         </div>
                     </div>
                     <div className="chatSetting-main__function">

@@ -13,6 +13,7 @@ import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import GridViewIcon from '@mui/icons-material/GridView';
 import AttachmentOutlinedIcon from '@mui/icons-material/AttachmentOutlined';
 import SendIcon from '@mui/icons-material/Send';
+import MeProfile from '../Profile/MeProfile/MeProfile';
 
 import { IoImagesOutline, IoTimeOutline, IoSettingsOutline } from "react-icons/io5";
 import { AiOutlineIdcard } from "react-icons/ai";
@@ -93,7 +94,8 @@ const ChatMain = () => {
       <div className="chatmain-container">
         <div className="chatmain-container__header">
           <div className="chatmain-header__infor">
-            <CAvatar image="" />
+            <MeProfile ><CAvatar image="" /> </MeProfile>
+
             <div className="chatmain-infor__content">
               <div className="chatmain-content__name">
                 <h3>Duxica Team</h3>
@@ -139,7 +141,7 @@ const ChatMain = () => {
 
             </div>
             <div className='chatmain-type__main'>
-              <CAvatar image={avatar} />
+              <MeProfile me><CAvatar image={avatar} /> </MeProfile>
               <div className='chatmain-type__input'>
                 <InputEmoji
                   value={text}

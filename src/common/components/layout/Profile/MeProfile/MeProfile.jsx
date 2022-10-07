@@ -3,12 +3,13 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import CAvatar from "../../../controls/CAvatar"
 import CButton from "../../../controls/CButton"
+import CIconButton from '../../../controls/CIconButton';
 
 import { VscAccount } from "react-icons/vsc";
 import { GiSmartphone } from "react-icons/gi";
-import { BsGenderTrans } from "react-icons/bs";
+import { BsGenderTrans, BsChat, BsCameraVideo } from "react-icons/bs";
 import { HiOutlineCake } from "react-icons/hi";
-import { AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import person1 from "../../../../assets/images/person1.png"
 
 import "../../../../assets/styles/layout/MeProfile.scss"
@@ -25,14 +26,16 @@ const style = {
   boxShadow: 24,
 };
 
-
-const MeProfile = ({ children }) => {
+const MeProfile = ({ activeModal, me, children }) => {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  React.useEffect(() => {
+    setOpen(activeModal)
+  }, [activeModal])
+
+  const handleClose = () => { setOpen(false); }
   return (
     <div className='meProfile'>
-      <div onClick={handleOpen}>{children}</div>
+      <div onClick={() => setOpen(true)}>{children}</div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -43,7 +46,7 @@ const MeProfile = ({ children }) => {
           <div className="meProfile-container">
             <div className="meProfile-container__header">
               <VscAccount />
-              <span>My profile</span>
+              {me ? <span>My profile</span> : <span>Friend profile</span>}
             </div>
             <div className="meProfile-container__main">
               <div className="meProfile-background">
@@ -52,7 +55,12 @@ const MeProfile = ({ children }) => {
               <div className="meProfile-information">
                 <div className='meProfile-information__name'>
                   <h3>Chánh Nguyễn</h3>
+                  {me ? "" : <CIconButton icon={<AiOutlineEdit />} />}
                 </div>
+                {me ? "" : <div className="meProfile-function">
+                  <CButton variant="outlined" icon={<BsCameraVideo />} children="Call" />
+                  <CButton variant="outlined" icon={<BsChat />} children="Chat" />
+                </div>}
                 <div className="meProfile-information__content">
                   <div className='meProfile-content__infor'>
                     <div className="meProfile-infor__title">
@@ -79,7 +87,8 @@ const MeProfile = ({ children }) => {
               </div>
             </div>
             <div className="meProfile-container__footer">
-              <CButton icon={<AiOutlineEdit />} children="Edit profile" />
+              {me ? <CButton icon={<AiOutlineEdit />} children="Edit profile" />
+                : <CButton icon={<AiOutlineDelete />} children="Delete friend" />}
             </div>
           </div>
         </Box>

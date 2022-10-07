@@ -88,9 +88,9 @@ const Auth = () => {
                 and use ChatApp service.
               </p>
               <div className="auth-form__container">
-                <TextField label="User" />
-                <TextField type="password" label="Password" />
-                <TextField type="tel" label="Your Phone" />
+                <TextField className="auth_form" label="User" />
+                <TextField className="auth_form" type="password" label="Password" />
+                <TextField className="auth_form" type="tel" label="Your Phone" />
                 <Button variant="outlined">Register</Button>
                 <p className="auth-change__login">
                   Already have a account?{" "}
@@ -127,8 +127,8 @@ const Auth = () => {
                 ChatApp service.
               </p>
               <div className="auth-form__container">
-                <TextField type="tel" label="Your Phone" />
-                <TextField type="password" label="Password" />
+                <TextField className="auth_form" type="tel" label="Your Phone" />
+                <TextField className="auth_form" type="password" label="Password" />
                 <a href={() => false} className="auth-form__forgot">
                   Forgot password ?
                 </a>

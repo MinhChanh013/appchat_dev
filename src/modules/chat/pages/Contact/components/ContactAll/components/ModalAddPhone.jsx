@@ -39,7 +39,7 @@ const ModalAddPhone = ({ Children }) => {
                         <span>Add friend</span>
                     </div>
                     <CountryNumber />
-                    <CTextField label="Enter number phone..." className="modal_search" />
+                    <CTextField label="Enter number phone..." className="form_chat" />
                     <div className="modal-addPhone__main">
                         <div className="modal-addPhone__title">
                             <AiOutlineHistory />
