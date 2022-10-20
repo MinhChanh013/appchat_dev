@@ -26,12 +26,11 @@ const style = {
   boxShadow: 24,
 };
 
-const MeProfile = ({ activeModal, me, children }) => {
+const MeProfile = ({ activeModal = false, me, children }) => {
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
     setOpen(activeModal)
   }, [activeModal])
-
   const handleClose = () => { setOpen(false); }
   return (
     <div className='meProfile'>

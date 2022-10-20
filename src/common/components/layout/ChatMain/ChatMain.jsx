@@ -5,6 +5,10 @@ import CIconButton from '@common/components/controls/CIconButton';
 import InputEmoji from 'react-input-emoji'
 import ChatSetting from './components/ChatSetting';
 import ItemChat from './components/ItemChat';
+import MeProfile from '../Profile/MeProfile/MeProfile';
+import CModalRename from '../../controls/CModalRename';
+import CModalAddTeam from '../../controls/CModalAddTeam';
+
 // icon
 import BrushIcon from '@mui/icons-material/Brush';
 import Brightness1Icon from '@mui/icons-material/Brightness1';
@@ -13,7 +17,6 @@ import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import GridViewIcon from '@mui/icons-material/GridView';
 import AttachmentOutlinedIcon from '@mui/icons-material/AttachmentOutlined';
 import SendIcon from '@mui/icons-material/Send';
-import MeProfile from '../Profile/MeProfile/MeProfile';
 
 import { IoImagesOutline, IoTimeOutline, IoSettingsOutline } from "react-icons/io5";
 import { AiOutlineIdcard } from "react-icons/ai";
@@ -47,6 +50,12 @@ const ChatMain = () => {
       name: "You"
     },
     {
+      avatar: avatar,
+      mess: "Hello Everyone, GOOD NEWS!!!",
+      time: "04:43",
+      name: "You"
+    },
+    {
       avatar: person3,
       mess: "Hey guys! what youdoing i just finish duxica ui design project",
       time: "04:45",
@@ -55,7 +64,7 @@ const ChatMain = () => {
     {
       avatar: person3,
       mess: "i saw create ui design and i want to share with you guys",
-      time: "04:50",
+      time: "04:54",
       name: "Milad Ghanbari"
     },
     {
@@ -99,7 +108,9 @@ const ChatMain = () => {
             <div className="chatmain-infor__content">
               <div className="chatmain-content__name">
                 <h3>Duxica Team</h3>
-                <BrushIcon />
+                <CModalRename>
+                  <BrushIcon />
+                </CModalRename>
               </div>
               <div className="chatmain-content__status">
                 <Brightness1Icon />
@@ -108,27 +119,101 @@ const ChatMain = () => {
             </div>
           </div>
           <div className="chatmain-header__function">
-            <CIconButton icon={<GroupAddOutlinedIcon />} />
+            <CModalAddTeam child={<CIconButton icon={<GroupAddOutlinedIcon />} />} />
             <CIconButton icon={<VideocamOutlinedIcon />} />
             <CIconButton className={`setting-chat ${isopen ? "active" : ""}`} icon={<GridViewIcon />} onclick={() => {
               setIsOpen(!isopen)
-              console.log(isopen);
             }} />
           </div>
         </div>
         <div className="chatmain-container__main">
           <div className="chatmain-main__show">
             <div className="chat-show__container">
+              {data_Chat.reverse().map((course, index) => {
 
-              {data_Chat.reverse().map((course, index) => (
-                course.name === "You" ? <div className="chat-container__me">
-                  <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} person />
-                </div>
-                  :
-                  <div className="chat-container__friend">
-                    <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} />
-                  </div>
-              ))}
+                if (index + 1 === data_Chat.length) {
+                  return (
+                    course.name === "You" ? <div key={index} className="chat-container__me">
+                      <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} person />
+                    </div>
+                      :
+                      <div key={index} className="chat-container__friend">
+                        <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} />
+                      </div>
+                  )
+                }
+                else {
+                  const willChat = data_Chat[index + 1]
+                  const timeWill = willChat.time.split(":")
+                  const timePresent = course.time.split(":")
+                  const hourWill = parseInt(timeWill[0])
+                  const minutesWill = parseInt(timeWill[1])
+                  const hourPresent = parseInt(timePresent[0])
+                  const minutesPresent = parseInt(timePresent[1])
+                  if (course.name === willChat.name) {
+                    // console.log(hourWill, minutesWill, hourPresent, minutesPresent);
+                    if (hourWill === hourPresent && minutesPresent - minutesWill <= 1) {
+                      return (
+                        // Không hiện avatar
+                        course.name === "You" ? <div key={index} className="chat-container__me">
+                          <ItemChat className="mess__loop" mess={course.mess} person />
+                        </div>
+                          :
+                          <div key={index} className="chat-container__friend">
+                            <ItemChat className="mess__loop" mess={course.mess} />
+                          </div>
+                      )
+                    }
+                    else if (hourPresent - hourWill === 1 && minutesWill === 59 && minutesPresent === 0) {
+                      return (
+                        // Không hiện avatar
+                        course.name === "You" ? <div key={index} className="chat-container__me">
+                          <ItemChat className="mess__loop" mess={course.mess} person />
+                        </div>
+                          :
+                          <div key={index} className="chat-container__friend">
+                            <ItemChat className="mess__loop" mess={course.mess} />
+                          </div>
+                      )
+                    }
+                    else if (hourWill === 23 && minutesWill === 59 && minutesPresent === 0) {
+                      return (
+                        // Không hiện avatar
+                        course.name === "You" ? <div key={index} className="chat-container__me">
+                          <ItemChat className="mess__loop" mess={course.mess} person />
+                        </div>
+                          :
+                          <div key={index} className="chat-container__friend">
+                            <ItemChat className="mess__loop" mess={course.mess} />
+                          </div>
+                      )
+                    }
+                    else {
+                      return (
+                        course.name === "You" ? <div key={index} className="chat-container__me">
+                          <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} person />
+                        </div>
+                          :
+                          <div key={index} className="chat-container__friend">
+                            <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} />
+                          </div>
+                      )
+                    }
+                  }
+                  else {
+                    return (
+                      course.name === "You" ? <div key={index} className="chat-container__me">
+                        <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} person />
+                      </div>
+                        :
+                        <div key={index} className="chat-container__friend">
+                          <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} />
+                        </div>
+                    )
+                  }
+                }
+              }
+              )}
             </div>
           </div>
           <div className="chatmain-main__type">

@@ -22,6 +22,7 @@
     background-color: #e6eef8;
   }
   .cardMess-container {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,6 +44,7 @@
       }
     }
     .cardMess-container__infor {
+      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -52,6 +54,36 @@
         font-size: 11px;
         color: rgb(100, 99, 99);
         margin-top: 3px;
+      }
+      .cardMess-infor__function {
+        position: relative;
+        margin: 0 5.5px;
+        font-size: 20px;
+        opacity: 0;
+        width: 0px;
+        height: 0px;
+        z-index: -99;
+        &:hover{
+          color: #1499ec;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    .cardMess-container__infor {
+      .cardMess-infor__status,
+      .cardMess-infor__time {
+        display: none;
+      }
+      .cardMess-infor__function {
+        opacity: 1;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        display: flex;
+        z-index: 99;
       }
     }
   }

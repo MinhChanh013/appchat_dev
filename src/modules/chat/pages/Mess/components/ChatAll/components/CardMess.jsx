@@ -3,6 +3,8 @@ import React from 'react'
 // component
 import CAvatar from "@common/components/controls/CAvatar"
 import CBadge from '@common/components/controls/CBadge'
+import MenuCardMess from './MenuCardMess';
+
 import "../assets/styles/CardMess.scss"
 const CardMess = () => {
     return (
@@ -21,6 +23,9 @@ const CardMess = () => {
                     </div>
                     <div className="cardMess-infor__time">
                         06:56
+                    </div>
+                    <div className="cardMess-infor__function">
+                        <MenuCardMess/>
                     </div>
                 </div>
             </div>

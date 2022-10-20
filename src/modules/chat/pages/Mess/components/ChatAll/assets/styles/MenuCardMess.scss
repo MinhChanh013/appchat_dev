@@ -1,0 +1,30 @@
+.menu-cardMess__icon {
+  gap: 20px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+
+  &:hover {
+    span,
+    svg {
+      color: #17a4c4;
+    }
+  }
+  svg {
+    color: rgb(100, 99, 99);
+    font-size: 18px;
+  }
+  span {
+    font-size: 15px;
+    color: rgb(100, 99, 99);
+  }
+
+  &.delete {
+    &:hover {
+      svg,
+      span {
+        color: rgb(226, 105, 105);
+      }
+    }
+  }
+}

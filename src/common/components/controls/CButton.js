@@ -3,10 +3,10 @@ import Button from "@mui/material/Button";
 
 import "../../assets/styles/controls/CButton.scss";
 
-const CButton = ({ icon, children, variant = "contained", onClick }) => {
+const CButton = ({ type, icon, children, variant = "contained", onClick }) => {
   return (
     <span className="cbutton-mui">
-      <Button onClick={onClick} variant={variant}>
+      <Button type={type} onClick={onClick} variant={variant}>
         {icon ? icon : ""} {children}
       </Button>
     </span>

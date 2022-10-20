@@ -56,5 +56,25 @@
         color: #fff;
       }
     }
+
+    &.mess__loop {
+      .itemChat-context__mess {
+        margin-right: 57px;
+      }
+      .itemChat-context__mess {
+        border-top-right-radius: 10px;
+      }
+    }
+  }
+
+  &.mess__loop {
+    padding: 0px;
+    .itemChat-context__mess {
+      margin-left: 57px;
+      transform: translateY(-12px);
+    }
+    .itemChat-context__mess {
+      border-top-left-radius: 10px;
+    }
   }
 }

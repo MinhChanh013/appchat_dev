@@ -14,7 +14,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import CModalImage from '../../../controls/CModalImage';
+import ModalImage from './ModalImage';
 import "../assets/styles/NavigationShare.scss"
 const NavigationShare = () => {
     const [value, setValue] = React.useState(0);
@@ -44,8 +44,7 @@ const NavigationShare = () => {
                 >
                     {data.map((course, index) => (
                         <ImageListItem key={index} >
-                            <CModalImage image={course.image} />
-                            {/* <img src={course.image} alt="" loading="lazy" /> */}
+                            <ModalImage image={<img src={course.image} alt="" />} />
                         </ImageListItem>
                     ))}
                 </ImageList>

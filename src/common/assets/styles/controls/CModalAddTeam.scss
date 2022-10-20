@@ -1,0 +1,60 @@
+.modal-addTeam {
+  position: relative;
+  .modal-addTeam__header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(231, 228, 228);
+
+    svg {
+      font-size: 22px;
+      color: #17a4c4;
+    }
+
+    span {
+      font-size: 16px;
+      color: rgb(100, 99, 99);
+      font-weight: 400;
+      margin-left: 10px;
+    }
+  }
+  .modal-addTeam__information {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 15px;
+    .modal-addTeam__iconImgae {
+      padding: 10px;
+      svg {
+        font-size: 26px;
+      }
+
+      &:hover {
+        svg {
+          color: #17a4c4;
+        }
+      }
+    }
+  }
+
+  .modal-addTeam__search {
+    position: relative;
+  }
+  .list__friend-modalAdd {
+    &::-webkit-scrollbar {
+      width: 7px;
+      background: rgba($color: #f0efef, $alpha: 0.5);
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba($color: #4190c1, $alpha: 0.8);
+      border-radius: calc(15px / 2);
+      &:hover {
+        background: rgba($color: #4190c1, $alpha: 0.5);
+      }
+      &:active {
+        background: rgba($color: #4190c1, $alpha: 0.5);
+      }
+    }
+  }
+}

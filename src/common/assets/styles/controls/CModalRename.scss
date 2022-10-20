@@ -1,0 +1,52 @@
+.modal-rename {
+  position: relative;
+
+  .modal-rename__header {
+    display: flex;
+    align-items: center;
+
+    svg {
+      font-size: 22px;
+      color: #17a4c4;
+    }
+    span {
+      font-size: 18px;
+      color: rgb(100, 99, 99);
+      margin-left: 10px;
+    }
+  }
+
+  .modal-rename__main {
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .MuiAvatar-root {
+      width: 80px;
+      height: 80px;
+    }
+    p {
+      margin: 10px 0;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 15px;
+      color: rgb(100, 99, 99);
+      line-height: 25px;
+    }
+  }
+  .modal-rename__footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+
+    .MuiButtonBase-root{
+        width: 85px;
+        height: 45px;
+        font-size: 15px;
+        font-weight: 400;
+    }
+  }
+}

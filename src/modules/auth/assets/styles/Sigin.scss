@@ -1,0 +1,110 @@
+.sigin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #e8ebf0;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fff;
+  .sigin_auth {
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    .sigin-left {
+      width: 100%;
+      height: 100%;
+      flex: 1;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .sigin_right {
+      width: 100%;
+      height: 100%;
+      flex: 1;
+      overflow: hidden;
+
+      .sigin_form {
+        padding: 20px;
+
+        .sigin_form__register {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          font-size: 15px;
+          font-weight: 400;
+          span {
+            color: rgb(100, 99, 99);
+          }
+
+          .sigin_router__register {
+            color: #17a4c4;
+            margin-left: 8px;
+          }
+        }
+
+        form {
+          padding: 20% 15%;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+
+          &.register {
+            padding: 5% 15%;
+          }
+          h2 {
+            white-space: nowrap;
+            font-size: 40px;
+            font-weight: 400;
+            color: rgb(100, 99, 99);
+            margin-bottom: 5px;
+          }
+          h4 {
+            font-size: 16px;
+            color: #17a4c4;
+            font-weight: 400;
+            margin-bottom: 10px;
+          }
+          .sigin-fomr__input {
+            padding: 30px 0 5px;
+
+            &.register {
+              padding: 15px 0 5px;
+            }
+
+            .sigin-auth__err {
+              color: rgb(226, 105, 105);
+              font-size: 12px;
+              font-weight: 400;
+              transform: translateY(-10px);
+              display: inline-block;
+            }
+          }
+          .sigin_router__repass {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+          }
+          .cbutton-mui {
+            width: 100%;
+            .MuiButtonBase-root {
+              width: 100%;
+              height: 48px;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

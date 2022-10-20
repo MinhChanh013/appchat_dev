@@ -4,7 +4,7 @@ import Chat from "../modules/chat/Chat";
 import { useRoutes } from "react-router-dom";
 const Routes_Main = ({ darkmode }) => {
   return useRoutes([
-    { path: "/", element: <Auth /> },
+    { path: "/*", element: <Auth /> },
     { path: "/chats/*", element: <Chat darkmode={darkmode} /> },
   ]);
 };

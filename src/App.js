@@ -24,15 +24,6 @@ function App() {
     return decodeURI(dc.substring(begin + prefix.length, end));
   };
 
-  let checkCookie = () => {
-    setDarkMode(getCookie("darkmode").split(";")[0]);
-    // if (darkmode !== getCookie("darkmode").split(";")[0]) {
-      // return true;
-    // }
-    // return false;
-    // }
-  };
-
   useEffect(() => {
     var myCookie = getCookie("darkmode");
     if (myCookie === null) {
@@ -45,10 +36,7 @@ function App() {
     }
     if (loading === false) {
       setInterval(() => {
-        checkCookie();
-        // if (checkCookie()) {
-        //   console.log("dads");
-        // }
+        setDarkMode(getCookie("darkmode").split(";")[0]);
       }, 1000);
     }
   }, [loading]);
