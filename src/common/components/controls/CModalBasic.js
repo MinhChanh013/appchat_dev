@@ -2,7 +2,13 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 
-const CModalBasic = ({ child, modal, width = 400 }) => {
+const CModalBasic = ({
+  openFirst = false,
+  child,
+  modal,
+  width = 400,
+  padding = 4,
+}) => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -13,12 +19,15 @@ const CModalBasic = ({ child, modal, width = 400 }) => {
     border: "0px solid #000",
     boxShadow: 24,
     borderRadius: 3,
-    p: 4,
+    overflow: "hidden",
+    p: padding,
   };
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(openFirst);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div>

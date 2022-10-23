@@ -28,7 +28,9 @@ const Sigin = () => {
         return loginApi(values)
     });
     if (!hideAleart && !mutate.isLoading && !mutate.isError) {
-        changeNavigate("/chats/message", { state: { "alert": "success" } })
+        console.log("abc");
+        document.cookie = `token_api=${mutate.data.data.token}`;
+        changeNavigate("/chats/message", { state: { "alert": "success", "data": mutate.data.data } })
     }
     return (
         <div className="sigin_form">
@@ -42,6 +44,8 @@ const Sigin = () => {
                 ""
             )}
             {hideAleartSuccess && alert.state !== null && alert.state.alert === "success" && <CAleart mess="Register user success" />}
+            {hideAleartSuccess && alert.state !== null && alert.state.alert === "err" && <CAleart mess="You've been logged out" />}
+            {/* {hideAleartSuccess && alert.state !== null && alert.state.alert === "logout" && <CAleart mess="Sign out successful" />} */}
             <div className="sigin_form__register">
                 <span>Not a member? </span>{" "}
                 <Link to="/register" className="sigin_router__register">
@@ -50,7 +54,7 @@ const Sigin = () => {
             </div>
             <form onSubmit={handleSubmit(mutate.mutate)}>
                 <h2>Hello Again!</h2>
-                <h4>Wellcome back you're been missed!</h4>
+                <h4>Welcome back you're been missed!</h4>
                 <div className="sigin-fomr__input">
                     <CTextField registerName={{
                         ...register("phone"
@@ -63,7 +67,7 @@ const Sigin = () => {
                     {errors.password?.type === "required" && <span className='sigin-auth__err'>Password is not null</span>}
                 </div>
                 <Link className='sigin_router__repass'> <h4>Recovery Password</h4></Link>
-                <CButton type="submit" children="Sigin in" onClick={() => {
+                <CButton type="submit" children="Sign in" onClick={() => {
                     setHideAleart(true)
                     setHideAleartSuccess(false)
                 }} />

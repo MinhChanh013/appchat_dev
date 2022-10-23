@@ -34,7 +34,7 @@ const Header = () => {
         return decodeURI(dc.substring(begin + prefix.length, end));
     };
 
-    const [darkmode, setDarkmode] = useState(getCookie("darkmode").split(";")[0])
+    // const [darkmode, setDarkmode] = useState(getCookie("darkmode").split(";")[0])
     return (
         <header className='header__main'>
             <div className="header-container">
@@ -71,16 +71,17 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="header-container__system">
-                    <CSwitch checked={darkmode} onClick={() => {
-                        if (darkmode === "mode") {
-                            document.cookie = "darkmode = dark"
-                            setDarkmode("dark")
-                        }
-                        else {
-                            document.cookie = "darkmode = mode"
-                            setDarkmode("mode")
-
-                        }
+                    <CSwitch 
+                    // checked={darkmode}
+                     onClick={() => {
+                        // if (darkmode === "mode") {
+                        //     document.cookie = "darkmode = dark"
+                        //     setDarkmode("dark")
+                        // }
+                        // else {
+                        //     document.cookie = "darkmode = mode"
+                        //     setDarkmode("mode")
+                        // }
                     }} />
                 </div>
             </div>

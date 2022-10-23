@@ -1,0 +1,157 @@
+.confirm {
+  width: 100%;
+  overflow: hidden;
+  .confirm-container {
+    width: 100%;
+    position: relative;
+    .confirm-container__status {
+      width: 100%;
+      padding-top: 100px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .confirm-status__circle {
+        position: absolute;
+        overflow: hidden;
+        &:nth-child(1) {
+          width: 400px;
+          height: 400px;
+          border-radius: 50%;
+          top: 0;
+          right: 0;
+          transform: translateY(-100px) translateX(100px);
+          background-color: #ffdcb2;
+          z-index: -9;
+        }
+        &:nth-child(2) {
+          width: 700px;
+          height: 700px;
+          border-radius: 50%;
+          top: 0%;
+          right: 50%;
+          transform: translateY(-50%) translateX(50%);
+          z-index: -10;
+          background-color: #f6e7d5;
+        }
+      }
+      img {
+        width: 280px;
+        height: 210px;
+        object-fit: contain;
+      }
+    }
+    .confirm-container__main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding-top: 50px;
+
+      h3 {
+        font-size: 25px;
+        font-weight: 500;
+        color: rgb(100, 99, 99);
+      }
+      .content-form__confirm {
+        font-size: 15px;
+        color: #f8a435;
+        max-width: 380px;
+        text-align: center;
+      }
+      .phone-form__confirm {
+        margin-top: 5px;
+        font-size: 17px;
+        font-weight: 500;
+        color: #f8a435;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+          font-size: 22px;
+          margin-right: 10px;
+        }
+      }
+      form {
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        .form__otp {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 40px 0;
+          padding-top: 25px;
+          .form-otp__input {
+            &.first {
+              input {
+                background-color: #eef0f2;
+                border: none;
+                outline: none;
+                width: 50px;
+                height: 50px;
+                border-radius: 4px;
+                overflow: hidden;
+                margin: 0 10px;
+                text-align: center;
+                font-size: 18px;
+                font-weight: 500;
+                color: rgb(100, 99, 99);
+              }
+            }
+          }
+        }
+        .form_confirm-timeout {
+          text-align: center;
+          color: rgb(100, 99, 99);
+          font-weight: 400;
+
+          &.disable {
+            p {
+              font-size: 15px;
+              margin-top: 3px;
+              color: rgb(227, 226, 226);
+
+              span {
+                cursor: pointer;
+                color: #e1c49e;
+                pointer-events: none;
+              }
+            }
+          }
+          p {
+            font-size: 15px;
+            margin-top: 3px;
+
+            span {
+              cursor: pointer;
+              color: #e9890a;
+              pointer-events: unset;
+            }
+          }
+        }
+        .cbutton-mui {
+          margin-top: 30px;
+          padding-bottom: 10px;
+          .MuiButtonBase-root {
+            width: 400px;
+            height: 45px;
+            background-color: #f8a435;
+            background-image: unset;
+            font-size: 17px;
+            font-weight: 400;
+            color: #fff;
+
+            &.Mui-disabled{
+              background-color: #e1c49e;
+            }
+          }
+        }
+      }
+    }
+  }
+}

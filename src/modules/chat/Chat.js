@@ -4,10 +4,11 @@ import React from "react";
 import RoutesChat from "../../routers/Routes_Chat";
 import Header from "./components/layouts/Header";
 import "./assets/styles/Chat.scss";
-const Chat = ({ darkmode }) => {
+const Chat = () => {
+  
   return (
     <div className="chat">
-      <Header darkmode={darkmode} />
+      <Header />
       <div style={{ width: "100%" }}>
         <RoutesChat />
       </div>

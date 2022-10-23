@@ -1,14 +1,18 @@
 import { AUTH } from "./_constant";
-import request from "./request";
+import { request_api } from "./request";
 
-// import { useMutation } from "@tanstack/react-query";
-
-export const loginApi = async(values) => {
-  return await request.post(AUTH.LOGIN, values)
+export const loginApi = async (values) => {
+  return await request_api().post(AUTH.LOGIN, values);
 };
 
-
-export const registerApi = async(values) => {
-  return await request.post(AUTH.REGISTER, values)
+export const registerApi = async (values) => {
+  return await request_api().post(AUTH.REGISTER, values);
 };
 
+export const verifyApi = async (values) => {
+  return await request_api().post(AUTH.VERIFYACCOUNT, values);
+};
+
+export const getProfile = async () => {
+  return await request_api().get(AUTH.PROFILE);
+};

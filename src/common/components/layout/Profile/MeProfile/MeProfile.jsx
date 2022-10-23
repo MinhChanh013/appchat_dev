@@ -26,7 +26,7 @@ const style = {
   boxShadow: 24,
 };
 
-const MeProfile = ({ activeModal = false, me, children }) => {
+const MeProfile = ({ data, activeModal = false, me, children }) => {
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
     setOpen(activeModal)
@@ -53,7 +53,7 @@ const MeProfile = ({ activeModal = false, me, children }) => {
               </div>
               <div className="meProfile-information">
                 <div className='meProfile-information__name'>
-                  <h3>Chánh Nguyễn</h3>
+                  <h3>{data && `${data.first_name} ${data.last_name}`}</h3>
                   {me ? "" : <CIconButton icon={<AiOutlineEdit />} />}
                 </div>
                 {me ? "" : <div className="meProfile-function">
@@ -66,7 +66,7 @@ const MeProfile = ({ activeModal = false, me, children }) => {
                       <GiSmartphone />
                       <span>Phone number : </span>
                     </div>
-                    <h4>0123 456 789</h4>
+                    <h4>{data && data.phone}</h4>
                   </div>
                   <div className='meProfile-content__infor'>
                     <div className="meProfile-infor__title">

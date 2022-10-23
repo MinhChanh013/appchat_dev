@@ -10,6 +10,8 @@ import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
+import { getProfile } from "@/apis/auth.api";
+import { useQuery } from "@tanstack/react-query";
 // components
 import MeProfile from "../layout/Profile/MeProfile/MeProfile";
 
@@ -25,6 +27,18 @@ const CMenu = ({ CAvatar }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const { isLoading, error, data, refetch } = useQuery(
+    ["getProfile"],
+    () => getProfile(),
+    { enabled: false }
+  );
+
+  const handelGetProfile = () => {
+    setActiveModal(true);
+    refetch();
+  };
+
   return (
     <div>
       <React.Fragment>
@@ -67,12 +81,13 @@ const CMenu = ({ CAvatar }) => {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "top" }}
         >
-          <MenuItem
-            onClick={() => {
-              setActiveModal(true);
-            }}
-          >
-            <div className="item-profile">
+          <MenuItem>
+            <div
+              className="item-profile"
+              onClick={() => {
+                handelGetProfile();
+              }}
+            >
               <Avatar /> My account
             </div>
           </MenuItem>
@@ -91,7 +106,7 @@ const CMenu = ({ CAvatar }) => {
           </MenuItem>
         </Menu>
       </React.Fragment>
-      <MeProfile activeModal={activeModal} me />
+      {!isLoading && activeModal && <MeProfile activeModal={activeModal} me data={data.data} />}
     </div>
   );
 };
