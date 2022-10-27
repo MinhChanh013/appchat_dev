@@ -2,13 +2,21 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
-import CountryNumber from './CountryNumber';
+import CountryNumber from '../../../modules/chat/pages/Contact/components/ContactAll/components/CountryNumber';
 import CTextField from '@common/components/controls/CTextField';
 import CAvatar from '@common/components/controls/CAvatar';
 import CButton from '@common/components/controls/CButton';
+import CAleart from './CAleart';
+import { toast } from "react-toastify";
+
+// api
+import { findPhone, addFriend } from "@/apis/user.api"
+// library
+import { useForm } from "react-hook-form"
+import { useMutation } from '@tanstack/react-query'
 
 import { AiOutlineUserAdd, AiOutlineHistory } from "react-icons/ai";
-import "../assets/ModalAddPhone.scss"
+import "../../assets/styles/controls/ModalAddPhone.scss"
 const style = {
     position: 'absolute',
     top: '50%',
@@ -18,15 +26,55 @@ const style = {
     p: 4,
     borderRadius: 2,
 };
-
+const PHONE_REGEX = new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g);
 const ModalAddPhone = ({ Children }) => {
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [phone, setPhone] = React.useState("")
+    const [getApi, setGetApi] = React.useState(false)
+    const [getApiAddFriend, setGetApiAddFriend] = React.useState(false)
+    const { register, handleSubmit, reset } = useForm()
+    const handleOpen = () => {
+        setOpen(true)
+        reset()
+    };
+    const handleClose = () => {
+        setOpen(false)
+        setGetApi(false)
+        setGetApiAddFriend(false)
+    };
+
+    const mutation = useMutation((value) => {
+        setGetApi(true)
+        let phone = ""
+        if (value.phone.split("")[0] === "0") {
+            phone = value.phone
+        }
+        else {
+            phone = `0${value.phone}`
+        }
+        setPhone(phone)
+        return findPhone(phone)
+    })
+
+    const muatationAddFriend = useMutation((phone) => {
+        setGetApiAddFriend(true)
+        return addFriend(({phone: phone}))
+    })
+
+    if (getApiAddFriend && !muatationAddFriend.isLoading && !muatationAddFriend.isError) {
+        toast.success("Friend request has been sent successfully")
+        handleClose()
+        setGetApiAddFriend(false)
+    }
+
+    if (getApiAddFriend && muatationAddFriend.isError) {
+        toast.error("Error")
+    }
 
     return (
         <div className='modal-addPhone'>
-            <div onClick={handleOpen}>{Children}</div>
+            <CAleart />
+            <div style={{ display: "flex" }} onClick={handleOpen}>{Children}</div>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -38,15 +86,34 @@ const ModalAddPhone = ({ Children }) => {
                         <AiOutlineUserAdd />
                         <span>Add friend</span>
                     </div>
-                    <CountryNumber />
-                    <CTextField label="Enter number phone..." className="form_chat" />
+                    <form onSubmit={handleSubmit(mutation.mutate)}>
+                        <CountryNumber registerName={{ ...register("country", { required: true }) }} />
+                        <CTextField registerName={{ ...register("phone", { required: true, pattern: PHONE_REGEX }) }} label="Enter number phone..." className="form_chat" />
+                        <CButton type="submit">Search</CButton>
+                    </form>
                     <div className="modal-addPhone__main">
                         <div className="modal-addPhone__title">
                             <AiOutlineHistory />
                             <span>Search results</span>
                         </div>
                         <div className="modal-addPhone__results">
-                            <div className='modal-card__results'>
+                            {getApi && !mutation.isLoading ?
+                                <div className='modal-card__results'>
+                                    <div className="modal-results__infor">
+                                        <CAvatar image="" />
+                                        <div className="modal-results__name">
+                                            <h4>{`${mutation.data.data.first_name} ${mutation.data.data.last_name}`}</h4>
+                                            <span className='modal-results__number'>{mutation.data.data.phone}</span>
+                                        </div>
+                                    </div>
+                                    <div className="modal-results__status">
+                                        <CButton onClick={() => {
+                                            muatationAddFriend.mutate(phone)
+                                        }} children="Add" />
+                                    </div>
+                                </div>
+                                : ""}
+                            {/* <div className='modal-card__results'>
                                 <div className="modal-results__infor">
                                     <CAvatar image="" />
                                     <div className="modal-results__name">
@@ -93,19 +160,7 @@ const ModalAddPhone = ({ Children }) => {
                                 <div className="modal-results__status">
                                     <CButton children="Add" />
                                 </div>
-                            </div>
-                            <div className='modal-card__results'>
-                                <div className="modal-results__infor">
-                                    <CAvatar image="" />
-                                    <div className="modal-results__name">
-                                        <h4>Milad Ghanbari</h4>
-                                        <span className='modal-results__number'>0123 456 789</span>
-                                    </div>
-                                </div>
-                                <div className="modal-results__status">
-                                    <CButton children="Add" />
-                                </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </Box>

@@ -164,6 +164,9 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
+            &.active {
+              background-color: #e6eef8;
+            }
             &:hover {
               background-color: #e6eef8;
             }
@@ -172,7 +175,7 @@
       }
     }
   }
-  .contactAll-main{
+  .contactAll-main {
     width: 100%;
     position: relative;
   }

@@ -4,13 +4,14 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
 import "../assets/CountryNumber.scss"
-const CountryNumber = () => {
+const CountryNumber = ({ registerName }) => {
     return (
         <Autocomplete
             id=""
             sx={{ width: 400 }}
             options={countries}
             autoHighlight
+           
             getOptionLabel={(option) => `${option.label} +${option.phone}`}
             renderOption={(props, option) => (
                 <Box
@@ -32,6 +33,7 @@ const CountryNumber = () => {
                 <span className='form_country'>
                     <TextField
                         {...params}
+                        {...registerName}
                         className="form-chat__country"
                         label="Choose a country"
                         inputProps={{
@@ -238,5 +240,5 @@ const countries = [
     { code: "ZA", label: "South Africa", phone: "27" },
     { code: "ZM", label: "Zambia", phone: "260" },
     { code: "ZW", label: "Zimbabwe", phone: "263" }
-  ];
+];
 export default CountryNumber

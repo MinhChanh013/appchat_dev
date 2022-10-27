@@ -28,7 +28,6 @@ const Sigin = () => {
         return loginApi(values)
     });
     if (!hideAleart && !mutate.isLoading && !mutate.isError) {
-        console.log("abc");
         document.cookie = `token_api=${mutate.data.data.token}`;
         changeNavigate("/chats/message", { state: { "alert": "success", "data": mutate.data.data } })
     }
@@ -39,7 +38,8 @@ const Sigin = () => {
             ) : mutate.isLoading ? (
                 ""
             ) : mutate.isError ? (
-                <CAleart err mess={`${mutate.error.response.data}`} />
+                mutate.error.code === "ERR_NETWORK" ?
+                    <CAleart err mess={`${mutate.error.message}`} /> : <CAleart err mess={`${mutate.error.response.data}`} />
             ) : (
                 ""
             )}

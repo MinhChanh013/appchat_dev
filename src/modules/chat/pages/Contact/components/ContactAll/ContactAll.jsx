@@ -4,13 +4,14 @@ import ContactContainer from "../../components/ContactContainer/ContactContainer
 import BackgroundIcon from "@common/components/others/BackgroundIcon"
 import CAutoComplete from "@common/components/controls/CAutocomplete"
 import CAvatar from "@common/components/controls/CAvatar"
-import ModalAddPhone from "./components/ModalAddPhone"
+import ModalAddPhone from "@common/components/controls/ModalAddPhone"
+import ChatMain from '@common/components/layout/ChatMain/ChatMain'
 
 // images
-import person1 from "@common/assets/images/person1.png"
-import person2 from "@common/assets/images/person2.png"
-import person3 from "@common/assets/images/person3.png"
-import person4 from "@common/assets/images/person4.png"
+// import person1 from "@common/assets/images/person1.png"
+// import person2 from "@common/assets/images/person2.png"
+// import person3 from "@common/assets/images/person3.png"
+// import person4 from "@common/assets/images/person4.png"
 
 // icon
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
@@ -20,76 +21,50 @@ import { IoPersonAddOutline } from "react-icons/io5";
 import { AiOutlineTeam } from "react-icons/ai";
 import { BsListCheck } from "react-icons/bs";
 
-import "./assets/ContactAll.scss"
-const ContactAll = () => {
-    const person = [
-        {
-            avatar: person1,
-            name: "James"
-        },
-        {
-            avatar: person2,
-            name: "Robert"
-        },
-        {
-            avatar: person3,
-            name: "John"
-        },
-        {
-            avatar: person4,
-            name: "Michael"
-        },
-        {
-            avatar: person1,
-            name: "David"
-        },
-        {
-            avatar: person2,
-            name: "William"
-        },
-        {
-            avatar: person3,
-            name: "Richard"
-        },
-        {
-            avatar: person4,
-            name: "Joseph"
-        },
-        {
-            avatar: person1,
-            name: "Thomas"
-        },
-        {
-            avatar: person2,
-            name: "Charles"
-        },
-        {
-            avatar: person3,
-            name: "Christopher"
-        },
-        {
-            avatar: person4,
-            name: "Daniel"
-        },
-        {
-            avatar: person1,
-            name: "Matthew"
-        },
-        {
-            avatar: person2,
-            name: "Anthony"
-        },
-        {
-            avatar: person3,
-            name: "Mark"
-        },
-        {
-            avatar: person4,
-            name: "Donald"
-        },
+// library
+import { useQuery } from '@tanstack/react-query'
+import { useMutation } from "@tanstack/react-query"
+import io from "socket.io-client"
 
-    ]
+// api
+import { showFriend } from "@/apis/user.api"
+import { getChatPrivated, createChatPrivated } from "@/apis/chat.api"
+
+import "./assets/ContactAll.scss"
+
+const socket = io.connect("http://localhost:4001");
+
+const ContactAll = () => {
+    const [getApiCreate, setGetApiCreate] = React.useState(false)
+    const [activeChat, setActiveChat] = useState("")
+    const [getRoom, setGetRoom] = useState(false)
+    const [phone, setPhone] = React.useState("")
+    const { isError, isLoading, data } = useQuery(['showFriend'], () => {
+        return showFriend()
+    })
+
     const [activeFunction, setActiveFuntion] = useState("list-chat")
+
+    const handelMuChatPrivated = useMutation((value) => {
+        setGetApiCreate(true)
+        setGetRoom(true)
+        return getChatPrivated(value)
+    })
+
+    const handelMuCreateChatPrivated = useMutation((phone) => {
+        return createChatPrivated(phone)
+    })
+
+    if (getApiCreate && !handelMuChatPrivated.isLoading && !handelMuChatPrivated.isError && handelMuChatPrivated.data && handelMuChatPrivated.data.data.data[0] === undefined) {
+        setGetApiCreate(false)
+        handelMuCreateChatPrivated.mutate({ phone: phone })
+    }
+
+    // if (getApiCreate && !handelMuChatPrivated.isLoading && !handelMuChatPrivated.isError && handelMuChatPrivated.data && handelMuChatPrivated.data.data.data[0] !== undefined && getRoom) {
+    //     socket.emit("join_room", handelMuChatPrivated.data.data.data[0]._id);
+    //     setGetRoom(false)
+    // }
+
     return (
         <div className='ContactAll'>
             <div className='contactAll-control'>
@@ -123,19 +98,31 @@ const ContactAll = () => {
                             <div className="chatAll-list__search">
                                 <CAutoComplete data={[]} placeholder="Enter name ..." />
                             </div>
-                            <div className="chatAll-list__main">
-                                {person.map((course, index) => (
-                                    <div key={index} className="chatAll-main__person">
-                                        <CAvatar image={course.avatar} /> <span>{course.name}</span>
-                                    </div>
-                                ))}
-
-                            </div>
+                            {!isLoading && !isError ?
+                                <div className="chatAll-list__main">
+                                    {data.data.list_friend.map((course, index) => (
+                                        <div onClick={() => {
+                                            setActiveChat(index)
+                                            setPhone(course.phone)
+                                            handelMuChatPrivated.mutate(course)
+                                        }} key={index} className={`chatAll-main__person ${activeChat === index ? "active" : ""}`}>
+                                            <CAvatar image={course.avatar} /> <span>{course.name}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                : ""}
                         </div>
                     </div>
                 </div>
             </div>
-            <div className='contactAll-main'><ContactContainer /></div>
+            {
+                !handelMuChatPrivated.isLoading && !handelMuChatPrivated.isError
+                    && handelMuChatPrivated.data && handelMuChatPrivated.data.data.data[0] !== undefined
+                    ?
+                    <ChatMain socket={socket} room={handelMuChatPrivated.data.data.data[0]._id} />
+                    :
+                    <div className='contactAll-main'><ContactContainer /></div>
+            }
         </div>
     )
 }

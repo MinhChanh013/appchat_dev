@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // Component
 import CAvatar from "@common/components/controls/CAvatar"
@@ -6,6 +6,7 @@ import CSlider from '@common/components/others/CSlider'
 import CAutocomplete from '@common/components/controls/CAutocomplete'
 import BackgroundIcon from '@common/components/others/BackgroundIcon'
 import CardMess from './components/CardMess'
+import ModalAddPhone from '@/common/components/controls/ModalAddPhone'
 // images
 import person1 from "@common/assets/images/person1.png"
 import person2 from "@common/assets/images/person2.png"
@@ -19,7 +20,10 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 
 import "../../assets/ChatAll.scss"
 
-const ChatAll = () => {
+const ChatAll = ({ socket }) => {
+  useEffect(() => {
+    
+  })
   return (
     <div className='chatall'>
       <div className="chatall-container">
@@ -43,7 +47,7 @@ const ChatAll = () => {
               </div>
               <div className="chatall-title__function">
                 <BackgroundIcon />
-                <PersonAddAlt1Icon />
+                <ModalAddPhone Children={<PersonAddAlt1Icon />} />
                 <GroupAddIcon />
               </div>
             </div>
@@ -56,25 +60,15 @@ const ChatAll = () => {
               <div className="chatall-pin__header"><GolfCourseIcon /><span>PIN CHATS</span></div>
               <div className="chatall-pin__main">
                 <CardMess />
-                <CardMess />
-                <CardMess />
-                <CardMess />
-                <CardMess />
               </div>
             </div>
             <div className="chatall-main__all">
               <div className="chatall-pin__header"><TelegramIcon /><span>ALL MESSAGES</span></div>
               <div className="chatall-pin__main">
                 <CardMess />
+                {/* <CardMess />
                 <CardMess />
-                <CardMess />
-                <CardMess />
-                <CardMess />
-                <CardMess />
-                <CardMess />
-                <CardMess />
-                <CardMess />
-                <CardMess />
+                <CardMess /> */}
               </div>
             </div>
           </div>

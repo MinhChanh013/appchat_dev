@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+// library
+import ScrollToBottom from "react-scroll-to-bottom";
 // components
 import CAvatar from "@common/components/controls/CAvatar"
 import CIconButton from '@common/components/controls/CIconButton';
@@ -25,79 +27,45 @@ import { BsTextareaT } from "react-icons/bs";
 import person3 from "@common/assets/images/person3.png"
 import avatar from "@common/assets/images/avatar.jpg"
 import "../../../assets/styles/layout/ChatMain.scss"
-const ChatMain = () => {
-  useEffect(() => {
-    // document.querySelector(".chat-show__container").scrollIntoView({ behavior: "smooth" })
-  }, [])
-
+const ChatMain = ({ socket, room }) => {
+  console.log(room);
   const [text, setText] = useState('')
   const [isopen, setIsOpen] = useState(true)
 
-  function handleOnEnter(text) {
-  }
+  const [messageList, setMessageList] = useState([]);
 
-  const data_Chat = [
-    {
-      avatar: person3,
-      mess: "i saw create ui design and i want to share with you guys",
-      time: "04:41",
-      name: "Milad Ghanbari"
-    },
-    {
-      avatar: avatar,
-      mess: "Hello Everyone, GOOD NEWS!!!",
-      time: "04:42",
-      name: "You"
-    },
-    {
-      avatar: avatar,
-      mess: "Hello Everyone, GOOD NEWS!!!",
-      time: "04:43",
-      name: "You"
-    },
-    {
-      avatar: person3,
-      mess: "Hey guys! what youdoing i just finish duxica ui design project",
-      time: "04:45",
-      name: "Milad Ghanbari"
-    },
-    {
-      avatar: person3,
-      mess: "i saw create ui design and i want to share with you guys",
-      time: "04:54",
-      name: "Milad Ghanbari"
-    },
-    {
-      avatar: person3,
-      mess: "i saw create ui design and i want to share with you guys",
-      time: "04:55",
-      name: "Milad Ghanbari"
-    },
-    {
-      avatar: avatar,
-      mess: "Hello Everyone, GOOD NEWS!!!",
-      time: "05:02",
-      name: "You"
-    },
-    {
-      avatar: person3,
-      mess: "Hey guys! what youdoing i just finish duxica ui design project",
-      time: "05:10",
-      name: "Milad Ghanbari"
-    },
-    {
-      avatar: person3,
-      mess: "i saw create ui design and i want to share with you guys",
-      time: "05:10",
-      name: "Milad Ghanbari"
-    },
-    {
-      avatar: person3,
-      mess: "Hey guys! what youdoing i just finish duxica ui design project",
-      time: "05:20",
-      name: "Milad Ghanbari"
-    },
-  ]
+  // demo socket
+  const handleOnEnter = async (text) => {
+    if (text !== "") {
+      const messageData = {
+        avatar: person3,
+        name: "You",
+        room: room,
+        mess: text,
+        time:
+          new Date(Date.now()).getHours() +
+          ":" +
+          new Date(Date.now()).getMinutes(),
+      };
+
+      await socket.emit("send_message", messageData);
+      setMessageList((list) => [messageData, ...list]);
+      setText("")
+    }
+  };
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      if (data.room === room) {
+        setMessageList((list) => [data, ...list]);
+      }
+    });
+  }, [socket, room]);
+
+  useEffect(() => {
+    socket.emit("join_room", room);
+  }, [room, socket])
+
   return (
     <div className='chatmain'>
       <div className="chatmain-container">
@@ -129,9 +97,9 @@ const ChatMain = () => {
         <div className="chatmain-container__main">
           <div className="chatmain-main__show">
             <div className="chat-show__container">
-              {data_Chat.reverse().map((course, index) => {
+              {messageList.map((course, index) => {
 
-                if (index + 1 === data_Chat.length) {
+                if (index + 1 === messageList.length) {
                   return (
                     course.name === "You" ? <div key={index} className="chat-container__me">
                       <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} person />
@@ -143,7 +111,7 @@ const ChatMain = () => {
                   )
                 }
                 else {
-                  const willChat = data_Chat[index + 1]
+                  const willChat = messageList[index + 1]
                   const timeWill = willChat.time.split(":")
                   const timePresent = course.time.split(":")
                   const hourWill = parseInt(timeWill[0])
@@ -236,7 +204,9 @@ const ChatMain = () => {
                   placeholder="Type a message ... "
                 />
                 <CIconButton className="type-attach" icon={<AttachmentOutlinedIcon />} />
-                <CIconButton className="type-send" icon={<SendIcon />} />
+                <CIconButton onclick={() => {
+                  handleOnEnter(text)
+                }} className="type-send" icon={<SendIcon />} />
               </div>
             </div>
           </div>
