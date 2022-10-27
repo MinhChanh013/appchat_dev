@@ -28,7 +28,7 @@ const CMenu = ({ CAvatar }) => {
     setAnchorEl(null);
   };
 
-  const { isLoading, error, data, refetch } = useQuery(
+  const { isLoading, data, refetch } = useQuery(
     ["getProfile"],
     () => getProfile(),
     { enabled: false }

@@ -25,7 +25,7 @@ import person3 from "@common/assets/images/person3.png"
 import person4 from "@common/assets/images/person4.png"
 
 import "../../../../assets/styles/layout/ChatSetting.scss"
-const ChatSetting = ({ isopen, team }) => {
+const ChatSetting = ({ isopen, team, dataRoom, dataFriend }) => {
     const member = [
         {
             avatar: person1,
@@ -81,7 +81,7 @@ const ChatSetting = ({ isopen, team }) => {
                     <div className="chatSetting-main__infor">
                         <MeProfile> <CAvatar /></MeProfile>
                         <div className="chatSetting-infor__name">
-                            <h3>Duxica Team</h3>
+                            <h3>{dataFriend && dataFriend.name}</h3>
                             <CModalRename><CIconButton icon={<BiPaint />} /></CModalRename>
                         </div>
                     </div>
@@ -95,30 +95,32 @@ const ChatSetting = ({ isopen, team }) => {
                             <CSwitchBasic />
                         </div>
                     </div>
-                    <div className="chatSetting-main__member">
-                        <div className="chatSetting-member__header">
-                            <div className="chatSeeting-header__name">
-                                <IoPersonOutline />
-                                <h3>Members</h3>
-                                <span>(22)</span>
-                            </div>
-                            <CIconButton icon={<GoPlus />} />
-                        </div>
-                        <div className="chatSetting-member__main">
-                            {member.map((course, index) => (
-                                <div className='chatSetting-member' key={index}>
-                                    <div className='chatSetting-member__infor'>
-                                        <CAvatar icon={course.avatar} />
-                                        <div className="chatSetting-infor__name">
-                                            <h3>{course.name}</h3>
-                                            <span>{course.owner}</span>
-                                        </div>
-                                    </div>
-                                    {course.friend ? <CButton children="Chat" /> : <CButton children="Add" />}
+                    {dataRoom && dataRoom.count_member === 2 ? "" :
+                        <div className="chatSetting-main__member">
+                            <div className="chatSetting-member__header">
+                                <div className="chatSeeting-header__name">
+                                    <IoPersonOutline />
+                                    <h3>Members</h3>
+                                    <span>(22)</span>
                                 </div>
-                            ))}
+                                <CIconButton icon={<GoPlus />} />
+                            </div>
+                            <div className="chatSetting-member__main">
+                                {member.map((course, index) => (
+                                    <div className='chatSetting-member' key={index}>
+                                        <div className='chatSetting-member__infor'>
+                                            <CAvatar icon={course.avatar} />
+                                            <div className="chatSetting-infor__name">
+                                                <h3>{course.name}</h3>
+                                                <span>{course.owner}</span>
+                                            </div>
+                                        </div>
+                                        {course.friend ? <CButton children="Chat" /> : <CButton children="Add" />}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    }
                     <div className="chatSetting-main__share">
                         <div className="chatSetting-share__header">
                             <BsShare /> <span>Shared Media</span>

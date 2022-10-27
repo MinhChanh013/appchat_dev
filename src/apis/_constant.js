@@ -13,6 +13,12 @@ export const USER = {
   FRIEND: "/user/friend",
 };
 
+export const FRIEND = {
+  GETALL: "/friend",
+  REQUEST: "/friend/request",
+  APPLY: "friend/apply",
+};
+
 export const CHAT = {
   GETCHATPRIVATED: "/listchat",
   CREATECHATPRIVATED: "/listchat",

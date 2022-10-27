@@ -12,7 +12,3 @@ export const addFriend = async (phone) => {
 export const findPhone = async (phone) => {
   return await request_api().get(`${USER.FINDPHONE}/${phone}`);
 };
-
-export const showFriend = async () => {
-  return await request_api().get(USER.FRIEND);
-};

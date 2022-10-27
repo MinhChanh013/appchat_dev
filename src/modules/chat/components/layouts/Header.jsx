@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 // library
 import { NavLink } from 'react-router-dom'
 // component
@@ -17,24 +17,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import "../../assets/styles/layouts/Header.scss"
 const Header = () => {
-    const getCookie = (name) => {
-        var dc = document.cookie;
-        var prefix = name + "=";
-        var begin = dc.indexOf("; " + prefix);
-        if (begin === -1) {
-            begin = dc.indexOf(prefix);
-            if (begin !== 0) return null;
-        } else {
-            begin += 2;
-            var end = document.cookie.indexOf(";", begin);
-            if (end === -1) {
-                end = dc.length;
-            }
-        }
-        return decodeURI(dc.substring(begin + prefix.length, end));
-    };
-
-    // const [darkmode, setDarkmode] = useState(getCookie("darkmode").split(";")[0])
+    
     return (
         <header className='header__main'>
             <div className="header-container">

@@ -6,6 +6,10 @@
     gap: 10px;
     .itemChat-cotainer__context {
       padding-left: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
       .itemChat-context__name {
         display: flex;
         justify-content: space-between;
@@ -13,10 +17,16 @@
         align-items: center;
         padding-top: 5px;
         padding-bottom: 5px;
+        width: 100%;
         span {
           font-size: 13px;
           font-weight: 300;
           color: rgb(100, 99, 99);
+
+          &:nth-child(1) {
+            font-weight: 400;
+            margin-right: 15px;
+          }
         }
       }
 
@@ -28,6 +38,7 @@
         border-bottom-left-radius: 25px;
         max-width: 600px;
         span {
+          line-break: anywhere;
           font-size: 14px;
           font-weight: 400;
         }
@@ -38,22 +49,40 @@
   &.me {
     .itemChat-container {
       flex-direction: row-reverse;
+      .itemChat-cotainer__context {
+        padding-left: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
 
-      .itemChat-context__name {
-        flex-direction: row-reverse;
-        padding-left: 20px;
-        padding-right: unset;
-      }
+        .itemChat-context__name {
+          flex-direction: row-reverse;
+          padding-left: 20px;
+          padding-right: unset;
+          width: unset;
 
-      .itemChat-context__mess {
-        background-image: linear-gradient(45deg, #3d98af, #63cfe7);
-        padding: 13px 20px;
-        border-top-right-radius: unset;
-        border-bottom-right-radius: 25px;
-        border-bottom-left-radius: 25px;
-        border-top-left-radius: 25px;
-        max-width: 600px;
-        color: #fff;
+          span{
+            &:nth-child(1){
+              font-weight: 400;
+              margin-right: unset;
+            }
+            &:nth-child(2){
+              margin-right: 10px;
+            }
+          }
+        }
+
+        .itemChat-context__mess {
+          background-image: linear-gradient(45deg, #3d98af, #63cfe7);
+          padding: 13px 20px;
+          border-top-right-radius: unset;
+          border-bottom-right-radius: 25px;
+          border-bottom-left-radius: 25px;
+          border-top-left-radius: 25px;
+          max-width: 600px;
+          color: #fff;
+        }
       }
     }
 

@@ -15,7 +15,7 @@ const socket = io.connect("http://localhost:4001");
 const Mess = () => {
   const room = "demo_room"
   useEffect(() => {
-    socket.emit("join_room", room);
+    // socket.emit("join_room", room);
   })
   const alert = useLocation()
   return (
