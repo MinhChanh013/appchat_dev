@@ -1,0 +1,242 @@
+.notification {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  .notification-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+
+    .notification-container__notiAll {
+      position: relative;
+      min-width: 300px;
+      background-color: #fafafa;
+      height: 100vh;
+      box-shadow: rgb(149 157 165 / 20%) 0px 6px 10px;
+
+      .notification-notiAll {
+        position: relative;
+        width: 100%;
+
+        .notiAll-header {
+          position: relative;
+          padding: 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          h3 {
+            font-weight: 500;
+            font-size: 18;
+            color: rgb(100, 99, 99);
+          }
+          .MuiSvgIcon-root {
+            cursor: pointer;
+            fill: url(#linearColors);
+            margin-right: 5px;
+          }
+        }
+        .notiAll-main {
+          position: relative;
+          padding: 20px 0;
+          border-top: 1px solid rgb(236, 234, 234);
+          padding-bottom: 10px;
+
+          .notiAll-main__wait {
+            position: relative;
+
+            .notiAll-wait-header {
+              padding: 0 20px;
+              display: flex;
+              align-items: center;
+              margin-bottom: 10px;
+              svg {
+                font-size: 18px;
+                margin-right: 10px;
+                color: rgb(100, 99, 99);
+              }
+              p {
+                font-size: 13px;
+                color: rgb(100, 99, 99);
+                display: flex;
+                align-items: flex-start;
+                cursor: pointer;
+                font-weight: 500;
+                text-transform: uppercase;
+              }
+            }
+            .notiAll-wait__list {
+              padding: 0px 0px;
+              max-height: calc((100vh - 175px) / 2);
+              overflow-y: scroll;
+
+              &::-webkit-scrollbar {
+                width: 7px;
+                background: rgba($color: #f0efef, $alpha: 0.5);
+              }
+              &::-webkit-scrollbar-thumb {
+                background: rgba($color: #4190c1, $alpha: 0.8);
+                border-radius: calc(15px / 2);
+                &:hover {
+                  background: rgba($color: #4190c1, $alpha: 0.5);
+                }
+                &:active {
+                  background: rgba($color: #4190c1, $alpha: 0.5);
+                }
+              }
+
+              .notiAll-wait__null {
+                padding: 50px 0;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #4190c1;
+                font-style: italic;
+              }
+
+              .notiAll-wait__person {
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+                padding: 12px 15px;
+                transition: all 0.2s ease;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+
+                &:hover {
+                  background-color: #e6eef8;
+                }
+                .notiAll-person__infor {
+                  margin-left: 10px;
+                  width: 100%;
+                  span {
+                    font-size: 15px;
+                    color: rgb(100, 99, 99);
+                  }
+                  .notiAll-person__funtion {
+                    display: flex;
+                    width: 100%;
+                    justify-content: space-between;
+                    margin-top: 5px;
+
+                    .MuiButtonBase-root {
+                      font-size: 13px;
+                      font-weight: 400;
+                      width: 92px;
+
+                      &#delete {
+                        color: rgb(226, 105, 105);
+                        background-image: unset;
+                        border: 1.5px solid rgb(226, 105, 105);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .notiAll-main__request {
+            .notiAll-request-header {
+              padding: 0 20px;
+              display: flex;
+              align-items: center;
+              margin-top: 20px;
+              margin-bottom: 10px;
+              svg {
+                font-size: 18px;
+                margin-right: 10px;
+                color: rgb(100, 99, 99);
+              }
+              p {
+                font-size: 13px;
+                color: rgb(100, 99, 99);
+                display: flex;
+                align-items: flex-start;
+                cursor: pointer;
+                font-weight: 500;
+                text-transform: uppercase;
+              }
+            }
+            .notiAll-request__list {
+              padding: 0px 0px;
+              max-height: calc((100vh - 175px) / 2);
+              overflow-y: scroll;
+
+              &::-webkit-scrollbar {
+                width: 7px;
+                background: rgba($color: #f0efef, $alpha: 0.5);
+              }
+              &::-webkit-scrollbar-thumb {
+                background: rgba($color: #4190c1, $alpha: 0.8);
+                border-radius: calc(15px / 2);
+                &:hover {
+                  background: rgba($color: #4190c1, $alpha: 0.5);
+                }
+                &:active {
+                  background: rgba($color: #4190c1, $alpha: 0.5);
+                }
+              }
+
+              .notiAll-request__null {
+                padding: 50px 0;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #4190c1;
+                font-style: italic;
+              }
+
+              .notiAll-request__person {
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+                padding: 12px 15px;
+                transition: all 0.2s ease;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+
+                &:hover {
+                  background-color: #e6eef8;
+                }
+                .notiAll-person__infor {
+                  margin-left: 10px;
+                  width: 100%;
+                  span {
+                    font-size: 15px;
+                    color: rgb(100, 99, 99);
+                  }
+                  .notiAll-person__funtion {
+                    width: 100%;
+                    margin-top: 5px;
+
+                    .MuiButtonBase-root {
+                      font-size: 13px;
+                      font-weight: 400;
+                      width: 100%;
+
+                      &#cancel {
+                        color: rgb(226, 105, 105);
+                        background-image: unset;
+                        border: 1.5px solid rgb(226, 105, 105);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .notification-container__notiMain {
+      width: 100%;
+      position: relative;
+    }
+  }
+}

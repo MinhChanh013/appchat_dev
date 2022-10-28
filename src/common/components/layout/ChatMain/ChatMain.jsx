@@ -29,7 +29,7 @@ import { useQuery } from "@tanstack/react-query"
 import person3 from "@common/assets/images/person3.png"
 import avatar from "@common/assets/images/avatar.jpg"
 import "../../../assets/styles/layout/ChatMain.scss"
-import ScrollToBottom from 'react-scroll-to-bottom';
+
 const ChatMain = ({ socket, room, dataRoom, dataFriend }) => {
 
   const { isLoading, data } = useQuery(['getUser'], () => {

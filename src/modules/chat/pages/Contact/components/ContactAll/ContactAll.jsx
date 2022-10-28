@@ -86,7 +86,7 @@ const ContactAll = () => {
                             <div className="chatAll-list__search">
                                 <CAutoComplete data={[]} placeholder="Enter name ..." />
                             </div>
-                            {!isLoading && !isError ?
+                            {!isLoading && !isError && data.data.list_friend ?
                                 <div className="chatAll-list__main">
                                     {data.data.list_friend.map((course, index) => (
                                         <div onClick={() => {

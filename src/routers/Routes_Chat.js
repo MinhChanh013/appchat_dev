@@ -9,7 +9,7 @@ import { useRoutes } from "react-router-dom";
 const Routes_Chat = () => {
   return useRoutes([
     { path: "/message", element: <Mess /> },
-    { path: "/tags", element: <Todo /> },
+    { path: "/notification", element: <Todo /> },
     { path: "/contact", element: <Contact /> },
     { path: "/setting", element: <Setting /> },
   ]);

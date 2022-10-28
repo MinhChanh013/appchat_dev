@@ -113,54 +113,6 @@ const ModalAddPhone = ({ Children }) => {
                                     </div>
                                 </div>
                                 : ""}
-                            {/* <div className='modal-card__results'>
-                                <div className="modal-results__infor">
-                                    <CAvatar image="" />
-                                    <div className="modal-results__name">
-                                        <h4>Milad Ghanbari</h4>
-                                        <span className='modal-results__number'>0123 456 789</span>
-                                    </div>
-                                </div>
-                                <div className="modal-results__status">
-                                    <CButton children="Add" />
-                                </div>
-                            </div>
-                            <div className='modal-card__results'>
-                                <div className="modal-results__infor">
-                                    <CAvatar image="" />
-                                    <div className="modal-results__name">
-                                        <h4>Milad Ghanbari</h4>
-                                        <span className='modal-results__number'>0123 456 789</span>
-                                    </div>
-                                </div>
-                                <div className="modal-results__status">
-                                    <CButton children="Add" />
-                                </div>
-                            </div>
-                            <div className='modal-card__results'>
-                                <div className="modal-results__infor">
-                                    <CAvatar image="" />
-                                    <div className="modal-results__name">
-                                        <h4>Milad Ghanbari</h4>
-                                        <span className='modal-results__number'>0123 456 789</span>
-                                    </div>
-                                </div>
-                                <div className="modal-results__status">
-                                    <CButton children="Add" />
-                                </div>
-                            </div>
-                            <div className='modal-card__results'>
-                                <div className="modal-results__infor">
-                                    <CAvatar image="" />
-                                    <div className="modal-results__name">
-                                        <h4>Milad Ghanbari</h4>
-                                        <span className='modal-results__number'>0123 456 789</span>
-                                    </div>
-                                </div>
-                                <div className="modal-results__status">
-                                    <CButton children="Add" />
-                                </div>
-                            </div> */}
                         </div>
                     </div>
                 </Box>

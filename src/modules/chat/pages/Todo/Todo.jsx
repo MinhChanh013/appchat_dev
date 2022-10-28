@@ -1,10 +1,104 @@
 import React from 'react'
 
+// component
+import BackgroundIcon from "@common/components/others/BackgroundIcon"
+import CAvatar from '../../../../common/components/controls/CAvatar';
+import CButton from '../../../../common/components/controls/CButton';
+import CAleart from '../../../../common/components/controls/CAleart';
+
+// icon
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import { BsListCheck, BsListStars } from "react-icons/bs";
+
+// api
+import { getAllFriend } from '../../../../apis/friend.api';
+import { useQuery } from "@tanstack/react-query"
+
+import { toast } from "react-toastify";
+
+import "./assets/styles/Todo.scss"
 const Todo = () => {
+
+  const { isLoading, isError, error, data } = useQuery(['getNotification'], () => {
+    return getAllFriend()
+  })
+
+  if (!isLoading && isError) {
+    toast.error(error.message)
+  }
+
   return (
     <div>
-      Todo
-    </div>
+      <div className="notification">
+        <CAleart />
+        <div className="notification-container">
+          <div className="notification-container__notiAll">
+            <div className="notification-notiAll">
+              <div className="notiAll-header">
+                <h3>Notification</h3>
+                <div className="notiAll-header__function">
+                  <BackgroundIcon />
+                  <PersonAddAlt1Icon />
+                  <GroupAddIcon />
+                </div>
+              </div>
+              <div className="notiAll-main">
+                <div className="notiAll-main__wait">
+                  <div className="notiAll-wait-header">
+                    <BsListCheck /> <p>friend request</p>
+                  </div>
+                  <div className="notiAll-wait__list">
+                    {!isLoading && !isError && data.data.list_wait ?
+                      data.data.list_wait.length === 0 ? <div className='notiAll-wait__null'>Not friend requests yet</div> :
+                        data.data.list_wait.map((course, index) => (
+                          < div key={index} className="notiAll-wait__person">
+                            <CAvatar />
+                            <div className="notiAll-person__infor">
+                              <span>{course.phone}</span>
+                              <div className="notiAll-person__funtion">
+                                <CButton children="Confirm" />
+                                <CButton children="Delete" id="delete" variant="outlined" />
+                              </div>
+                            </div>
+                          </div>
+                        ))
+
+                      : <div className='notiAll-wait__null'>Not friend requests yet</div>
+                    }
+                  </div>
+                </div>
+                <div className="notiAll-main__request">
+                  <div className="notiAll-request-header">
+                    <BsListStars /> <p>friend request send</p>
+                  </div>
+                  <div className="notiAll-request__list">
+                    {!isLoading && !isError && data.data.list_request ?
+                      data.data.list_request.length === 0 ? <div className='notiAll-request__null'>Not friend requests send yet</div> :
+                        data.data.list_request.map((course, index) => (
+                          < div key={index} className="notiAll-wait__person">
+                            <CAvatar />
+                            <div className="notiAll-person__infor">
+                              <span>{course.phone}</span>
+                              <div className="notiAll-person__funtion">
+                                <CButton children="Confirm" />
+                                <CButton children="Delete" id="delete" variant="outlined" />
+                              </div>
+                            </div>
+                          </div>
+                        ))
+
+                      : <div className='notiAll-request__null'>Not friend requests send yet</div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="notification-container__notiMain"></div>
+        </div>
+      </div>
+    </div >
   )
 }
 

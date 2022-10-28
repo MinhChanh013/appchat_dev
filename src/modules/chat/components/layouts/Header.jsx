@@ -12,7 +12,7 @@ import AvatarImgae from "@common/assets/images/avatar.jpg"
 import logo from "@common/assets/images/logo.png"
 // icon
 import CommentIcon from '@mui/icons-material/Comment';
-import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import "../../assets/styles/layouts/Header.scss"
@@ -33,9 +33,9 @@ const Header = () => {
                                     <li><BackgroundIcon /><CommentIcon /></li>
                                 } />
                             </NavLink>
-                            <NavLink to="/chats/tags" className={({ isActive }) => (`nav__link ${isActive ? "active" : ""}`)}>
-                                <CTooltip title="To-do" placement="right" children={
-                                    <li><BookmarksIcon /></li>
+                            <NavLink to="/chats/notification" className={({ isActive }) => (`nav__link ${isActive ? "active" : ""}`)}>
+                                <CTooltip title="Thông báo" placement="right" children={
+                                    <li><NotificationsIcon /></li>
                                 } />
                             </NavLink>
                         </div>
