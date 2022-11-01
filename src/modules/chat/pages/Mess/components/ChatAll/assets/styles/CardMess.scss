@@ -8,6 +8,7 @@
   cursor: pointer;
   &.active {
     background-color: #e6eef8;
+
     &::before {
       content: "";
       position: absolute;
@@ -63,7 +64,7 @@
         width: 0px;
         height: 0px;
         z-index: -99;
-        &:hover{
+        &:hover {
           color: #1499ec;
         }
       }

@@ -5,10 +5,6 @@ export const getallUser = async () => {
   return await request_api().get(USER.GETALL);
 };
 
-export const addFriend = async (phone) => {
-  return await request_api().post(USER.ADDFRIEND, phone);
-};
-
 export const findPhone = async (phone) => {
   return await request_api().get(`${USER.FINDPHONE}/${phone}`);
 };

@@ -26,7 +26,7 @@ const style = {
   boxShadow: 24,
 };
 
-const MeProfile = ({ data, activeModal = false, me, children }) => {
+const MeProfile = ({ refetch, data, activeModal = false, me, children }) => {
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
     setOpen(activeModal)
@@ -34,7 +34,10 @@ const MeProfile = ({ data, activeModal = false, me, children }) => {
   const handleClose = () => { setOpen(false); }
   return (
     <div className='meProfile'>
-      <div onClick={() => setOpen(true)}>{children}</div>
+      <div onClick={() => {
+        setOpen(true)
+        refetch && refetch()
+      }}>{children}</div>
       <Modal
         open={open}
         onClose={handleClose}

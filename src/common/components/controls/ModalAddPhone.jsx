@@ -10,7 +10,8 @@ import CAleart from './CAleart';
 import { toast } from "react-toastify";
 
 // api
-import { findPhone, addFriend } from "@/apis/user.api"
+import { findPhone } from "@/apis/user.api"
+import { requestAddFriend } from "@/apis/friend.api"
 // library
 import { useForm } from "react-hook-form"
 import { useMutation } from '@tanstack/react-query'
@@ -58,7 +59,7 @@ const ModalAddPhone = ({ Children }) => {
 
     const muatationAddFriend = useMutation((phone) => {
         setGetApiAddFriend(true)
-        return addFriend(({phone: phone}))
+        return requestAddFriend(({ phone: phone, name: `${mutation.data.data.first_name.trim()} ${mutation.data.data.last_name.trim()}` }))
     })
 
     if (getApiAddFriend && !muatationAddFriend.isLoading && !muatationAddFriend.isError) {

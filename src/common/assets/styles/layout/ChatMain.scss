@@ -148,7 +148,9 @@
           padding: 0px 45px;
           transition: all 0.2s ease-in;
           overflow: hidden;
+
           .MuiButtonBase-root {
+            color: #607175;
             &:hover {
               color: #17a4c4;
             }

@@ -22,4 +22,9 @@ export const FRIEND = {
 export const CHAT = {
   GETCHATPRIVATED: "/listchat",
   CREATECHATPRIVATED: "/listchat",
+  GETCHATALL: "/listchat"
 };
+
+export const MESSAGE = {
+  ADDMESSAGE: "/listmessage/addMessage"
+}

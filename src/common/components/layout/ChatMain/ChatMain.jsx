@@ -8,6 +8,7 @@ import ItemChat from './components/ItemChat';
 import MeProfile from '../Profile/MeProfile/MeProfile';
 import CModalRename from '../../controls/CModalRename';
 import CModalAddTeam from '../../controls/CModalAddTeam';
+import IconButton from '@mui/material/IconButton';
 
 // icon
 import BrushIcon from '@mui/icons-material/Brush';
@@ -24,13 +25,27 @@ import { BsTextareaT } from "react-icons/bs";
 
 // api
 import { getProfile } from "@/apis/auth.api"
-import { useQuery } from "@tanstack/react-query"
+import { requestAddMessage } from "@/apis/message.api"
+import { findPhone } from "@/apis/user.api"
 
+import { useQuery, useMutation } from "@tanstack/react-query"
+
+// icon
 import person3 from "@common/assets/images/person3.png"
 import avatar from "@common/assets/images/avatar.jpg"
 import "../../../assets/styles/layout/ChatMain.scss"
 
 const ChatMain = ({ socket, room, dataRoom, dataFriend }) => {
+  console.log(dataFriend);
+
+  const { isLoading: isLoadingFriend, isError, refetch: refetchFriend, data: dataProfileFriend } = useQuery(['getProfileFriend'], () => {
+    return findPhone(dataFriend.phone)
+  }, { enabled: false })
+
+
+  const mutationMessage = useMutation((value) => {
+    return requestAddMessage(value)
+  })
 
   const { isLoading, data } = useQuery(['getUser'], () => {
     return getProfile()
@@ -43,30 +58,28 @@ const ChatMain = ({ socket, room, dataRoom, dataFriend }) => {
   //  socket
   const handleOnEnter = async (text) => {
     if (text !== "") {
+
       const messageData = {
         avatar: person3,
+        id_room: room,
+        mess_content: text,
         name: data && `${data.data.first_name} ${data.data.last_name}`,
-        phone: data.data.phone,
-        room: room,
-        mess: text,
-        time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
-      };
+        list_member: dataRoom.list_member,
+        time: new Date()
+      }
+
+      mutationMessage.mutate(messageData)
 
       await socket.emit("send_message", messageData);
       setMessageList((list) => [messageData, ...list]);
-      // setMessageList((list) => [...list, messageData]);
       setText("")
     }
   };
-
+  !isLoadingFriend && !isError && console.log(dataProfileFriend)
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      if (data.room === room) {
+      if (data.id_room === room) {
         setMessageList((list) => [data, ...list]);
-        // setMessageList((list) => [...list, data]);
       }
     });
   }, [socket, room]);
@@ -75,18 +88,16 @@ const ChatMain = ({ socket, room, dataRoom, dataFriend }) => {
     socket.emit("join_room", room);
   }, [room, socket])
 
-
   return (
     <div className='chatmain'>
       <div className="chatmain-container">
         <div className="chatmain-container__header">
           <div className="chatmain-header__infor">
-            <MeProfile ><CAvatar image="" /> </MeProfile>
-
+            <MeProfile refetch={refetchFriend} data={!isLoadingFriend && !isError && dataProfileFriend.data}><CAvatar image="" /> </MeProfile>
             <div className="chatmain-infor__content">
               <div className="chatmain-content__name">
                 <h3>{dataFriend && dataFriend.name}</h3>
-                <CModalRename>
+                <CModalRename name={dataFriend && dataFriend.name}>
                   <BrushIcon />
                 </CModalRename>
               </div>
@@ -107,98 +118,119 @@ const ChatMain = ({ socket, room, dataRoom, dataFriend }) => {
         <div className="chatmain-container__main">
           <div className="chatmain-main__show">
             {/* <ScrollToBottom> */}
-              <div className="chat-show__container">
-                {messageList.map((course, index) => {
-                  if (index + 1 === messageList.length) {
-                    console.log(course.phone !== data.data.phone);
-                    return (
-                      !isLoading && course.phone === data.data.phone ? <div key={index} className="chat-container__me">
-                        <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name="You" person />
+            <div className="chat-show__container">
+              {messageList.map((course, index) => {
+                if (index + 1 === messageList.length) {
+                  return (
+                    !isLoading && course.name === `${data.data.first_name} ${data.data.last_name}` ? <div key={index} className="chat-container__me">
+                      <ItemChat avatar={course.avatar} mess={course.mess_content}
+                        time={course.time.getHours() + ':' + course.time.getMinutes()}
+                        name="You" person />
+                    </div>
+                      :
+                      <div key={index} className="chat-container__friend">
+                        <ItemChat refetch={refetchFriend} data={!isLoadingFriend && !isError && dataProfileFriend.data} avatar={course.avatar} mess={course.mess_content}
+                          time={new Date(course.time).getHours() + ':' + new Date(course.time).getMinutes()}
+                          name={course.name} />
                       </div>
-                        :
-                        <div key={index} className="chat-container__friend">
-                          <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} />
-                        </div>
-                    )
-                  }
-                  else {
-                    const willChat = messageList[index + 1]
-                    const timeWill = willChat.time.split(":")
-                    const timePresent = course.time.split(":")
-                    const hourWill = parseInt(timeWill[0])
-                    const minutesWill = parseInt(timeWill[1])
-                    const hourPresent = parseInt(timePresent[0])
-                    const minutesPresent = parseInt(timePresent[1])
-                    if (course.name === willChat.name) {
-                      // console.log(hourWill, minutesWill, hourPresent, minutesPresent);
-                      if (hourWill === hourPresent && minutesPresent - minutesWill <= 1) {
-                        return (
-                          // Không hiện avatar
-                          !isLoading && course.phone === data.data.phone ? <div key={index} className="chat-container__me">
-                            <ItemChat className="mess__loop" mess={course.mess} person />
-                          </div>
-                            :
-                            <div key={index} className="chat-container__friend">
-                              <ItemChat className="mess__loop" mess={course.mess} />
-                            </div>
-                        )
-                      }
-                      else if (hourPresent - hourWill === 1 && minutesWill === 59 && minutesPresent === 0) {
-                        return (
-                          // Không hiện avatar
-                          !isLoading && course.phone === data.data.phone ? <div key={index} className="chat-container__me">
-                            <ItemChat className="mess__loop" mess={course.mess} person />
-                          </div>
-                            :
-                            <div key={index} className="chat-container__friend">
-                              <ItemChat className="mess__loop" mess={course.mess} />
-                            </div>
-                        )
-                      }
-                      else if (hourWill === 23 && minutesWill === 59 && minutesPresent === 0) {
-                        return (
-                          // Không hiện avatar
-                          !isLoading && course.phone === data.data.phone ? <div key={index} className="chat-container__me">
-                            <ItemChat className="mess__loop" mess={course.mess} person />
-                          </div>
-                            :
-                            <div key={index} className="chat-container__friend">
-                              <ItemChat className="mess__loop" mess={course.mess} />
-                            </div>
-                        )
-                      }
-                      else {
-                        return (
-                          !isLoading && course.phone === data.data.phone ? <div key={index} className="chat-container__me">
-                            <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name="You" person />
-                          </div>
-                            :
-                            <div key={index} className="chat-container__friend">
-                              <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} />
-                            </div>
-                        )
-                      }
-                    }
-                    else {
+                  )
+                }
+                else {
+                  const willChat = messageList[index + 1]
+
+                  const hourWill = new Date(willChat.time).getHours()
+                  const minutesWill = new Date(willChat.time).getMinutes()
+                  const hourPresent = new Date(course.time).getHours()
+                  const minutesPresent = new Date(course.time).getMinutes()
+                  if (course.name === willChat.name) {
+                    // console.log(hourWill, minutesWill, hourPresent, minutesPresent);
+                    if (hourWill === hourPresent && minutesPresent - minutesWill <= 1) {
                       return (
-                        !isLoading && course.phone === data.data.phone ? <div key={index} className="chat-container__me">
-                          <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name="You" person />
+                        // Không hiện avatar
+                        !isLoading && course.name === `${data.data.first_name} ${data.data.last_name}` ? <div key={index} className="chat-container__me">
+                          <ItemChat className="mess__loop" mess={course.mess_content} person />
                         </div>
                           :
                           <div key={index} className="chat-container__friend">
-                            <ItemChat avatar={course.avatar} mess={course.mess} time={course.time} name={course.name} />
+                            <ItemChat className="mess__loop" mess={course.mess_content} />
+                          </div>
+                      )
+                    }
+                    else if (hourPresent - hourWill === 1 && minutesWill === 59 && minutesPresent === 0) {
+                      return (
+                        // Không hiện avatar
+                        !isLoading && course.name === `${data.data.first_name} ${data.data.last_name}` ? <div key={index} className="chat-container__me">
+                          <ItemChat className="mess__loop" mess={course.mess_content} person />
+                        </div>
+                          :
+                          <div key={index} className="chat-container__friend">
+                            <ItemChat className="mess__loop" mess={course.mess_content} />
+                          </div>
+                      )
+                    }
+                    else if (hourWill === 23 && minutesWill === 59 && minutesPresent === 0) {
+                      return (
+                        // Không hiện avatar
+                        !isLoading && course.name === `${data.data.first_name} ${data.data.last_name}` ? <div key={index} className="chat-container__me">
+                          <ItemChat className="mess__loop" mess={course.mess_content} person />
+                        </div>
+                          :
+                          <div key={index} className="chat-container__friend">
+                            <ItemChat className="mess__loop" mess={course.mess_content} />
+                          </div>
+                      )
+                    }
+                    else {
+                      return (
+                        !isLoading && course.name === `${data.data.first_name} ${data.data.last_name}` ? <div key={index} className="chat-container__me">
+                          <ItemChat avatar={course.avatar} mess={course.mess_content} time={new Date(course.time).getHours() + ':' + new Date(course.time).getMinutes()} name="You" person />
+                        </div>
+                          :
+                          <div key={index} className="chat-container__friend">
+                            <ItemChat avatar={course.avatar} mess={course.mess_content} time={new Date(course.time).getHours() + ':' + new Date(course.time).getMinutes()} name={course.name} />
                           </div>
                       )
                     }
                   }
+                  else {
+                    return (
+                      !isLoading && course.name === `${data.data.first_name} ${data.data.last_name}` ? <div key={index} className="chat-container__me">
+                        <ItemChat avatar={course.avatar} mess={course.mess_content} time={new Date(course.time).getHours() + ':' + new Date(course.time).getMinutes()} name="You" person />
+                      </div>
+                        :
+                        <div key={index} className="chat-container__friend">
+                          <ItemChat avatar={course.avatar} mess={course.mess_content} time={new Date(course.time).getHours() + ':' + new Date(course.time).getMinutes()} name={course.name} />
+                        </div>
+                    )
+                  }
                 }
-                )}
-              </div>
+              }
+              )}
+              {dataRoom && dataRoom.list_message.map((course, index) => {
+                const date = new Date(course.time)
+                return (
+                  !isLoading && course.arthor.name === `${data.data.first_name} ${data.data.last_name}` ? <div key={index} className="chat-container__me">
+                    <ItemChat me data={data.data} avatar={person3} mess={course.mess_content}
+                      time={date.getHours() + ':' + date.getMinutes()}
+                      name="You" person />
+                  </div>
+                    :
+                    <div key={index} className="chat-container__friend">
+                      <ItemChat refetch={refetchFriend} data={!isLoadingFriend && !isError && dataProfileFriend.data} avatar={person3} mess={course.mess_content}
+                        time={date.getHours() + ':' + date.getMinutes()}
+                        name={!isLoading && course.arthor.name} />
+                    </div>
+                )
+              })}
+            </div>
             {/* </ScrollToBottom> */}
           </div>
           <div className="chatmain-main__type">
             <div className="chatmain-type__function">
-              <CIconButton icon={<IoImagesOutline />} />
+              <IconButton color="primary" aria-label="upload picture" component="label">
+                <input hidden accept="image/*" type="file" />
+                <IoImagesOutline />
+              </IconButton>
               <CIconButton icon={<IoTimeOutline />} />
               <CIconButton icon={<AiOutlineIdcard />} />
               <CIconButton icon={<BsTextareaT />} />
@@ -224,7 +256,7 @@ const ChatMain = ({ socket, room, dataRoom, dataFriend }) => {
           </div>
         </div>
       </div>
-      <ChatSetting dataFriend={dataFriend} dataRoom={dataRoom} isopen={isopen} />
+      <ChatSetting refetch={refetchFriend} data={!isLoadingFriend && !isError && dataProfileFriend.data} dataFriend={dataFriend} dataRoom={dataRoom} isopen={isopen} />
     </div>
   )
 }

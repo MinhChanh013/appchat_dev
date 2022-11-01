@@ -12,20 +12,36 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { BsListCheck, BsListStars } from "react-icons/bs";
 
 // api
-import { getAllFriend } from '../../../../apis/friend.api';
+import { getAllFriend, requestApplyFriend } from '@/apis/friend.api';
+// import { createChatPrivated } from "@/apis/chat.api"
 import { useQuery } from "@tanstack/react-query"
 
+import { useMutation } from "@tanstack/react-query"
 import { toast } from "react-toastify";
 
 import "./assets/styles/Todo.scss"
 const Todo = () => {
-
-  const { isLoading, isError, error, data } = useQuery(['getNotification'], () => {
+  const [apply, setAplly] = React.useState(false)
+  const { isLoading, isError, error, data, refetch } = useQuery(['getNotification'], () => {
     return getAllFriend()
   })
 
   if (!isLoading && isError) {
     toast.error(error.message)
+  }
+
+  const mutationApply = useMutation((value) => {
+    setAplly(true)
+    // if (value.status === true) {
+    //   createChatPrivated([{phone: value.phone}])
+    // }
+    return requestApplyFriend(value)
+  })
+
+  if (apply && !mutationApply.isLoading && !mutationApply.isError) {
+    toast.success(mutationApply.data.data)
+    refetch()
+    setAplly(false)
   }
 
   return (
@@ -55,10 +71,24 @@ const Todo = () => {
                           < div key={index} className="notiAll-wait__person">
                             <CAvatar />
                             <div className="notiAll-person__infor">
-                              <span>{course.phone}</span>
+                              <span>{course.name}</span>
                               <div className="notiAll-person__funtion">
-                                <CButton children="Confirm" />
-                                <CButton children="Delete" id="delete" variant="outlined" />
+                                <CButton children="Confirm" onClick={() => {
+                                  setAplly(false)
+                                  mutationApply.mutate({
+                                    "status": true,
+                                    "phone": course.phone,
+                                    "name": course.name
+                                  })
+                                }} />
+                                <CButton children="Delete" id="delete" variant="outlined" onClick={() => {
+                                  setAplly(false)
+                                  mutationApply.mutate({
+                                    "status": false,
+                                    "phone": course.phone,
+                                    "name": course.name
+                                  })
+                                }} />
                               </div>
                             </div>
                           </div>
@@ -76,13 +106,19 @@ const Todo = () => {
                     {!isLoading && !isError && data.data.list_request ?
                       data.data.list_request.length === 0 ? <div className='notiAll-request__null'>Not friend requests send yet</div> :
                         data.data.list_request.map((course, index) => (
-                          < div key={index} className="notiAll-wait__person">
+                          < div key={index} className="notiAll-request__person">
                             <CAvatar />
                             <div className="notiAll-person__infor">
-                              <span>{course.phone}</span>
+                              <span>{course.name}</span>
                               <div className="notiAll-person__funtion">
-                                <CButton children="Confirm" />
-                                <CButton children="Delete" id="delete" variant="outlined" />
+                                <CButton children="Cancel" id="cancel" variant="outlined" onClick={() => {
+                                  setAplly(false)
+                                  mutationApply.mutate({
+                                    "status": "cancel",
+                                    "phone": course.phone,
+                                    "name": course.name
+                                  })
+                                }} />
                               </div>
                             </div>
                           </div>

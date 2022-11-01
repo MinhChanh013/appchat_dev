@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-const CModalRename = ({ children }) => {
+const CModalRename = ({ children, name }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -45,7 +45,7 @@ const CModalRename = ({ children }) => {
               Choose a memorable name for Duxica Team. <br />
               Notice: This alias will only be shown to you
             </p>
-            <CTextField className="form_chat" label="Enter name..."/>
+            <CTextField name={name} className="form_chat" label="Enter name..."/>
           </div>
           <div className="modal-rename__footer">
             <CButton> Save</CButton>

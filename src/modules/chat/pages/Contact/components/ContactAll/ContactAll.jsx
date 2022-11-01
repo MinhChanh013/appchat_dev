@@ -22,15 +22,14 @@ import io from "socket.io-client"
 
 // api
 import { getAllFriend } from "@/apis/friend.api"
-import { getChatPrivated, createChatPrivated } from "@/apis/chat.api"
+import { getChatPrivated } from "@/apis/chat.api"
 
 import "./assets/ContactAll.scss"
 
 const socket = io.connect("http://localhost:4001");
 
 const ContactAll = () => {
-    const [getApiCreate, setGetApiCreate] = React.useState(false)
-    const [phone, setPhone] = React.useState("")
+    
     const [dataFriend, setDataFriend] = React.useState("")
     const { isError, isLoading, data } = useQuery(['showFriend'], () => {
         return getAllFriend()
@@ -39,19 +38,9 @@ const ContactAll = () => {
     const [activeFunction, setActiveFuntion] = useState("list-chat")
 
     const handelMuChatPrivated = useMutation((value) => {
-        setGetApiCreate(true)
         return getChatPrivated(value)
     })
 
-    const handelMuCreateChatPrivated = useMutation((phone) => {
-        return createChatPrivated(phone)
-    })
-
-    if (getApiCreate && !handelMuChatPrivated.isLoading && !handelMuChatPrivated.isError
-        && handelMuChatPrivated.data && handelMuChatPrivated.data.data.data[0] === undefined) {
-        setGetApiCreate(false)
-        handelMuCreateChatPrivated.mutate([{ phone: phone }])
-    }
 
     return (
         <div className='ContactAll'>
@@ -91,9 +80,9 @@ const ContactAll = () => {
                                     {data.data.list_friend.map((course, index) => (
                                         <div onClick={() => {
                                             setActiveFuntion(index)
-                                            setPhone(course.phone)
+                                            // setPhone(course.phone)
                                             setDataFriend(course)
-                                            handelMuChatPrivated.mutate(course)
+                                            handelMuChatPrivated.mutate(course.phone)
                                         }} key={index} className={`chatAll-main__person ${activeFunction === index ? "active" : ""}`}>
                                             <CAvatar image={course.avatar} /> <span>{course.name}</span>
                                         </div>
@@ -107,15 +96,13 @@ const ContactAll = () => {
             {
                 activeFunction === "list-chat" ?
                     <div className='contactAll-main'><ContactContainer /></div> :
-                    !handelMuChatPrivated.isLoading && !handelMuChatPrivated.isError
-                        && handelMuChatPrivated.data && handelMuChatPrivated.data.data.data[0] !== undefined
-                        ?
-                        <ChatMain socket={socket} room={handelMuChatPrivated.data.data.data[0]._id}
-                            dataRoom={handelMuChatPrivated.data.data.data[0]} dataFriend={dataFriend} />
+                    !handelMuChatPrivated.isLoading && !handelMuChatPrivated.isError ?
+                        < ChatMain socket={socket} room={handelMuChatPrivated.data.data[0]._id}
+                            dataRoom={handelMuChatPrivated.data.data[0]} dataFriend={dataFriend} />
                         :
                         ""
             }
-        </div>
+        </div> 
     )
 }
 

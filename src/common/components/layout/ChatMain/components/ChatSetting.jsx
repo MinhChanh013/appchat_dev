@@ -25,7 +25,7 @@ import person3 from "@common/assets/images/person3.png"
 import person4 from "@common/assets/images/person4.png"
 
 import "../../../../assets/styles/layout/ChatSetting.scss"
-const ChatSetting = ({ isopen, team, dataRoom, dataFriend }) => {
+const ChatSetting = ({ refetch, data, isopen, team, dataRoom, dataFriend }) => {
     const member = [
         {
             avatar: person1,
@@ -79,10 +79,10 @@ const ChatSetting = ({ isopen, team, dataRoom, dataFriend }) => {
                 </div>
                 <div className="chatSetting-container__main">
                     <div className="chatSetting-main__infor">
-                        <MeProfile> <CAvatar /></MeProfile>
+                        <MeProfile refetch={refetch} data={data}> <CAvatar /></MeProfile>
                         <div className="chatSetting-infor__name">
                             <h3>{dataFriend && dataFriend.name}</h3>
-                            <CModalRename><CIconButton icon={<BiPaint />} /></CModalRename>
+                            <CModalRename name={dataFriend && dataFriend.name}><CIconButton icon={<BiPaint />} /></CModalRename>
                         </div>
                     </div>
                     <div className="chatSetting-main__function">

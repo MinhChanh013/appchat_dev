@@ -2,7 +2,7 @@ import { CHAT } from "./_constant";
 import { request_api } from "./request";
 
 export const getChatPrivated = async (values) => {
-  return await request_api().get(`${CHAT.GETCHATPRIVATED}/${values.phone}/2`);
+  return await request_api().get(`${CHAT.GETCHATPRIVATED}/${values}/2`);
 };
 
 export const createChatPrivated = async (member, name) => {
@@ -11,3 +11,7 @@ export const createChatPrivated = async (member, name) => {
     name: name,
   });
 };
+
+export const getAllChat = async() => {
+  return await request_api().get(CHAT.GETCHATALL)
+}

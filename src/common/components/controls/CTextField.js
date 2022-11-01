@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import "../../assets/styles/controls/CTextField.scss";
 
 const CTextField = ({
+  name,
   registerName,
   className,
   label,
@@ -17,6 +18,7 @@ const CTextField = ({
         label={label}
         variant={variant}
         type={type}
+        defaultValue={name ? name : ""}
       />
     </span>
   );

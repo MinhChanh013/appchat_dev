@@ -4,11 +4,11 @@ import CAvatar from "@common/components/controls/CAvatar"
 import MeProfile from '../../Profile/MeProfile/MeProfile'
 import "../assets/styles/ItemChat.scss"
 
-const ItemChat = ({ className, person, avatar, mess, time, name }) => {
+const ItemChat = ({me, data, refetch, className, person, avatar, mess, time, name }) => {
     return (
         <div className={`itemChat ${person ? "me" : ""} ${className ? className : ""}`}>
             <div className="itemChat-container">
-                {avatar ? <MeProfile><CAvatar image={avatar} /></MeProfile> : ""}
+                {avatar ? <MeProfile me refetch={refetch} data={data}><CAvatar image={avatar} /></MeProfile> : ""}
                 <div className="itemChat-cotainer__context">
                     <div className="itemChat-context__name">
                         {name ? <span> {name} </span> : ""}
