@@ -2,7 +2,8 @@ import React from "react";
 // components
 import Avatar from "@mui/material/Avatar";
 import "../../assets/styles/controls/CAvatar.scss";
-const CAvatar = ({ image, border }) => {
+import person4 from "../../../common/assets/images/person4.png";
+const CAvatar = ({ image = person4, border }) => {
   return (
     <div className={`avatar ${border ? "border" : ""}`}>
       <div className="avatar_container">

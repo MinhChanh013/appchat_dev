@@ -12,6 +12,10 @@ export const createChatPrivated = async (member, name) => {
   });
 };
 
-export const getAllChat = async() => {
-  return await request_api().get(CHAT.GETCHATALL)
-}
+export const getAllChat = async () => {
+  return await request_api().get(CHAT.GETCHATALL);
+};
+
+export const getIdChat = async (id) => {
+  return await request_api().get(`${CHAT.GETCHATALL}/${id}`);
+};

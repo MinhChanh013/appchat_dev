@@ -1,15 +1,15 @@
 import React from 'react'
 
-import { useLocation } from 'react-router-dom'
+// import { useLocation } from 'react-router-dom'
 // scss
 import "./assets/Mess.scss"
 //components
 import ChatAll from './components/ChatAll/ChatAll'
 
-import CAleart from '@common/components/controls/CAleart'
+// import CAleart from '@common/components/controls/CAleart'
 
 const Mess = ({ myUser }) => {
-  const alert = useLocation()
+  // const alert = useLocation()
 
   return (
     <div className='message'>

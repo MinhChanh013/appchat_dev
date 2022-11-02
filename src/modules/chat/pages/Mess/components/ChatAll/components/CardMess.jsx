@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // component
 import CAvatar from "@common/components/controls/CAvatar"
@@ -6,7 +6,16 @@ import CBadge from '@common/components/controls/CBadge'
 import MenuCardMess from './MenuCardMess';
 
 import "../assets/styles/CardMess.scss"
-const CardMess = ({ dataChat, myUser, onClick, activeCardMess, index }) => {
+const CardMess = ({ room, socket, dataChat, myUser, onClick, activeCardMess, index }) => {
+    const [reviewMess, setReviewMess] = React.useState(dataChat.list_message[0] && dataChat.list_message[0].mess_content)
+    useEffect(() => {
+        socket.on("receive_message", (data) => {
+            if (data.id_room === room) {
+                setReviewMess(data.data.mess_content);
+            }
+        });
+    }, [socket, room]);
+
     return (
         <div className={`cardMess ${activeCardMess === index ? "active" : ""} `} onClick={onClick}>
             <div className="cardMess-container">
@@ -21,7 +30,7 @@ const CardMess = ({ dataChat, myUser, onClick, activeCardMess, index }) => {
                     ))
                         : ""
                     }
-                    <div className="cardMess-mess__chat">{dataChat !== undefined ? dataChat.list_message.length === 0 ? "Now click and send message" : dataChat.list_message[0].mess_content : ""}</div>
+                    <div className="cardMess-mess__chat">{dataChat !== undefined ? dataChat.list_message.length === 0 ? "Now click and send message" : reviewMess : ""}</div>
                 </div>
                 <div className="cardMess-container__infor">
                     <div className="cardMess-infor__status">

@@ -20,8 +20,8 @@ import GolfCourseIcon from '@mui/icons-material/GolfCourse';
 import TelegramIcon from '@mui/icons-material/Telegram';
 
 // api 
-import { getAllChat } from "@/apis/chat.api"
-import { useQuery } from "@tanstack/react-query"
+import { getAllChat, getIdChat } from "@/apis/chat.api"
+import { useQuery, useMutation } from "@tanstack/react-query"
 
 import "../../assets/ChatAll.scss"
 
@@ -33,10 +33,13 @@ const socket = io.connect("http://localhost:4001");
 
 const ChatAll = ({ myUser }) => {
   const [activeCardMess, setActiveCardMess] = useState("")
-  const [dataRoom, setDataRoom] = useState("")
   const [dataFriend, setDataFriend] = useState("")
-  const { isLoading, isError, error, data } = useQuery(['getAllChat'], () => {
+  const { isLoading, isError, error, data, refetch } = useQuery(['getAllChat'], () => {
     return getAllChat()
+  })
+
+  const muTationGetChat = useMutation((value) => {
+    return getIdChat(value)
   })
 
   if (!isLoading && isError) {
@@ -85,15 +88,21 @@ const ChatAll = ({ myUser }) => {
                 <div className="chatall-pin__header"><TelegramIcon /><span>ALL MESSAGES</span></div>
                 <div className="chatall-pin__main">
                   {!isLoading &&
-                    data.data.data.map((course, index) => (
-                      <CardMess onClick={() => {
-                        setActiveCardMess(index)
-                        setDataRoom(course)
-                        course.list_message.map((course) => {
-                          return myUser && myUser.data.phone !== course.arthor.phone && setDataFriend(course.arthor)
-                        })
-                      }} key={index} index={index} activeCardMess={activeCardMess} dataChat={course} myUser={myUser} />
-                    ))
+                    data.data.data.map((course, index) => {
+                      socket.emit("join_room", course._id);
+                      return (
+                        <CardMess onClick={() => {
+                          refetch()
+                          setActiveCardMess(index)
+                          muTationGetChat.mutate(course._id)
+                          // setDataRoom(course)
+                          course.list_message.map((course) => {
+                            return myUser && myUser.data.phone !== course.arthor.phone && setDataFriend(course.arthor)
+                          })
+                        }} room={course._id} socket={socket} key={index} index={index} activeCardMess={activeCardMess} dataChat={course} myUser={myUser} />
+                      )
+                    }
+                    )
                   }
                 </div>
               </div>
@@ -101,7 +110,7 @@ const ChatAll = ({ myUser }) => {
           </div>
         </div>
       </div>
-      <ChatMain socket={socket} room={dataRoom._id} dataRoom={dataRoom} dataFriend={dataFriend} />
+      {!muTationGetChat.isLoading && !muTationGetChat.isError && muTationGetChat.data && <ChatMain socket={socket} dataRoom={muTationGetChat.data.data} dataFriend={dataFriend} />}
     </>
 
   )
