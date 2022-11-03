@@ -28,7 +28,9 @@ const CardMess = ({ room, socket, dataChat, myUser, onClick, activeCardMess, ind
                             {myUser && myUser.data.phone !== course.phone && course.nickname}
                         </div>
                     ))
-                        : ""
+                        : <div className="cardMess-mess__name">
+                            {dataChat.name_room}
+                        </div>
                     }
                     <div className="cardMess-mess__chat">{dataChat !== undefined ? dataChat.list_message.length === 0 ? "Now click and send message" : reviewMess : ""}</div>
                 </div>

@@ -29,6 +29,20 @@
           }
         }
       }
+      .group-image__message {
+        &.group {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+        }
+
+        .image-context__message {
+          width: 100%;
+          border-radius: 8px;
+          overflow: hidden;
+          cursor: pointer;
+        }
+      }
 
       .itemChat-context__mess {
         background-color: #fff;
@@ -62,12 +76,12 @@
           padding-right: unset;
           width: unset;
 
-          span{
-            &:nth-child(1){
+          span {
+            &:nth-child(1) {
               font-weight: 400;
               margin-right: unset;
             }
-            &:nth-child(2){
+            &:nth-child(2) {
               margin-right: 10px;
             }
           }

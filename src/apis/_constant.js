@@ -22,9 +22,13 @@ export const FRIEND = {
 export const CHAT = {
   GETCHATPRIVATED: "/listchat",
   CREATECHATPRIVATED: "/listchat",
-  GETCHATALL: "/listchat"
+  GETCHATALL: "/listchat",
 };
 
 export const MESSAGE = {
-  ADDMESSAGE: "/listmessage/addMessage"
-}
+  ADDMESSAGE: "/listmessage/addMessage",
+};
+
+export const IMAGES = {
+  UPLOADIMAGE: "/images",
+};

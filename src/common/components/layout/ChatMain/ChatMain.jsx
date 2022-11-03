@@ -27,9 +27,9 @@ import { BsTextareaT } from "react-icons/bs";
 import { getProfile } from "@/apis/auth.api"
 import { requestAddMessage } from "@/apis/message.api"
 import { findPhone } from "@/apis/user.api"
+import { uploadFile } from "@/apis/image.api"
 
 import { useQuery } from "@tanstack/react-query"
-import axios from 'axios';
 
 // icon
 import person3 from "@common/assets/images/person3.png"
@@ -86,30 +86,35 @@ const ChatMain = ({ socket, dataRoom, dataFriend }) => {
     setWait(true)
   }, [socket, dataRoom._id])
 
-  // upload image
-  const onSelectFile = async (event) => {
-    const file = event.target.files[0];
-    const convertedFile = await convertToBase64(file);
+  // upload file
+  const handelUploadImage = (image) => {
+    ;
+    const formData = new FormData()
+    for (let i = 0; i < image.length; i++) {
+      formData.append("image", image[i])
+    }
+    uploadFile(formData).then((course) => {
+      let text_file = ""
+      course.data.path.forEach((pathContex) => {
+        text_file += `,${pathContex.imagePath}`
+      })
 
-    const s3URL = await axios.post(
-      'http://localhost:3001/upload',
-      {
-        image: convertedFile,
-        imageName: file.name
+      const messageData = {
+        avatar: person3,
+        id_room: dataRoom._id,
+        mess_content: text_file,
+        type_message: "image",
+        name: data && `${data.data.first_name} ${data.data.last_name}`,
+        list_member: dataRoom.list_member,
+        time: new Date()
       }
-    );
-  }
-
-  const convertToBase64 = (file) => {
-    return new Promise(resolve => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        resolve(reader.result);
+      requestAddMessage(messageData).then(data => {
+        socket.emit("send_message", { data: { data: data.data, id_room: dataRoom._id } })
       }
+      )
     })
+      .catch(err => console.log(err))
   }
-
   return (
     <div className='chatmain'>
       <div className="chatmain-container">
@@ -142,17 +147,16 @@ const ChatMain = ({ socket, dataRoom, dataFriend }) => {
             {/* <ScrollToBottom> */}
             <div className="chat-show__container">
               {wait ? "" : messageList.map((course, index) => {
-                console.log(messageList);
                 if (index + 1 === messageList.length) {
                   return (
                     !isLoading && course.arthor.name === `${data.data.first_name} ${data.data.last_name}` ? <div key={index} className="chat-container__me">
-                      <ItemChat avatar mess={course.mess_content}
+                      <ItemChat type_message={course.type_message} avatar mess={course.mess_content}
                         time={new Date(course.time).getHours() + ':' + new Date(course.time).getMinutes()}
                         name="You" person />
                     </div>
                       :
                       <div key={index} className="chat-container__friend">
-                        <ItemChat refetch={refetchFriend} data={!isLoadingFriend && !isError && dataProfileFriend.data} avatar mess={course.mess_content}
+                        <ItemChat type_message={course.type_message} refetch={refetchFriend} data={!isLoadingFriend && !isError && dataProfileFriend.data} avatar mess={course.mess_content}
                           time={new Date(course.time).getHours() + ':' + new Date(course.time).getMinutes()}
                           name={course.arthor.name} />
                       </div>
@@ -160,7 +164,6 @@ const ChatMain = ({ socket, dataRoom, dataFriend }) => {
                 }
                 else {
                   const willChat = messageList[index + 1]
-
                   const hourWill = new Date(willChat.time).getHours()
                   const minutesWill = new Date(willChat.time).getMinutes()
                   const hourPresent = new Date(course.time).getHours()
@@ -233,13 +236,13 @@ const ChatMain = ({ socket, dataRoom, dataFriend }) => {
                 const date = new Date(course.time)
                 return (
                   !isLoading && course.arthor.name === `${data.data.first_name} ${data.data.last_name}` ? <div key={index} className="chat-container__me">
-                    <ItemChat me data={data.data} avatar={person3} mess={course.mess_content}
+                    <ItemChat type_message={course.type_message} me data={data.data} avatar={person3} mess={course.mess_content}
                       time={date.getHours() + ':' + date.getMinutes()}
                       name="You" person />
                   </div>
                     :
                     <div key={index} className="chat-container__friend">
-                      <ItemChat refetch={refetchFriend} data={!isLoadingFriend && !isError && dataProfileFriend.data} avatar={person3} mess={course.mess_content}
+                      <ItemChat type_message={course.type_message} refetch={refetchFriend} data={!isLoadingFriend && !isError && dataProfileFriend.data} avatar={person3} mess={course.mess_content}
                         time={date.getHours() + ':' + date.getMinutes()}
                         name={!isLoading && course.arthor.name} />
                     </div>
@@ -251,7 +254,11 @@ const ChatMain = ({ socket, dataRoom, dataFriend }) => {
           <div className="chatmain-main__type">
             <div className="chatmain-type__function">
               <IconButton color="primary" aria-label="upload picture" component="label">
-                <input hidden accept="image/*" type="file" onChange={onSelectFile} />
+                <input hidden accept="image/*" type="file" multiple onChange={(e) => {
+                  const file = e.target.files
+                  handelUploadImage(file)
+
+                }} />
                 <IoImagesOutline />
               </IconButton>
               <CIconButton icon={<IoTimeOutline />} />
