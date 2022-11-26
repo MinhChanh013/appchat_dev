@@ -8,3 +8,7 @@ export const getallUser = async () => {
 export const findPhone = async (phone) => {
   return await request_api().get(`${USER.FINDPHONE}/${phone}`);
 };
+
+export const findPhoneNotMe = async (phone) => {
+  return await request_api().get(`${USER.FINDPHONENOTME}/${phone}`);
+};

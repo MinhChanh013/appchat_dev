@@ -100,10 +100,19 @@
           padding: 15px 20px;
           height: 100%;
           overflow-y: scroll;
+          overflow-x: hidden;
           display: flex;
           flex-direction: column-reverse;
           width: 100%;
 
+          .chat-show__status {
+            display: block;
+            font-size: 14px;
+            color: rgb(100, 99, 99);
+            width: 10px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
           &::-webkit-scrollbar {
             width: 7px;
             background: rgba($color: #f0efef, $alpha: 0.5);
@@ -122,11 +131,49 @@
             display: flex;
             width: 100%;
             justify-content: flex-start;
+            align-items: flex-end;
+            &:hover {
+              .chat-container__funtion {
+                opacity: 1;
+                svg {
+                  &:hover {
+                    color: #17a4c4;
+                  }
+                }
+              }
+            }
+
+            .chat-container__funtion {
+              display: flex;
+              opacity: 0;
+              // margin-bottom: 10px;
+              transition: opacity 0.3s ease-in-out;
+            }
           }
           .chat-container__me {
             width: 100%;
             display: flex;
             justify-content: flex-end;
+            align-items: flex-end;
+
+            &:hover {
+              .chat-container__funtion {
+                opacity: 1;
+                z-index: 9;
+                svg {
+                  &:hover {
+                    color: #17a4c4;
+                  }
+                }
+              }
+            }
+
+            .chat-container__funtion {
+              display: flex;
+              opacity: 0;
+              // margin-bottom: 10px;
+              transition: opacity 0.3s ease-in-out;
+            }
           }
         }
       }

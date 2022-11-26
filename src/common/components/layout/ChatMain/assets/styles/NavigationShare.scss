@@ -3,4 +3,11 @@
     cursor: pointer;
     overflow: hidden;
   }
+  .icon-file__setting {
+    svg {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+    }
+  }
 }

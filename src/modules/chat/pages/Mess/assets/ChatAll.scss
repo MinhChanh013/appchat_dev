@@ -87,8 +87,8 @@
           .MuiOutlinedInput-notchedOutline {
             border: 2px solid rgb(101, 174, 239);
 
-            &:hover{
-            border: 2px solid rgb(55, 121, 180);
+            &:hover {
+              border: 2px solid rgb(55, 121, 180);
             }
           }
         }
@@ -140,5 +140,17 @@
         }
       }
     }
+  }
+}
+
+.bgchat_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #fcfbfd;
+  video {
+    width: 30%;
+    object-fit: cover;
   }
 }

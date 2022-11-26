@@ -1,10 +1,10 @@
 import React from 'react'
 
 import ContactAll from "./components/ContactAll/ContactAll"
-const Contact = () => {
+const Contact = ({ friendActive, myUser }) => {
     return (
         <div className='contact'>
-            <ContactAll />
+            <ContactAll friendActive={friendActive} myUser={myUser} />
         </div>
     )
 }

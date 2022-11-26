@@ -8,7 +8,6 @@ import CMenu from '@common/components/controls/CMenu'
 import BackgroundIcon from '@common/components/others/BackgroundIcon'
 import CTooltip from '@common/components/controls/CTooltip'
 // image
-import AvatarImgae from "@common/assets/images/avatar.jpg"
 import logo from "@common/assets/images/logo.png"
 // icon
 import CommentIcon from '@mui/icons-material/Comment';
@@ -16,14 +15,29 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import "../../assets/styles/layouts/Header.scss"
-const Header = () => {
-    
+
+// component
+import CAleart from '../../../../common/components/controls/CAleart'
+import { toast } from "react-toastify"
+
+// api
+import { getProfile } from "@/apis/auth.api"
+import { useQuery } from "@tanstack/react-query"
+
+const Header = ({ socket }) => {
+    const { isLoading, isError, data, error } = useQuery(['getProfileHeader'], () => {
+        return getProfile()
+    })
+
+    !isLoading && isError && toast.error(error.message)
+
     return (
         <header className='header__main'>
+            <CAleart />
             <div className="header-container">
                 <div className="header-container__infor">
                     <img src={logo} className="header-infor__logo" alt="" />
-                    <CMenu CAvatar={<Avatar border image={AvatarImgae} />} />
+                    <CMenu socket={socket} CAvatar={<Avatar border image={!isLoading && !isError && data.data.avatar} />} />
                 </div>
                 <div className="header-container__main">
                     <ul>
@@ -54,18 +68,18 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="header-container__system">
-                    <CSwitch 
-                    // checked={darkmode}
-                     onClick={() => {
-                        // if (darkmode === "mode") {
-                        //     document.cookie = "darkmode = dark"
-                        //     setDarkmode("dark")
-                        // }
-                        // else {
-                        //     document.cookie = "darkmode = mode"
-                        //     setDarkmode("mode")
-                        // }
-                    }} />
+                    <CSwitch
+                        // checked={darkmode}
+                        onClick={() => {
+                            // if (darkmode === "mode") {
+                            //     document.cookie = "darkmode = dark"
+                            //     setDarkmode("dark")
+                            // }
+                            // else {
+                            //     document.cookie = "darkmode = mode"
+                            //     setDarkmode("mode")
+                            // }
+                        }} />
                 </div>
             </div>
         </header>

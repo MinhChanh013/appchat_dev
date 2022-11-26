@@ -28,8 +28,8 @@ import "./assets/ContactAll.scss"
 
 const socket = io.connect("http://localhost:4001");
 
-const ContactAll = () => {
-    
+const ContactAll = ({ friendActive, myUser }) => {
+
     const [dataFriend, setDataFriend] = React.useState("")
     const { isError, isLoading, data } = useQuery(['showFriend'], () => {
         return getAllFriend()
@@ -97,12 +97,12 @@ const ContactAll = () => {
                 activeFunction === "list-chat" ?
                     <div className='contactAll-main'><ContactContainer /></div> :
                     !handelMuChatPrivated.isLoading && !handelMuChatPrivated.isError ?
-                        < ChatMain socket={socket} room={handelMuChatPrivated.data.data[0]._id}
-                            dataRoom={handelMuChatPrivated.data.data[0]} dataFriend={dataFriend} />
+                        < ChatMain socket={socket} room={handelMuChatPrivated.data.data[0]._id} friendActive={friendActive}
+                            myUser={myUser} dataRoom={handelMuChatPrivated.data.data[0]} dataFriend={dataFriend} />
                         :
                         ""
             }
-        </div> 
+        </div>
     )
 }
 

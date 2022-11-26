@@ -11,28 +11,32 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
+import { FileIcon } from "react-file-icon";
+import defaultStyles from './defaultStyles';
+import { styleDefObj } from "./style-customize";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ModalImage from './ModalImage';
 import "../assets/styles/NavigationShare.scss"
-const NavigationShare = () => {
+const NavigationShare = ({ dataAllFile, dataAllImage }) => {
+    
     const [value, setValue] = React.useState(0);
-    const [data, setData] = React.useState(image);
+    const [data, setData] = React.useState(dataAllImage && dataAllImage);
     const ref = React.useRef(null);
-
 
     return (
         <Box sx={{ pt: 7 }} ref={ref} className="NavigationShare">
             <CssBaseline />
             {value === 1 || value === 2 ? (
                 <List>
-                    {data.map((course, index) => (
+                    {data && data.map((course, index) => (
                         <ListItem button key={index}>
-                            <ListItemAvatar>
-                                <Avatar alt="Profile Picture" src={course.avatar} />
+                            <ListItemAvatar className='icon-file__setting'>
+                                <FileIcon extension={course.type_message.name.split(".")[course.type_message.name.split(".").length - 1]}
+                                    {...defaultStyles[course.type_message.name.split(".")[course.type_message.name.split(".").length - 1]]}
+                                    {...styleDefObj[course.type_message.name.split(".")[course.type_message.name.split(".").length - 1]]} />
                             </ListItemAvatar>
-                            <ListItemText primary={course.name} secondary={course.content} />
+                            <ListItemText primary={course.type_message.name} secondary={`${course.type_message.size} KB`} />
                         </ListItem>
                     ))}
                 </List>
@@ -42,11 +46,21 @@ const NavigationShare = () => {
                     gap={8}
                     rowHeight={100}
                 >
-                    {data.map((course, index) => (
-                        <ImageListItem key={index} >
-                            <ModalImage image={<img src={course.image} alt="" />} />
-                        </ImageListItem>
-                    ))}
+                    {data && data.map((course, index) => {
+                        let newArrImg = course.mess_content.split(",")
+                        return (
+                            <>
+                                {
+                                    newArrImg.map((img, indexImg) => (
+                                        indexImg > 0 && <ImageListItem key={indexImg} >
+                                            <ModalImage image={<img src={img} alt="" />} />
+                                        </ImageListItem>
+                                    ))
+                                }
+                            </>
+                        )
+                    }
+                    )}
                 </ImageList>
             )}
 
@@ -59,84 +73,21 @@ const NavigationShare = () => {
                     value={value}
                     onChange={(event, newValue) => {
                         if (newValue === 0) {
-                            setData(image);
+                            setData(dataAllImage && dataAllImage);
                         } else if (newValue === 1) {
-                            setData(file);
-                        } else setData(link);
+                            setData(dataAllFile && dataAllFile);
+                        }
                         setValue(newValue);
                     }}
                 >
                     <BottomNavigationAction label="image" icon={<RestoreIcon />} />
                     <BottomNavigationAction label="file" icon={<FavoriteIcon />} />
-                    <BottomNavigationAction label="link" icon={<ArchiveIcon />} />
                 </BottomNavigation>
             </Paper>
         </Box>
 
     )
 }
-
-
-const image = [
-    {
-        image:
-            "https://cdn.dribbble.com/userupload/3699788/file/original-e6c1c03f28b4c8ce80bbe7464159161e.png?compress=1&resize=1200x900"
-    },
-    {
-        image:
-            "https://cdn.dribbble.com/userupload/3661773/file/original-e9ae13219ac519c2342070c48dba7fef.png?compress=1&resize=1200x900"
-    },
-    {
-        image:
-            "https://cdn.dribbble.com/userupload/3001921/file/original-b21731c2edd851069f3f8991eb9476c9.png?compress=1&resize=1200x900"
-    },
-    {
-        image:
-            "https://cdn.dribbble.com/userupload/3536610/file/original-e7ef8e8737ff4c9bc8c933e011ed9a44.png?compress=1&resize=1200x900"
-    },
-    {
-        image:
-            "https://cdn.dribbble.com/userupload/2769977/file/original-32b712fe41b21ec1691a62742b46bc17.png?compress=1&resize=1200x900"
-    },
-    {
-        image:
-            "https://cdn.dribbble.com/userupload/3024720/file/original-f5570810f4bd1899bed579586512dee6.png?compress=1&resize=1200x900"
-    },
-    {
-        image:
-            "https://cdn.dribbble.com/userupload/3264730/file/original-2bd3443b4b260a9b4372ca36917d8db6.png?compress=1&resize=1200x900"
-    },
-    {
-        image:
-            "https://cdn.dribbble.com/users/4835348/screenshots/17654597/media/c950f8c83af3196aba7385dafc6b5528.png?compress=1&resize=1000x750&vertical=top"
-    },
-    {
-        image:
-            "https://cdn.dribbble.com/users/4835348/screenshots/17068312/media/68fd616b39133c5a7ec33c05db5584fb.png?compress=1&resize=1000x750&vertical=top"
-    },
-    {
-        image:
-            "https://cdn.dribbble.com/userupload/3363507/file/original-e6dfe63fd49b75f053bfd3ca82251492.png?compress=1&resize=1200x900"
-    },
-];
-
-const file = [
-    {
-        avatar:
-            "https://play-lh.googleusercontent.com/1nfAdJs2Ep2q1skM7QwJ1uHooWSbpFkbIBHhAX6EmdzEKmtk42713TiTU28mWlkcFKPA",
-        content: "demo",
-        name: "name"
-    }
-];
-
-const link = [
-    {
-        avatar:
-            "https://play-lh.googleusercontent.com/1nfAdJs2Ep2q1skM7QwJ1uHooWSbpFkbIBHhAX6EmdzEKmtk42713TiTU28mWlkcFKPA",
-        content: "https://mui.com/material-ui/react-bottom-navigation/",
-        name: "name"
-    }
-];
 
 
 export default NavigationShare

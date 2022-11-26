@@ -1,0 +1,18 @@
+.item-function__message {
+  font-size: 16px;
+  gap: 10px;
+  display: flex;
+  svg {
+    font-size: 18px;
+  }
+  &:hover {
+    color: #17a4c4;
+  }
+
+  &:nth-child(2),
+  &:nth-child(3) {
+    &:hover {
+      color: rgb(226, 105, 105);
+    }
+  }
+}

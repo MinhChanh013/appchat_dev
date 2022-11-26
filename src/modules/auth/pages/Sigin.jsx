@@ -28,7 +28,7 @@ const Sigin = () => {
         return loginApi(values)
     });
     if (!hideAleart && !mutate.isLoading && !mutate.isError) {
-        document.cookie = `token_api=${mutate.data.data.token}`;
+        document.cookie = `token_api=${mutate.data.data.token}; Path=/; Expires=${Date()};`;
         changeNavigate("/chats/message", { state: { "alert": "success", "data": mutate.data.data } })
     }
     return (

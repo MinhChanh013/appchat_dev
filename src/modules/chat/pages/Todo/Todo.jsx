@@ -6,6 +6,7 @@ import CAvatar from '../../../../common/components/controls/CAvatar';
 import CButton from '../../../../common/components/controls/CButton';
 import CAleart from '../../../../common/components/controls/CAleart';
 
+import vdBackChat from "@common/assets/images/back_chat.mp4"
 // icon
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
@@ -131,7 +132,11 @@ const Todo = () => {
               </div>
             </div>
           </div>
-          <div className="notification-container__notiMain"></div>
+          <div className='bgchat_container'>
+            <video className='' autoPlay loop muted>
+              <source src={vdBackChat} type='video/mp4' />
+            </video>
+          </div>
         </div>
       </div>
     </div >

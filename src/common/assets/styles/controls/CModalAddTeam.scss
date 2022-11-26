@@ -41,6 +41,15 @@
   .modal-addTeam__search {
     position: relative;
   }
+
+  .modal-addTeam__listFriend {
+    h4 {
+      font-size: 16px;
+      font-weight: 400;
+      padding: 10px 0;
+    }
+  }
+
   .list__friend-modalAdd {
     &::-webkit-scrollbar {
       width: 7px;
@@ -55,6 +64,15 @@
       &:active {
         background: rgba($color: #4190c1, $alpha: 0.5);
       }
+    }
+  }
+  .btn-modal_createTeam {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 30px;
+    .MuiButtonBase-root{
+      padding: 13px 15px;
+      font-weight: 400;
     }
   }
 }

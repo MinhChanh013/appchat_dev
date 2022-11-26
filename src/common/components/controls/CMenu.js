@@ -12,11 +12,14 @@ import Logout from "@mui/icons-material/Logout";
 
 import { getProfile } from "@/apis/auth.api";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { offlineUser } from "@/apis/auth.api";
 // components
 import MeProfile from "../layout/Profile/MeProfile/MeProfile";
 
 import "../../assets/styles/controls/CMenu.scss";
-const CMenu = ({ CAvatar }) => {
+const CMenu = ({ CAvatar, socket }) => {
+  const changeNavigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [activeModal, setActiveModal] = React.useState(false);
   const open = Boolean(anchorEl);
@@ -99,14 +102,26 @@ const CMenu = ({ CAvatar }) => {
             Settings
           </MenuItem>
           <MenuItem>
-            <ListItemIcon>
-              <Logout fontSize="small" />
-            </ListItemIcon>
-            Logout
+            <div
+              onClick={() => {
+                offlineUser();
+                socket.disconnect();
+                document.cookie = `token_api=; Path=/; Expires=${Date()};`;
+                changeNavigate("/", { state: { alert: "Logout success" } });
+              }}
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </div>
           </MenuItem>
         </Menu>
       </React.Fragment>
-      {!isLoading && activeModal && <MeProfile activeModal={activeModal} me data={data.data} />}
+      {!isLoading && activeModal && (
+        <MeProfile activeModal={activeModal} me data={data.data} />
+      )}
     </div>
   );
 };

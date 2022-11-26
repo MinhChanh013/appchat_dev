@@ -9,6 +9,7 @@ import CButton from '@common/components/controls/CButton'
 import Button from '@mui/material/Button';
 import MeProfile from '../../Profile/MeProfile/MeProfile'
 import CModalRename from '../../../controls/CModalRename'
+import CModalSettingRole from './CModalSettingRole'
 
 // icon
 import { GoSettings, GoPlus } from "react-icons/go";
@@ -16,61 +17,29 @@ import { BiPaint, BiHide } from "react-icons/bi";
 import { IoNotificationsOutline, IoPersonOutline, IoSettingsOutline, IoExitOutline } from "react-icons/io5";
 import { BsPinAngle, BsShare } from "react-icons/bs";
 import { AiOutlineDelete } from "react-icons/ai";
+import { FiSettings } from "react-icons/fi";
 
-
-// image
-import person1 from "@common/assets/images/person1.png"
-import person2 from "@common/assets/images/person2.png"
-import person3 from "@common/assets/images/person3.png"
-import person4 from "@common/assets/images/person4.png"
+// api
+import { deleteHistoryChat, requestGetAllImages, requestGetAllFiles } from "@/apis/chat.api"
+import { useMutation } from "@tanstack/react-query"
 
 import "../../../../assets/styles/layout/ChatSetting.scss"
-const ChatSetting = ({ refetch, data, isopen, team, dataRoom, dataFriend }) => {
-    const member = [
-        {
-            avatar: person1,
-            name: "Hooman",
-            friend: true,
-            owner: "Owner",
-        },
-        {
-            avatar: person2,
-            name: "Alireza",
-            friend: true,
-            owner: "UI/UX DESIGNER",
-        },
-        {
-            avatar: person3,
-            name: "Mohammadreza",
-            friend: false,
-            owner: "3D DESIGNER",
-        },
-        {
-            avatar: person4,
-            name: "Hossein",
-            friend: false,
-            owner: "UI/UX DESIGNER",
-        },
-        {
-            avatar: person2,
-            name: "Alireza",
-            friend: true,
-            owner: "UI/UX DESIGNER",
-        },
-        {
-            avatar: person3,
-            name: "Mohammadreza",
-            friend: false,
-            owner: "3D DESIGNER",
-        },
-        {
-            avatar: person4,
-            name: "Hossein",
-            friend: false,
-            owner: "UI/UX DESIGNER",
-        },
+const ChatSetting = ({ socket, dataListMember, myUser, idRoomChange, nameRoomChange,
+    refetch, data, isopen, team, dataRoom, dataFriend }) => {
 
-    ]
+    const mutationGetAllFile = useMutation((value) => {
+        return requestGetAllFiles({ "_id": value })
+    })
+
+    const mutationGetAllImages = useMutation((value) => {
+        return requestGetAllImages({ "_id": value })
+    })
+
+    React.useEffect(() => {
+        mutationGetAllFile.mutate(dataRoom && dataRoom._id)
+        mutationGetAllImages.mutate(dataRoom && dataRoom._id)
+    }, [])
+
     return (
         <div className={`chatSetting ${isopen ? "open" : ""}`}>
             <div className={`chatSetting-container ${team ? "team" : ""}`}>
@@ -79,10 +48,14 @@ const ChatSetting = ({ refetch, data, isopen, team, dataRoom, dataFriend }) => {
                 </div>
                 <div className="chatSetting-container__main">
                     <div className="chatSetting-main__infor">
-                        <MeProfile refetch={refetch} data={data}> <CAvatar /></MeProfile>
+                        {dataRoom && dataRoom.name_room === "isFriend" ?
+                            <MeProfile refetch={refetch} data={data}> <CAvatar image={data.avatar} /></MeProfile>
+                            : <CAvatar />}
                         <div className="chatSetting-infor__name">
-                            <h3>{dataFriend && dataFriend.name}</h3>
-                            <CModalRename name={dataFriend && dataFriend.name}><CIconButton icon={<BiPaint />} /></CModalRename>
+                            <h3>
+                                {idRoomChange === dataRoom._id && dataFriend ? nameRoomChange : dataFriend.nickname}
+                            </h3>
+                            <CModalRename avatarFriend={data.avatar} name={idRoomChange === dataRoom._id && dataFriend ? nameRoomChange : dataFriend.nickname}><CIconButton icon={<BiPaint />} /></CModalRename>
                         </div>
                     </div>
                     <div className="chatSetting-main__function">
@@ -95,30 +68,35 @@ const ChatSetting = ({ refetch, data, isopen, team, dataRoom, dataFriend }) => {
                             <CSwitchBasic />
                         </div>
                     </div>
-                    {dataRoom && dataRoom.count_member === 2 ? "" :
+                    {dataRoom && dataRoom.name_room === "isFriend" ? "" :
                         <div className="chatSetting-main__member">
                             <div className="chatSetting-member__header">
                                 <div className="chatSeeting-header__name">
                                     <IoPersonOutline />
                                     <h3>Members</h3>
-                                    <span>(22)</span>
+                                    <span>({dataListMember && dataListMember.length})</span>
                                 </div>
-                                <CIconButton icon={<GoPlus />} />
+                                <div className='chatSetting-header__function'>
+                                    <CModalSettingRole socket={socket} myUser={myUser} dataRoom={dataListMember} Room={dataRoom} button_modal={<CIconButton icon={<FiSettings />} />} />
+                                    <CIconButton icon={<GoPlus />} />
+                                </div>
                             </div>
+
                             <div className="chatSetting-member__main">
-                                {member.map((course, index) => (
+                                {dataListMember && dataListMember.map((course, index) => (
                                     <div className='chatSetting-member' key={index}>
                                         <div className='chatSetting-member__infor'>
-                                            <CAvatar icon={course.avatar} />
+                                            <CAvatar image={course.avatar} />
                                             <div className="chatSetting-infor__name">
-                                                <h3>{course.name}</h3>
-                                                <span>{course.owner}</span>
+                                                <h3>{course.nickname}</h3>
+                                                <span>{course.role !== "" ? course.role : "Member"}</span>
                                             </div>
                                         </div>
                                         {course.friend ? <CButton children="Chat" /> : <CButton children="Add" />}
                                     </div>
                                 ))}
                             </div>
+
                         </div>
                     }
                     <div className="chatSetting-main__share">
@@ -126,7 +104,10 @@ const ChatSetting = ({ refetch, data, isopen, team, dataRoom, dataFriend }) => {
                             <BsShare /> <span>Shared Media</span>
                         </div>
                         <div className="chatSetting-share__main">
-                            <NavigationShare />
+                            <NavigationShare
+                                dataAllFile={!mutationGetAllFile.isLoading && mutationGetAllFile.data && mutationGetAllFile.data.data[0] && mutationGetAllFile.data.data[0].list_message}
+                                dataAllImage={!mutationGetAllImages.isLoading && mutationGetAllImages.data && mutationGetAllImages.data.data[0] && mutationGetAllImages.data.data[0].list_message}
+                            />
                         </div>
                     </div>
                     <div className="chatSetting-main__scurity">
@@ -140,15 +121,20 @@ const ChatSetting = ({ refetch, data, isopen, team, dataRoom, dataFriend }) => {
                                 <CSwitchBasic />
                             </div>
                             <div className='chatSetting-function__remove'>
-                                <Button variant="text" startIcon={<AiOutlineDelete />}>
+                                <Button onClick={() => {
+                                    deleteHistoryChat({ _id: dataRoom && dataRoom._id })
+                                    socket.emit("delete_history", { myPhone: myUser && myUser.phone })
+                                }} variant="text" startIcon={<AiOutlineDelete />}>
                                     <span>Delete history</span>
                                 </Button>
                             </div>
-                            <div className='chatSetting-function__remove'>
+
+                            {dataRoom && dataRoom.name_room === "isFriend" ? "" : <div className='chatSetting-function__remove'>
                                 <Button variant="text" startIcon={<IoExitOutline />}>
                                     <span>Leave team</span>
                                 </Button>
-                            </div>
+                            </div>}
+
                         </div>
                     </div>
                 </div>

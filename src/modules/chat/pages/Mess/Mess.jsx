@@ -8,13 +8,13 @@ import ChatAll from './components/ChatAll/ChatAll'
 
 // import CAleart from '@common/components/controls/CAleart'
 
-const Mess = ({ myUser }) => {
+const Mess = ({ socket, myUser, friendActive }) => {
   // const alert = useLocation()
 
   return (
     <div className='message'>
       {/* {alert.state !== null && alert.state.alert === "success" && <CAleart mess="Login sucess" />} */}
-      <ChatAll myUser={myUser} />
+      <ChatAll friendActive={friendActive} socket={socket} myUser={myUser} />
     </div>
   )
 }

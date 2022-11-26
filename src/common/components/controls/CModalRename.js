@@ -5,9 +5,15 @@ import CAvatar from "./CAvatar";
 import CButton from "./CButton";
 import CTextField from "./CTextField";
 
+// api
+import { renameChatGroup } from "@/apis/chat.api";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+
 import { AiOutlineEdit } from "react-icons/ai";
 
 import "../../assets/styles/controls/CModalRename.scss";
+import { useState } from "react";
 const style = {
   position: "absolute",
   top: "50%",
@@ -21,10 +27,31 @@ const style = {
   p: 4,
 };
 
-const CModalRename = ({ children, name }) => {
+const CModalRename = ({ avatarFriend, socket, dataRoom, children, name }) => {
+  const { register, handleSubmit } = useForm();
   const [open, setOpen] = React.useState(false);
+  const [rename, setRename] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const muatationRename = useMutation((value) => {
+    setRename(true);
+    const temp = {
+      room_id: dataRoom._id,
+      name_room: value.name_room,
+    };
+    return renameChatGroup(temp);
+  });
+
+  if (!muatationRename.isLoading && !muatationRename.isError && rename) {
+    socket.emit("rename_Room", {
+      data: {
+        list_member: dataRoom.list_member,
+        data: muatationRename.data.data,
+      },
+    });
+    handleClose();
+    setRename(false);
+  }
   return (
     <div>
       <div onClick={handleOpen}>{children}</div>
@@ -39,17 +66,26 @@ const CModalRename = ({ children, name }) => {
             <AiOutlineEdit />
             <span>Set alias</span>
           </div>
-          <div className="modal-rename__main">
-            <CAvatar image="" />
-            <p>
-              Choose a memorable name for Duxica Team. <br />
-              Notice: This alias will only be shown to you
-            </p>
-            <CTextField name={name} className="form_chat" label="Enter name..."/>
-          </div>
-          <div className="modal-rename__footer">
-            <CButton> Save</CButton>
-          </div>
+          <form onSubmit={handleSubmit(muatationRename.mutate)}>
+            <div className="modal-rename__main">
+              <CAvatar image={avatarFriend} />
+              <p>
+                Choose a memorable name for {name}. <br />
+                Notice: This alias will only be shown to you
+              </p>
+              <CTextField
+                registerName={{
+                  ...register("name_room", { required: true }),
+                }}
+                name={name}
+                className="form_chat"
+                label="Enter name..."
+              />
+            </div>
+            <div className="modal-rename__footer">
+              <CButton type="submit">Save</CButton>
+            </div>
+          </form>
         </Box>
       </Modal>
     </div>

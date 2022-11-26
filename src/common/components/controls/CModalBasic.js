@@ -31,7 +31,9 @@ const CModalBasic = ({
 
   return (
     <div>
-      <div onClick={handleOpen}>{child}</div>
+      <div style={{ display: "flex" }} onClick={handleOpen}>
+        {child}
+      </div>
       <Modal
         open={open}
         onClose={handleClose}

@@ -16,3 +16,11 @@ export const verifyApi = async (values) => {
 export const getProfile = async () => {
   return await request_api().get(AUTH.PROFILE);
 };
+
+export const onlineUser = async () => {
+  return await request_api().put(AUTH.ONLINE);
+};
+
+export const offlineUser = async () => {
+  return await request_api().put(AUTH.OFFLINE);
+};

@@ -10,7 +10,6 @@ import { GiSmartphone } from "react-icons/gi";
 import { BsGenderTrans, BsChat, BsCameraVideo } from "react-icons/bs";
 import { HiOutlineCake } from "react-icons/hi";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
-import person1 from "../../../../assets/images/person1.png"
 
 import "../../../../assets/styles/layout/MeProfile.scss"
 
@@ -27,6 +26,7 @@ const style = {
 };
 
 const MeProfile = ({ refetch, data, activeModal = false, me, children }) => {
+
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
     setOpen(activeModal)
@@ -52,7 +52,7 @@ const MeProfile = ({ refetch, data, activeModal = false, me, children }) => {
             </div>
             <div className="meProfile-container__main">
               <div className="meProfile-background">
-                <div className='meProfile-infor__avatar'><CAvatar image={person1} /></div>
+                <div className='meProfile-infor__avatar'><CAvatar image={data && data.avatar} /></div>
               </div>
               <div className="meProfile-information">
                 <div className='meProfile-information__name'>

@@ -6,7 +6,9 @@ import CBadge from '@common/components/controls/CBadge'
 import MenuCardMess from './MenuCardMess';
 
 import "../assets/styles/CardMess.scss"
-const CardMess = ({ room, socket, dataChat, myUser, onClick, activeCardMess, index }) => {
+const CardMess = ({  muTationGetChat, idRoomChange,
+    nameRoomChange, room, socket, dataChat, myUser, onClick, activeCardMess, index }) => {
+
     const [reviewMess, setReviewMess] = React.useState(dataChat.list_message[0] && dataChat.list_message[0].mess_content)
     useEffect(() => {
         socket.on("receive_message", (data) => {
@@ -29,20 +31,20 @@ const CardMess = ({ room, socket, dataChat, myUser, onClick, activeCardMess, ind
                         </div>
                     ))
                         : <div className="cardMess-mess__name">
-                            {dataChat.name_room}
+                            {idRoomChange === dataChat._id ? nameRoomChange : dataChat.name_room}
                         </div>
                     }
                     <div className="cardMess-mess__chat">{dataChat !== undefined ? dataChat.list_message.length === 0 ? "Now click and send message" : reviewMess : ""}</div>
                 </div>
                 <div className="cardMess-container__infor">
                     <div className="cardMess-infor__status">
-                        <CBadge number="2" />
+                        {dataChat !== undefined ? dataChat.list_message.length === 0 ? "" : <CBadge number="2" /> : ""}
                     </div>
                     <div className="cardMess-infor__time">
                         {dataChat !== undefined ? dataChat.list_message.length === 0 ? "" : `${new Date(dataChat.list_message[0].time).getHours()}:${new Date(dataChat.list_message[0].time).getMinutes()}` : ""}
                     </div>
                     <div className="cardMess-infor__function">
-                        <MenuCardMess />
+                        <MenuCardMess socket={socket} myUser={myUser} room={room} muTationGetChat={muTationGetChat} />
                     </div>
                 </div>
             </div>

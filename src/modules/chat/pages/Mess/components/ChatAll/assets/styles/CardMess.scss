@@ -21,12 +21,19 @@
   }
   &:hover {
     background-color: #e6eef8;
+    .cardMess .cardMess-container .cardMess-container__infor {
+      margin-left: 0px;
+      width: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   .cardMess-container {
     position: relative;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 4.5fr 1fr;
     gap: 5px;
     width: 100%;
     .cardMess-container__mess {
@@ -34,6 +41,9 @@
       .cardMess-mess__name {
         font-size: 15px;
         font-weight: 600;
+        white-space: nowrap;
+        width: 175px;
+        text-overflow: ellipsis;
       }
       .cardMess-mess__chat {
         font-size: 12px;
@@ -58,7 +68,8 @@
       }
       .cardMess-infor__function {
         position: relative;
-        margin: 0 5.5px;
+        // margin: 0 5.5px;
+        margin-left: 3.8px;
         font-size: 20px;
         opacity: 0;
         width: 0px;

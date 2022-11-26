@@ -1,0 +1,99 @@
+.setting-role {
+  position: relative;
+  width: 100%;
+  .setting-role__header {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgb(100, 99, 99);
+  }
+  .setting-role__inform {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    background-color: rgb(224, 224, 224);
+    border-radius: 4px;
+    color: #17a4c4;
+    margin-top: 5px;
+  }
+  .setting-role__admin {
+    .cbutton-mui {
+      .MuiButtonBase-root {
+        padding: 10px 20px;
+        font-weight: 400;
+      }
+    }
+    .setting-role__find {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: 400;
+      color: rgb(100, 99, 99);
+    }
+    .setting-role__member {
+      margin-top: 10px;
+      width: 100%;
+      max-height: 230px;
+      overflow-y: scroll;
+      &::-webkit-scrollbar {
+        width: 7px;
+        background: rgba($color: #f0efef, $alpha: 0.5);
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba($color: #4190c1, $alpha: 0.8);
+        border-radius: calc(15px / 2);
+        &:hover {
+          background: rgba($color: #4190c1, $alpha: 0.5);
+        }
+        &:active {
+          background: rgba($color: #4190c1, $alpha: 0.5);
+        }
+      }
+      .setting-member__container {
+        padding: 10px 0px;
+        display: flex;
+        justify-content: space-between;
+        .setting-member__infor {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          .setting-member__name {
+            margin-left: 5px;
+            h3 {
+              font-size: 16px;
+              font-weight: 400;
+              color: rgb(100, 99, 99);
+            }
+          }
+        }
+        .setting-member__function {
+          width: 200px;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+
+          svg {
+            &:hover {
+              color: rgb(226, 105, 105);
+            }
+          }
+        }
+      }
+    }
+    .setting-member_btn {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    pointer-events: none;
+    background-color: rgba($color: #f5f5f5, $alpha: 0.5);
+
+    &.active {
+      pointer-events: unset;
+      background-color: unset;
+    }
+  }
+}

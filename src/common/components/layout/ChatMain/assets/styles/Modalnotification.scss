@@ -1,0 +1,49 @@
+.inform__container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  img {
+    width: 400px;
+    height: 250px;
+    object-fit: contain;
+    pointer-events: none;
+  }
+  .inform__content {
+    width: 100%;
+    .inform__title {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        text-align: center;
+        font-size: 16px;
+        font-weight: 400;
+        color: rgb(100, 99, 99);
+
+        .not-leave{
+          cursor: pointer;
+          color: #17a4c4;
+        }
+      }
+
+      .inform__function {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 25px;
+
+        .MuiButtonBase-root {
+          padding: 10px 50px;
+          font-size: 15px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
