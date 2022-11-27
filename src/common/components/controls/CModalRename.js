@@ -6,7 +6,7 @@ import CButton from "./CButton";
 import CTextField from "./CTextField";
 
 // api
-import { renameChatGroup } from "@/apis/chat.api";
+import { renameChatGroup, requestRenameFriend } from "@/apis/chat.api";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
@@ -27,19 +27,45 @@ const style = {
   p: 4,
 };
 
-const CModalRename = ({ avatarFriend, socket, dataRoom, children, name }) => {
+const CModalRename = ({
+  myUser,
+  phone_friend,
+  isFriend,
+  avatarFriend,
+  socket,
+  dataRoom,
+  children,
+  name,
+}) => {
   const { register, handleSubmit } = useForm();
   const [open, setOpen] = React.useState(false);
   const [rename, setRename] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const muatationRename = useMutation((value) => {
     setRename(true);
     const temp = {
       room_id: dataRoom._id,
       name_room: value.name_room,
     };
+
     return renameChatGroup(temp);
+  });
+
+  const muatationRenameFriend = useMutation((value) => {
+    const temp = {
+      _id: dataRoom._id,
+      nick_name: value.name_room,
+      phone_friend: phone_friend,
+    };
+
+    // socket.emit("rename_Friend", {
+    //   my_Phone: myUser && myUser.phone,
+
+    // });
+    handleClose();
+    return requestRenameFriend(temp);
   });
 
   if (!muatationRename.isLoading && !muatationRename.isError && rename) {
@@ -66,7 +92,13 @@ const CModalRename = ({ avatarFriend, socket, dataRoom, children, name }) => {
             <AiOutlineEdit />
             <span>Set alias</span>
           </div>
-          <form onSubmit={handleSubmit(muatationRename.mutate)}>
+          <form
+            onSubmit={
+              isFriend
+                ? handleSubmit(muatationRenameFriend.mutate)
+                : handleSubmit(muatationRename.mutate)
+            }
+          >
             <div className="modal-rename__main">
               <CAvatar image={avatarFriend} />
               <p>

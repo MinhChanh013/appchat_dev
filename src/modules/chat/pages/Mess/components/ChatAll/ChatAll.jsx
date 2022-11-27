@@ -38,6 +38,7 @@ const ChatAll = ({ socket, myUser, friendActive }) => {
   const [activeCardMess, setActiveCardMess] = useState("")
   const [nameRoomChange, setNameRoomChange] = useState("")
   const [idRoomChange, setIdRoomChange] = useState("")
+  const [arrNameRoomChange, setArrNameRoomChange] = useState([])
   const [dataFriend, setDataFriend] = useState("")
   const [roomActive, setRoomActive] = useState("")
 
@@ -76,10 +77,11 @@ const ChatAll = ({ socket, myUser, friendActive }) => {
         if (myUser && room.phone === myUser.data.phone) {
           setNameRoomChange(data.data.data.name_room)
           setIdRoomChange(data.data.data._id)
+          setArrNameRoomChange([{ name: data.data.data.name_room, _id: data.data.data._id }, ...arrNameRoomChange])
         }
       })
     });
-  }, [myUser, refetch, roomActive, muTationGetChat, socket])
+  }, [myUser, refetch, roomActive, muTationGetChat, socket, arrNameRoomChange])
 
   React.useEffect(() => {
     socket.on("receive_removeRoom", (data) => {
@@ -96,7 +98,6 @@ const ChatAll = ({ socket, myUser, friendActive }) => {
 
     socket.on("receive_outRoom", (data) => {
       if (myUser.data.phone === data.phone) {
-        console.log("da vao");
         refetch()
         setActiveCardMess("")
       }
@@ -156,10 +157,12 @@ const ChatAll = ({ socket, myUser, friendActive }) => {
                               myUser && myUser.data.phone !== course.phone && setDataFriend(course)
                             }) : setDataFriend({ nickname: course.name_room })
 
-                        }} muTationGetChat={muTationGetChat} idRoomChange={idRoomChange}
+                        }}
+                          arrNameRoomNew={arrNameRoomChange.filter(courseArr => courseArr._id === course._id)}
+                          muTationGetChat={muTationGetChat} idRoomChange={idRoomChange}
                           nameRoomChange={nameRoomChange} room={course._id} socket={socket}
                           key={index} index={index} activeCardMess={activeCardMess}
-                          dataChat={course} myUser={myUser}/>
+                          dataChat={course} myUser={myUser} />
                       )
                     }
                     )
@@ -170,13 +173,13 @@ const ChatAll = ({ socket, myUser, friendActive }) => {
           </div>
         </div>
       </div>
-      {!muTationGetChat.isLoading && !muTationGetChat.isError && muTationGetChat.data && wait && activeCardMess !== "" ? 
-      <ChatMain friendActive={friendActive} idRoomChange={idRoomChange} nameRoomChange={nameRoomChange} myUser={myUser} 
-      socket={socket} dataRoom={muTationGetChat.data.data} dataFriend={dataFriend} /> : <div className='bgchat_container'>
-        <video className='' autoPlay loop muted>
-          <source src={vdBackChat} type='video/mp4' />
-        </video>
-      </div>}
+      {!muTationGetChat.isLoading && !muTationGetChat.isError && muTationGetChat.data && wait && activeCardMess !== "" ?
+        <ChatMain friendActive={friendActive} idRoomChange={idRoomChange} nameRoomChange={nameRoomChange} myUser={myUser}
+          socket={socket} dataRoom={muTationGetChat.data.data} dataFriend={dataFriend} /> : <div className='bgchat_container'>
+          <video className='' autoPlay loop muted>
+            <source src={vdBackChat} type='video/mp4' />
+          </video>
+        </div>}
     </>
 
   )

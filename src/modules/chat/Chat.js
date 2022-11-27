@@ -9,7 +9,6 @@ import { getProfile } from "@/apis/auth.api";
 import { useQuery } from "@tanstack/react-query";
 import "./assets/styles/Chat.scss";
 import io from "socket.io-client";
-import { Helmet } from "react-helmet";
 const socket = io.connect("http://localhost:4001");
 const Chat = () => {
   const { isLoading, isError, error, data } = useQuery(["getUser"], () => {

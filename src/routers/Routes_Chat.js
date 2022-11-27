@@ -71,10 +71,10 @@ const Routes_Chat = ({ myUser, socket }) => {
         <Mess socket={socket} friendActive={friendActive} myUser={myUser} />
       ),
     },
-    { path: "/notification", element: <Todo /> },
+    { path: "/notification", element: <Todo  myUser={myUser} socket={socket}/> },
     {
       path: "/contact",
-      element: <Contact friendActive={friendActive} myUser={myUser} />,
+      element: <Contact socket={socket} friendActive={friendActive} myUser={myUser} />,
     },
     { path: "/setting", element: <Setting /> },
   ]);

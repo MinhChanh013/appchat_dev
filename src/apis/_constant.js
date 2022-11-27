@@ -6,6 +6,7 @@ export const AUTH = {
   PROFILE: "auth/profile",
   ONLINE: "auth/online",
   OFFLINE: "auth/offline",
+  CONFIRMPHONE: "auth/confirm_phone",
 };
 
 export const USER = {
@@ -15,6 +16,7 @@ export const USER = {
   FRIEND: "/user/friend",
   FINDPHONENOTME: "/user/find_phone",
   FINDNAME: "/user/find_name",
+  RESETPASS: "/user/resetPassword"
 };
 
 export const FRIEND = {
@@ -36,6 +38,7 @@ export const CHAT = {
   REMOVEROOM: "/listchat/removeroom",
   GETALLFILES: "/listchat/allFiles",
   GETALLIMAGES: "/listchat/allImages",
+  RENAMEFRIEND: "/listchat/rename_Friend",
 };
 
 export const MESSAGE = {

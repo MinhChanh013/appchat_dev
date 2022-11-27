@@ -20,7 +20,7 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '0px solid #000',
+  border: 'unset',
   borderRadius: 1,
   boxShadow: 24,
 };

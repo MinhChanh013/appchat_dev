@@ -149,6 +149,7 @@
   align-items: center;
   width: 100%;
   background-color: #fcfbfd;
+  pointer-events: none;
   video {
     width: 30%;
     object-fit: cover;

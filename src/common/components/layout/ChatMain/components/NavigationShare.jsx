@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import BottomNavigation from "@mui/material/BottomNavigation";
@@ -19,9 +19,8 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ModalImage from './ModalImage';
 import "../assets/styles/NavigationShare.scss"
 const NavigationShare = ({ dataAllFile, dataAllImage }) => {
-    
     const [value, setValue] = React.useState(0);
-    const [data, setData] = React.useState(dataAllImage && dataAllImage);
+    const [data, setData] = useState(dataAllImage);
     const ref = React.useRef(null);
 
     return (
@@ -46,21 +45,24 @@ const NavigationShare = ({ dataAllFile, dataAllImage }) => {
                     gap={8}
                     rowHeight={100}
                 >
-                    {data && data.map((course, index) => {
-                        let newArrImg = course.mess_content.split(",")
-                        return (
-                            <>
-                                {
-                                    newArrImg.map((img, indexImg) => (
-                                        indexImg > 0 && <ImageListItem key={indexImg} >
-                                            <ModalImage image={<img src={img} alt="" />} />
-                                        </ImageListItem>
-                                    ))
-                                }
-                            </>
-                        )
-                    }
-                    )}
+                    <>
+                        {dataAllImage && data && data.map((course, index) => {
+                            console.log(course);
+                            let newArrImg = course.mess_content.split(",")
+                            return (
+                                <>
+                                    {
+                                        newArrImg.map((img, indexImg) => (
+                                            indexImg > 0 && <ImageListItem key={indexImg} >
+                                                <ModalImage image={<img src={img} alt="" />} />
+                                            </ImageListItem>
+                                        ))
+                                    }
+                                </>
+                            )
+                        }
+                        )}
+                    </>
                 </ImageList>
             )}
 

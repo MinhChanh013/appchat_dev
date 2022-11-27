@@ -18,7 +18,7 @@ import { BsListCheck } from "react-icons/bs";
 // library
 import { useQuery } from '@tanstack/react-query'
 import { useMutation } from "@tanstack/react-query"
-import io from "socket.io-client"
+// import io from "socket.io-client"
 
 // api
 import { getAllFriend } from "@/apis/friend.api"
@@ -26,9 +26,9 @@ import { getChatPrivated } from "@/apis/chat.api"
 
 import "./assets/ContactAll.scss"
 
-const socket = io.connect("http://localhost:4001");
+// const socket = io.connect("http://localhost:4001");
 
-const ContactAll = ({ friendActive, myUser }) => {
+const ContactAll = ({ socket, friendActive, myUser }) => {
 
     const [dataFriend, setDataFriend] = React.useState("")
     const { isError, isLoading, data } = useQuery(['showFriend'], () => {
@@ -58,7 +58,7 @@ const ContactAll = ({ friendActive, myUser }) => {
                         <div className="contact-function__header">
                             <FaAirbnb /><span>Function Contact</span>
                         </div>
-                        <ModalAddPhone Children={<div className="contactAll-function__main">
+                        <ModalAddPhone socket={socket} myUser={myUser} Children={<div className="contactAll-function__main">
                             <IoPersonAddOutline />
                             <span>Add friend with phone number</span>
                         </div>} />

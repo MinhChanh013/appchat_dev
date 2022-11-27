@@ -12,3 +12,7 @@ export const findPhone = async (phone) => {
 export const findPhoneNotMe = async (phone) => {
   return await request_api().get(`${USER.FINDPHONENOTME}/${phone}`);
 };
+
+export const resetPass = async (value) => {
+  return await request_api().post(USER.RESETPASS, value);
+};

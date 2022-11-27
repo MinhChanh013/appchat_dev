@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import CTextField from '../../../common/components/controls/CTextField'
 import CButton from '../../../common/components/controls/CButton'
 import CAleart from '../../../common/components/controls/CAleart'
+import ConfirmPhone from '../components/control/ConfirmPhone'
 import ConfirmOTP from '../components/control/ConfirmOTP'
 // Library
 import { Link } from 'react-router-dom'
@@ -31,15 +32,14 @@ const Register = () => {
 
   if (!mutate.isLoading && !mutate.isError && mutate.data && mutate.data.status === 200) {
     if (!window.recaptchaVerifier) {
-      console.log("1");
       onSignInSubmit(data.phone, "send-otp-register")
     }
     else {
       configureCaptcha("send-otp-register", data.phone).clear()
       onSignInSubmit(data.phone, "send-otp-register")
-      console.log("2");
     }
   }
+  
   return (
     <div className="sigin_form">
       {hideAleart ? (
@@ -72,7 +72,7 @@ const Register = () => {
           <CTextField registerName={{ ...register("password", { required: true }) }} type="password" label="Password" />
           {errors.password?.type === "required" && <span className='sigin-auth__err'>Password is not null</span>}
         </div>
-        <Link className='sigin_router__repass'> <h4>Recovery Password</h4></Link>
+        <ConfirmPhone btnConfirm={<Link className='sigin_router__repass'><h4>Recovery Password</h4> </Link>} />
         <div id="send-otp-register"></div>
         <CButton type="submit" children="Sign up" onClick={() => {
           setHideAleart(true)

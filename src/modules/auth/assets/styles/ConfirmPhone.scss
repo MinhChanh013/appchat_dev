@@ -1,0 +1,36 @@
+.confirm_phone {
+  position: relative;
+  .form-confirm__phone {
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+    h2 {
+      margin-top: 20px;
+      white-space: nowrap;
+      font-size: 30px;
+      font-weight: 500;
+      color: rgb(100, 99, 99);
+      margin-bottom: 5px;
+    }
+    h4 {
+      font-size: 15px;
+      color: #17a4c4;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+    .sigin-auth__err {
+      color: rgb(226, 105, 105);
+      font-size: 12px;
+      font-weight: 400;
+      transform: translateY(-10px);
+      display: inline-block;
+    }
+    .MuiButtonBase-root{
+        margin-top: 10px;
+        width: 30%;
+        padding: 15px 25px;
+        font-weight: 400;
+    }
+  }
+}

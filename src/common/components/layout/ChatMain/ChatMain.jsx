@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 // components
 import CAvatar from "@common/components/controls/CAvatar"
 import CIconButton from '@common/components/controls/CIconButton';
@@ -42,7 +42,6 @@ import { useQuery } from "@tanstack/react-query"
 import "../../../assets/styles/layout/ChatMain.scss"
 
 const ChatMain = ({ friendActive, idRoomChange, nameRoomChange, myUser, socket, dataRoom, dataFriend }) => {
-  const myPeer = new Peer();
 
   const { isLoading: isLoadingFriend, isError, refetch: refetchFriend, data: dataProfileFriend } = useQuery(['getProfileFriend'], () => {
     return findPhone(dataFriend.phone)
@@ -57,10 +56,6 @@ const ChatMain = ({ friendActive, idRoomChange, nameRoomChange, myUser, socket, 
   const [accountType, setAccountType] = useState("")
   const [dataListMember, setDataListMember] = useState([])
   const [isRenderListMember, setIsRenderListMember] = useState(true)
-  const [peers, setPeers] = useState({})
-  const myVideo = useRef(null)
-  const videoGrid = useRef(null)
-  const [myId, setMyId] = useState("")
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
@@ -340,82 +335,6 @@ const ChatMain = ({ friendActive, idRoomChange, nameRoomChange, myUser, socket, 
 
   }
 
-
-
-
-
-
-
-
-
-  const handelVideoCall = () => {
-    myPeer.on('open', id => {
-      setMyId(id)
-      socket.emit('joinRoomCall', dataRoom._id, id, myUser && myUser.data.phone)
-      const myVideo = document.createElement('video')
-      navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
-      }).then(stream => {
-        addVideoStream(myVideo, stream)
-      })
-    })
-  }
-
-
-  useEffect(() => {
-    socket.on("receive_RoomCall", (userId, phone) => {
-      console.log(phone);
-      if (myUser && myUser.data.phone !== phone) {
-        navigator.mediaDevices.getUserMedia({
-          video: true,
-          audio: true
-        }).then(stream => {
-          // addVideoStream(myVideo, stream)
-
-          myPeer.on('call', call => {
-            call.answer(stream)
-            const video = document.createElement('video')
-            call.on('stream', userVideoStream => {
-              addVideoStream(video, userVideoStream)
-            })
-          })
-
-          // socket.on('receive_RoomCall', userId => {
-          connectToNewUser(userId, stream)
-        })
-      }
-      // const myVideo = document.createElement('video')
-
-    })
-    // })
-  }, [socket])
-
-  const connectToNewUser = (userId, stream) => {
-    const call = myPeer.call(userId, stream)
-    const video = document.createElement('video')
-    call.on('stream', userVideoStream => {
-      addVideoStream(video, userVideoStream)
-    })
-    call.on('close', () => {
-      video.remove()
-    })
-
-    peers[userId] = call
-  }
-
-  const addVideoStream = (video, stream) => {
-    video.srcObject = stream
-    video.addEventListener('loadedmetadata', () => {
-      video.play()
-    })
-    const videogrid = document.getElementById("video-grid")
-    videogrid.append(video)
-  }
-
-
-
-
   return (
     <div className='chatmain'>
       <div className="chatmain-container">
@@ -433,7 +352,7 @@ const ChatMain = ({ friendActive, idRoomChange, nameRoomChange, myUser, socket, 
                   myUser && myUser.data.phone !== course.phone &&
                   <div key={index} style={{ display: 'flex' }}>
                     <h3>{course.nickname}</h3>
-                    <CModalRename socket={socket} dataRoom={dataRoom} name={course.nickname}>
+                    <CModalRename phone_friend={course.phone} isFriend={true} socket={socket} dataRoom={dataRoom} name={course.nickname}>
                       <BrushIcon />
                     </CModalRename>
                   </div>
@@ -473,30 +392,7 @@ const ChatMain = ({ friendActive, idRoomChange, nameRoomChange, myUser, socket, 
           </div>
           <div className="chatmain-header__function">
             <CModalAddTeam child={<CIconButton icon={<GroupAddOutlinedIcon />} />} />
-            <CIconButton onclick={() => { handelVideoCall() }} icon={<VideocamOutlinedIcon />} />
-
-
-
-
-
-
-
-
-
-
-            <div ref={videoGrid} style={{ width: "100px", height: "100px" }} id="video-grid">
-              {/* <video ref={myVideo} id='myVideo'></video> */}
-            </div>
-
-
-
-
-
-
-
-
-
-
+            <CIconButton icon={<VideocamOutlinedIcon />} />
             <CIconButton className={`setting-chat ${isopen ? "active" : ""}`} icon={<GridViewIcon />} onclick={() => {
               setIsOpen(!isopen)
             }} />

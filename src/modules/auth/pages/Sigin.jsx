@@ -6,6 +6,7 @@ import "../assets/styles/Sigin.scss"
 import CTextField from '../../../common/components/controls/CTextField'
 import CButton from '../../../common/components/controls/CButton'
 import CAleart from '../../../common/components/controls/CAleart'
+import ConfirmPhone from '../components/control/ConfirmPhone'
 
 // Library
 import { useForm } from "react-hook-form";
@@ -66,7 +67,7 @@ const Sigin = () => {
                     <CTextField registerName={{ ...register("password", { required: true }) }} type="password" label="Password" />
                     {errors.password?.type === "required" && <span className='sigin-auth__err'>Password is not null</span>}
                 </div>
-                <Link className='sigin_router__repass'> <h4>Recovery Password</h4></Link>
+                <ConfirmPhone btnConfirm={<Link className='sigin_router__repass' > <h4>Recovery Password</h4></Link>}/>
                 <CButton type="submit" children="Sign in" onClick={() => {
                     setHideAleart(true)
                     setHideAleartSuccess(false)

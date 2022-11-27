@@ -49,9 +49,13 @@ export const requestRemoveRoom = async (value) => {
 };
 
 export const requestGetAllImages = async (value) => {
-  return await request_api().post(CHAT.GETALLIMAGES, value)
-}
+  return await request_api().post(CHAT.GETALLIMAGES, value);
+};
 
 export const requestGetAllFiles = async (value) => {
-  return await request_api().post(CHAT.GETALLFILES, value)
-}
+  return await request_api().post(CHAT.GETALLFILES, value);
+};
+
+export const requestRenameFriend = async (value) => {
+  return await request_api().post(CHAT.RENAMEFRIEND, value);
+};

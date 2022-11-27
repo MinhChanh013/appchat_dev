@@ -35,6 +35,7 @@ import { useForm } from "react-hook-form";
 import "../../assets/styles/controls/CModalAddTeam.scss";
 
 import CButton from "./CButton";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -315,11 +316,11 @@ const CModalAddTeam = ({ child, refetch, socket }) => {
                 </div>
                 <div className="modal-addTeam__search">
                   <span>Add friend to group</span>
-                  <CTextField
+                  <input
                     onChange={(e) => {
                       if (e.target.value === "") {
                         let newLeft = [];
-                        if (right.length === 0) {
+                        if (right.length === 0 && data.data) {
                           setLeft(data.data.list_friend);
                         } else {
                           data.data.list_friend.forEach((course) => {
@@ -341,8 +342,8 @@ const CModalAddTeam = ({ child, refetch, socket }) => {
                         setActiveSearch(true);
                       }
                     }}
-                    label="Enter name, phone number friend ..."
-                    className="form_chat"
+                    placeholder="Enter name, phone number friend ..."
+                    className="form_chat-find"
                   />
                 </div>
                 <div className="modal-addTeam__listFriend">

@@ -21,7 +21,7 @@ import { BsPhone } from "react-icons/bs";
 import { useMutation } from "@tanstack/react-query";
 
 import "../../assets/styles/ConfirmOTP.scss"
-const ConfirmOTP = ({ showVerify, phone, user }) => {
+const ConfirmOTP = ({ type, showVerify, phone, user }) => {
     const changeNavigate = useNavigate();
     const [timeSecond, setTimeSecond] = useState(10)
     const [imageStatus, setImageStatus] = useState(confirm_show)
@@ -109,22 +109,13 @@ const ConfirmOTP = ({ showVerify, phone, user }) => {
                                 <p>Do not send OTP? <span onClick={() => {
                                     setDisableSend(true)
                                     setTimeSecond(10)
-                                    // if (!window.recaptchaVerifier) {
-                                    //     configureCaptcha("send-otp-register").clear()
-                                    //     window.recaptchaVerifier = configureCaptcha("send-otp-again")
-                                    //     onSignInSubmit(phone)
-                                    // }
-                                    // else {
-                                    //     configureCaptcha("send-otp-register").clear()
-                                    //     window.recaptchaVerifier = configureCaptcha("send-otp-again")
-                                    //     onSignInSubmit(phone)
-                                    // }
                                 }}>Send OTP</span></p>
                             </div>
                             <CButton disabled={disableSubmit ? true : false} onClick={() => {
                                 onSubmitConfirm(otp)
                                     .then((result) => {
-                                        mutate.mutate(user)
+                                        type === "resetPass" ? changeNavigate("/resetpass", { state: { "phone": phone } }) :
+                                            mutate.mutate(user)
                                     })
                                     .catch((err) => {
                                         setImageStatus(confirm_err)

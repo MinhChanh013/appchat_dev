@@ -40,6 +40,29 @@
 
   .modal-addTeam__search {
     position: relative;
+
+    input {
+      padding: 13px 18px;
+      font-family: "Poppins", sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.4375em;
+      letter-spacing: 0.00938em;
+      color: rgba(0, 0, 0, 0.87);
+      border: 1px solid #17a4c4;
+      width: 100%;
+      margin-top: 5px;
+      border-radius: 6px;
+      overflow: hidden;
+      outline: none;
+      &:hover {
+        border: 1px solid #4190c1;
+      }
+
+      &:focus-visible{
+        border: 1px solid #4190c1;
+      }
+    }
   }
 
   .modal-addTeam__listFriend {
@@ -70,7 +93,7 @@
     display: flex;
     justify-content: flex-end;
     padding-top: 30px;
-    .MuiButtonBase-root{
+    .MuiButtonBase-root {
       padding: 13px 15px;
       font-weight: 400;
     }

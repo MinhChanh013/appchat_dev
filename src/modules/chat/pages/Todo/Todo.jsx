@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // component
 import BackgroundIcon from "@common/components/others/BackgroundIcon"
@@ -21,21 +21,46 @@ import { useMutation } from "@tanstack/react-query"
 import { toast } from "react-toastify";
 
 import "./assets/styles/Todo.scss"
-const Todo = () => {
+const Todo = ({ myUser, socket }) => {
   const [apply, setAplly] = React.useState(false)
+  const [isLoadingRefetch, setIsLoadingRefetch] = React.useState(true)
   const { isLoading, isError, error, data, refetch } = useQuery(['getNotification'], () => {
+    // setIsLoadingRefetch(false)
     return getAllFriend()
   })
+
+  useEffect(() => {
+    socket.on("receive_addFriend", (data_receive, data_send) => {
+      if (myUser && myUser.data.phone === data_receive.phone) {
+        console.log("da nhan");
+        setIsLoadingRefetch(true)
+        refetch()
+      }
+    })
+  })
+
+  useEffect(() => {
+    socket.on("receive_Send", (data_receive, data_send) => {
+      if (myUser && myUser.data.phone === data_send.phone) {
+        setIsLoadingRefetch(true)
+        refetch()
+      }
+    })
+  }, [socket, myUser, refetch])
 
   if (!isLoading && isError) {
     toast.error(error.message)
   }
 
+  if (!isLoading && !isError && isLoadingRefetch) {
+    setIsLoadingRefetch(false)
+  }
+
+
   const mutationApply = useMutation((value) => {
+    socket.emit("add_friend", { phone: value.phone, name: value.name }, myUser && myUser.data)
+
     setAplly(true)
-    // if (value.status === true) {
-    //   createChatPrivated([{phone: value.phone}])
-    // }
     return requestApplyFriend(value)
   })
 
@@ -66,7 +91,7 @@ const Todo = () => {
                     <BsListCheck /> <p>friend request</p>
                   </div>
                   <div className="notiAll-wait__list">
-                    {!isLoading && !isError && data.data.list_wait ?
+                    {!isLoadingRefetch && !isLoading && data.data.list_wait ?
                       data.data.list_wait.length === 0 ? <div className='notiAll-wait__null'>Not friend requests yet</div> :
                         data.data.list_wait.map((course, index) => (
                           < div key={index} className="notiAll-wait__person">
@@ -104,7 +129,7 @@ const Todo = () => {
                     <BsListStars /> <p>friend request send</p>
                   </div>
                   <div className="notiAll-request__list">
-                    {!isLoading && !isError && data.data.list_request ?
+                    {!isLoadingRefetch && !isLoading && data.data.list_request ?
                       data.data.list_request.length === 0 ? <div className='notiAll-request__null'>Not friend requests send yet</div> :
                         data.data.list_request.map((course, index) => (
                           < div key={index} className="notiAll-request__person">

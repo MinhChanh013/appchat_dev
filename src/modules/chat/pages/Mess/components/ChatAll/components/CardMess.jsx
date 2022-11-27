@@ -4,12 +4,14 @@ import React, { useEffect } from 'react'
 import CAvatar from "@common/components/controls/CAvatar"
 import CBadge from '@common/components/controls/CBadge'
 import MenuCardMess from './MenuCardMess';
+import AvatarGroup from 'react-avatar-group';
 
 import "../assets/styles/CardMess.scss"
-const CardMess = ({  muTationGetChat, idRoomChange,
+const CardMess = ({ muTationGetChat, idRoomChange, arrNameRoomNew,
     nameRoomChange, room, socket, dataChat, myUser, onClick, activeCardMess, index }) => {
+    console.log(arrNameRoomNew);
 
-    const [reviewMess, setReviewMess] = React.useState(dataChat.list_message[0] && dataChat.list_message[0].mess_content)
+    const [reviewMess, setReviewMess,] = React.useState(dataChat.list_message[0] && dataChat.list_message[0].mess_content)
     useEffect(() => {
         socket.on("receive_message", (data) => {
             if (data.id_room === room) {
@@ -22,7 +24,13 @@ const CardMess = ({  muTationGetChat, idRoomChange,
         <div className={`cardMess ${activeCardMess === index ? "active" : ""} `} onClick={onClick}>
             <div className="cardMess-container">
                 <div className="cardMess-container__avatar">
-                    <CAvatar image={""} />
+                    {dataChat && dataChat.name_room === "isFriend" ? dataChat.list_member.map((course) => (
+                        <>
+                            {myUser && myUser.data.phone !== course.phone && <CAvatar image={course.avatar} />}
+                        </>
+                    ))
+                        : <CAvatar />
+                    }
                 </div>
                 <div className="cardMess-container__mess">
                     {dataChat && dataChat.name_room === "isFriend" ? dataChat.list_member.map((course, index) => (
@@ -31,7 +39,9 @@ const CardMess = ({  muTationGetChat, idRoomChange,
                         </div>
                     ))
                         : <div className="cardMess-mess__name">
-                            {idRoomChange === dataChat._id ? nameRoomChange : dataChat.name_room}
+                            {arrNameRoomNew.length !== 0 ? <span>{arrNameRoomNew[0].name}</span> : <span>{dataChat.name_room}</span>}
+                            {/* {arrNameRoomChange.some(course => course._id === dataChat._id)}
+                            {idRoomChange === dataChat._id ? nameRoomChange : dataChat.name_room} */}
                         </div>
                     }
                     <div className="cardMess-mess__chat">{dataChat !== undefined ? dataChat.list_message.length === 0 ? "Now click and send message" : reviewMess : ""}</div>
@@ -48,7 +58,7 @@ const CardMess = ({  muTationGetChat, idRoomChange,
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

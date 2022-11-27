@@ -49,13 +49,13 @@ const ChatSetting = ({ socket, dataListMember, myUser, idRoomChange, nameRoomCha
                 <div className="chatSetting-container__main">
                     <div className="chatSetting-main__infor">
                         {dataRoom && dataRoom.name_room === "isFriend" ?
-                            <MeProfile refetch={refetch} data={data}> <CAvatar image={data.avatar} /></MeProfile>
+                            <MeProfile refetch={refetch} data={data}> <CAvatar image={data && data.avatar} /></MeProfile>
                             : <CAvatar />}
                         <div className="chatSetting-infor__name">
                             <h3>
                                 {idRoomChange === dataRoom._id && dataFriend ? nameRoomChange : dataFriend.nickname}
                             </h3>
-                            <CModalRename avatarFriend={data.avatar} name={idRoomChange === dataRoom._id && dataFriend ? nameRoomChange : dataFriend.nickname}><CIconButton icon={<BiPaint />} /></CModalRename>
+                            <CModalRename myUser={myUser} vatarFriend={data && data.avatar} name={idRoomChange === dataRoom._id && dataFriend ? nameRoomChange : dataFriend.nickname}><CIconButton icon={<BiPaint />} /></CModalRename>
                         </div>
                     </div>
                     <div className="chatSetting-main__function">
@@ -104,10 +104,11 @@ const ChatSetting = ({ socket, dataListMember, myUser, idRoomChange, nameRoomCha
                             <BsShare /> <span>Shared Media</span>
                         </div>
                         <div className="chatSetting-share__main">
-                            <NavigationShare
-                                dataAllFile={!mutationGetAllFile.isLoading && mutationGetAllFile.data && mutationGetAllFile.data.data[0] && mutationGetAllFile.data.data[0].list_message}
-                                dataAllImage={!mutationGetAllImages.isLoading && mutationGetAllImages.data && mutationGetAllImages.data.data[0] && mutationGetAllImages.data.data[0].list_message}
-                            />
+                            {!mutationGetAllFile.isLoading && mutationGetAllFile.data && !mutationGetAllImages.isLoading && mutationGetAllImages.data &&
+                                <NavigationShare
+                                    dataAllFile={mutationGetAllFile.data.data}
+                                    dataAllImage={mutationGetAllImages.data.data}
+                                />}
                         </div>
                     </div>
                     <div className="chatSetting-main__scurity">

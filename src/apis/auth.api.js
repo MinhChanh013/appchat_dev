@@ -24,3 +24,7 @@ export const onlineUser = async () => {
 export const offlineUser = async () => {
   return await request_api().put(AUTH.OFFLINE);
 };
+
+export const confirmMyPhone = async (value) => {
+  return await request_api().post(AUTH.CONFIRMPHONE, value);
+};

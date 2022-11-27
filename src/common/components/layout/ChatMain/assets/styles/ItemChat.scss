@@ -47,7 +47,7 @@
               grid-template-columns: 1fr 1fr;
               gap: 20px;
 
-              &.tripple{
+              &.tripple {
                 grid-template-columns: 1fr 1fr 1fr;
               }
             }
@@ -70,6 +70,29 @@
         border-bottom-left-radius: 25px;
         max-width: 600px;
         z-index: 999;
+
+        .emoji-static {
+          margin-top: 20px;
+          padding: 1px 5px;
+          background-color: #fff;
+          border-radius: 14px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          span {
+            color: rgb(100, 99, 99);
+            font-size: 15px;
+            margin-left: 2px;
+            margin-right: 4px;
+          }
+          img {
+            margin: 0 1px;
+            width: 18px;
+            height: 18px;
+            object-fit: cover;
+          }
+        }
 
         &.recall {
           pointer-events: none;

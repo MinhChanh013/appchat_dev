@@ -10,7 +10,7 @@ import CAleart from './CAleart';
 import { toast } from "react-toastify";
 
 // api
-import { findPhone } from "@/apis/user.api"
+import { findPhoneNotMe } from "@/apis/user.api"
 import { requestAddFriend } from "@/apis/friend.api"
 // library
 import { useForm } from "react-hook-form"
@@ -18,6 +18,7 @@ import { useMutation } from '@tanstack/react-query'
 
 import { AiOutlineUserAdd, AiOutlineHistory } from "react-icons/ai";
 import "../../assets/styles/controls/ModalAddPhone.scss"
+import { Socket } from 'socket.io-client';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -28,7 +29,7 @@ const style = {
     borderRadius: 2,
 };
 const PHONE_REGEX = new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g);
-const ModalAddPhone = ({ Children }) => {
+const ModalAddPhone = ({ socket, myUser, Children }) => {
     const [open, setOpen] = React.useState(false);
     const [phone, setPhone] = React.useState("")
     const [getApi, setGetApi] = React.useState(false)
@@ -54,10 +55,11 @@ const ModalAddPhone = ({ Children }) => {
             phone = `0${value.phone}`
         }
         setPhone(phone)
-        return findPhone(phone)
+        return findPhoneNotMe(phone)
     })
 
     const muatationAddFriend = useMutation((phone) => {
+        socket.emit("add_friend", { phone: phone, name: `${mutation.data.data.first_name.trim()} ${mutation.data.data.last_name.trim()}` }, myUser && myUser.data)
         setGetApiAddFriend(true)
         return requestAddFriend(({ phone: phone, name: `${mutation.data.data.first_name.trim()} ${mutation.data.data.last_name.trim()}` }))
     })
@@ -98,10 +100,10 @@ const ModalAddPhone = ({ Children }) => {
                             <span>Search results</span>
                         </div>
                         <div className="modal-addPhone__results">
-                            {getApi && !mutation.isLoading ?
+                            {getApi && !mutation.isLoading && mutation.data.data ?
                                 <div className='modal-card__results'>
                                     <div className="modal-results__infor">
-                                        <CAvatar image="" />
+                                        <CAvatar />
                                         <div className="modal-results__name">
                                             <h4>{`${mutation.data.data.first_name} ${mutation.data.data.last_name}`}</h4>
                                             <span className='modal-results__number'>{mutation.data.data.phone}</span>
