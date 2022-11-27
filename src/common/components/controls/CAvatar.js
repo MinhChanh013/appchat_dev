@@ -3,11 +3,15 @@ import React from "react";
 import Avatar from "@mui/material/Avatar";
 import "../../assets/styles/controls/CAvatar.scss";
 import person4 from "../../../common/assets/images/person4.png";
-const CAvatar = ({ image = person4, border }) => {
+const CAvatar = ({ image, border }) => {
   return (
     <div className={`avatar ${border ? "border" : ""}`}>
       <div className="avatar_container">
-        <Avatar alt="" sx={{ width: 45, height: 45 }} src={image} />
+        <Avatar
+          alt=""
+          sx={{ width: 45, height: 45 }}
+          src={!image ? person4 : image}
+        />
       </div>
     </div>
   );

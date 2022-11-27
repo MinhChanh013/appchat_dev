@@ -18,7 +18,6 @@ import { BsListCheck } from "react-icons/bs";
 // library
 import { useQuery } from '@tanstack/react-query'
 import { useMutation } from "@tanstack/react-query"
-// import io from "socket.io-client"
 
 // api
 import { getAllFriend } from "@/apis/friend.api"
@@ -26,7 +25,6 @@ import { getChatPrivated } from "@/apis/chat.api"
 
 import "./assets/ContactAll.scss"
 
-// const socket = io.connect("http://localhost:4001");
 
 const ContactAll = ({ socket, friendActive, myUser }) => {
 

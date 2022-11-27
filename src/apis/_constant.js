@@ -16,7 +16,7 @@ export const USER = {
   FRIEND: "/user/friend",
   FINDPHONENOTME: "/user/find_phone",
   FINDNAME: "/user/find_name",
-  RESETPASS: "/user/resetPassword"
+  RESETPASS: "/user/resetPassword",
 };
 
 export const FRIEND = {
@@ -39,6 +39,7 @@ export const CHAT = {
   GETALLFILES: "/listchat/allFiles",
   GETALLIMAGES: "/listchat/allImages",
   RENAMEFRIEND: "/listchat/rename_Friend",
+  ADDMEMBER: "/listchat/addmember",
 };
 
 export const MESSAGE = {

@@ -27,7 +27,7 @@ import { BsCamera } from "react-icons/bs";
 // api
 import { getAllFriend } from "@/apis/friend.api";
 import { findPhoneNotMe } from "@/apis/user.api";
-import { createChatGroup } from "@/apis/chat.api";
+import { createChatGroup, requestAddMember } from "@/apis/chat.api";
 import { useQuery, useMutation } from "@tanstack/react-query";
 
 import { useForm } from "react-hook-form";
@@ -51,7 +51,7 @@ const style = {
   padding: 3,
 };
 
-const CModalAddTeam = ({ child, refetch, socket }) => {
+const CModalAddTeam = ({ id_room, type, child, refetch, socket }) => {
   const [open, setOpen] = React.useState(false);
   const [left, setLeft] = React.useState([]);
   const [right, setRight] = React.useState([]);
@@ -79,11 +79,19 @@ const CModalAddTeam = ({ child, refetch, socket }) => {
     right.forEach((course) => {
       list_member.push({ phone: course.phone });
     });
-    setCreateGroup(true);
-    return createChatGroup({
-      name_room: value.name_room,
-      list_member: list_member,
-    });
+    if (type === "add_member") {
+      requestAddMember({ room_id: id_room, list_member: list_member }).then(
+        (course) => {
+          handleClose();
+        }
+      );
+    } else {
+      setCreateGroup(true);
+      return createChatGroup({
+        name_room: value.name_room,
+        list_member: list_member,
+      });
+    }
   });
 
   if (
@@ -293,47 +301,58 @@ const CModalAddTeam = ({ child, refetch, socket }) => {
               <form onSubmit={handleSubmit(mutationCreateGroup.mutate)}>
                 <div className="modal-addTeam__header">
                   <AiOutlineUsergroupAdd />
-                  <span>Create team</span>
+                  {type === "add_member" ? (
+                    <span>Add Member</span>
+                  ) : (
+                    <span>Create team</span>
+                  )}
                 </div>
-                <div className="modal-addTeam__information">
-                  <CIconButton
-                    component="label"
-                    className="modal-addTeam__iconImgae"
-                    icon={
-                      <>
-                        <input hidden accept="image/*" type="file" />
-                        <BsCamera />
-                      </>
-                    }
-                  ></CIconButton>
-                  <CTextField
-                    registerName={{
-                      ...register("name_room", { required: true }),
-                    }}
-                    label="Enter name team ..."
-                    className="form_chat"
-                  />
-                </div>
+                {type === "add_member" ? (
+                  ""
+                ) : (
+                  <div className="modal-addTeam__information">
+                    <CIconButton
+                      component="label"
+                      className="modal-addTeam__iconImgae"
+                      icon={
+                        <>
+                          <input hidden accept="image/*" type="file" />
+                          <BsCamera />
+                        </>
+                      }
+                    ></CIconButton>
+                    <CTextField
+                      registerName={{
+                        ...register("name_room", { required: true }),
+                      }}
+                      label="Enter name team ..."
+                      className="form_chat"
+                    />
+                  </div>
+                )}
+
                 <div className="modal-addTeam__search">
                   <span>Add friend to group</span>
                   <input
                     onChange={(e) => {
                       if (e.target.value === "") {
                         let newLeft = [];
-                        if (right.length === 0 && data.data) {
+                        if (right.length === 0 && !isLoading && data.data) {
                           setLeft(data.data.list_friend);
                         } else {
-                          data.data.list_friend.forEach((course) => {
-                            let dem = 0;
-                            right.forEach((courseLeft, index) => {
-                              if (course === courseLeft) {
-                                dem++;
-                              }
-                              dem === 0 &&
-                                index === right.length - 1 &&
-                                newLeft.push(course);
+                          !isLoading &&
+                            data.data &&
+                            data.data.list_friend.forEach((course) => {
+                              let dem = 0;
+                              right.forEach((courseLeft, index) => {
+                                if (course === courseLeft) {
+                                  dem++;
+                                }
+                                dem === 0 &&
+                                  index === right.length - 1 &&
+                                  newLeft.push(course);
+                              });
                             });
-                          });
                           setLeft(newLeft);
                         }
                         setActiveSearch(false);
@@ -383,7 +402,13 @@ const CModalAddTeam = ({ child, refetch, socket }) => {
                   </Grid>
                 </div>
                 <div className="btn-modal_createTeam">
-                  {right.length >= 2 ? (
+                  {type === "add_member" ? (
+                    right.length >= 1 ? (
+                      <CButton type="submit">Add Member</CButton>
+                    ) : (
+                      <CButton disabled>Add Member</CButton>
+                    )
+                  ) : right.length >= 2 ? (
                     <CButton type="submit">Create Team</CButton>
                   ) : (
                     <CButton disabled>Create Team</CButton>

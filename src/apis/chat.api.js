@@ -59,3 +59,7 @@ export const requestGetAllFiles = async (value) => {
 export const requestRenameFriend = async (value) => {
   return await request_api().post(CHAT.RENAMEFRIEND, value);
 };
+
+export const requestAddMember = async (value) => {
+  return await request_api().put(CHAT.ADDMEMBER, value);
+};

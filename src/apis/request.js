@@ -2,8 +2,8 @@ import axios from "axios";
 
 export const request_api = () => {
   const request = axios.create({
-    baseURL: "http://localhost:4001",
-    // baseURL: "http://13.250.20.251:4001",
+    // baseURL: "http://localhost:4001",
+    baseURL: "http://13.250.20.251:4001",
   });
 
   let token = document.cookie

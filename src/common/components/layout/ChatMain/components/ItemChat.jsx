@@ -141,7 +141,7 @@ const ItemChat = ({ mountEmoji, handelAddEmoji, id_Mess, list_emoji, handelRevok
                                                     </span>
                                                     {list_emoji && list_emoji.map((course, index) => {
                                                         return (
-                                                            index < 3 && course.count > 0 && <img className='emoji-mes__img emoji' src={course.emoji} alt="" />
+                                                            index < 3 && course.count > 0 && <img key={index} className='emoji-mes__img emoji' src={course.emoji} alt="" />
                                                         )
                                                     })}
                                                 </div> : ""}

@@ -112,6 +112,7 @@
           &:hover {
             height: auto;
             .emoji-mess__container {
+              transform: translateY(-5px) translateX(20px);
               transition: all 0.1s 0.9s ease;
               opacity: 1;
               z-index: 9999999;

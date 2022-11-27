@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import MeProfile from '../../Profile/MeProfile/MeProfile'
 import CModalRename from '../../../controls/CModalRename'
 import CModalSettingRole from './CModalSettingRole'
+import CModalAddTeam from '../../../controls/CModalAddTeam'
 
 // icon
 import { GoSettings, GoPlus } from "react-icons/go";
@@ -78,7 +79,7 @@ const ChatSetting = ({ socket, dataListMember, myUser, idRoomChange, nameRoomCha
                                 </div>
                                 <div className='chatSetting-header__function'>
                                     <CModalSettingRole socket={socket} myUser={myUser} dataRoom={dataListMember} Room={dataRoom} button_modal={<CIconButton icon={<FiSettings />} />} />
-                                    <CIconButton icon={<GoPlus />} />
+                                    <CModalAddTeam id_room={dataRoom && dataRoom._id} type="add_member" socket={socket} child={<CIconButton icon={<GoPlus />} />} />
                                 </div>
                             </div>
 

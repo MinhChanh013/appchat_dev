@@ -8,11 +8,9 @@ import Setting from "../modules/chat/pages/Setting/Setting";
 // api
 import { getAllFriend } from "@/apis/friend.api";
 import { useQuery } from "@tanstack/react-query";
-// import io from "socket.io-client";
 import { useRoutes } from "react-router-dom";
 import { onlineUser } from "../apis/auth.api";
 
-// const socket = io.connect("http://localhost:4001");
 
 const Routes_Chat = ({ myUser, socket }) => {
   const [friendActive, setFriendActive] = React.useState([]);
