@@ -16,3 +16,7 @@ export const findPhoneNotMe = async (phone) => {
 export const resetPass = async (value) => {
   return await request_api().post(USER.RESETPASS, value);
 };
+
+export const requestEditProfile = async (value) => {
+  return await request_api().post(USER.EDITPROFILE, value);
+};

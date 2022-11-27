@@ -103,6 +103,12 @@ const ChatAll = ({ socket, myUser, friendActive }) => {
       }
     });
   })
+
+  React.useEffect(() => {
+    socket.on("receive_addMember", (data) => {
+      refetch()
+    })
+  })
   return (
     <>
       <div className='chatall'>
@@ -127,7 +133,7 @@ const ChatAll = ({ socket, myUser, friendActive }) => {
                 </div>
                 <div className="chatall-title__function">
                   <BackgroundIcon />
-                  <ModalAddPhone Children={<PersonAddAlt1Icon />} />
+                  <ModalAddPhone socket={socket} myUser={myUser} Children={<PersonAddAlt1Icon />} />
                   <CModalAddTeam socket={socket} refetch={refetch} child={<GroupAddIcon />} />
                 </div>
               </div>

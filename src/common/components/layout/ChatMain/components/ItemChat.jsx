@@ -27,11 +27,13 @@ import wow from "@common/assets/images/wow.png"
 
 import "../assets/styles/ItemChat.scss"
 
-const ItemChat = ({ mountEmoji, handelAddEmoji, id_Mess, list_emoji, handelRevokeMess, handelDeleteMessTo, index, type_message, me, data, refetch, className, person, avatar, mess, time, name }) => {
+const ItemChat = ({ socket, mountEmoji, handelAddEmoji, id_Mess, list_emoji, handelRevokeMess, handelDeleteMessTo, index, type_message, me, data, refetch, className, person, avatar, mess, time, name }) => {
     return (
         <div className={`itemChat ${person ? "me" : ""} ${className ? className : ""}`}>
             <div className="itemChat-container">
-                {avatar ? <MeProfile me={me} refetch={refetch} data={data}><CAvatar image={avatar} /></MeProfile> : ""}
+                {avatar ? <MeProfile socket={socket} me={me} refetch={refetch} data={data}>
+                    <CAvatar image={avatar} />
+                </MeProfile> : ""}
                 <div className="itemChat-cotainer__context">
                     <div className="itemChat-context__name">
                         {name ? <span> {name} </span> : ""}
@@ -90,7 +92,7 @@ const ItemChat = ({ mountEmoji, handelAddEmoji, id_Mess, list_emoji, handelRevok
                                                     <span>{type_message.name}</span>
                                                     <span>{`${type_message.size / 1000} KB`}</span>
                                                 </div>
-                                                <a className='btn-download__file' href={mess} download={type_message.name} >
+                                                <a className='btn-download__file' href={mess} download >
                                                     <CIconButton icon={<BsDownload />} />
                                                 </a>
                                             </div>

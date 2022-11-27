@@ -17,6 +17,7 @@ export const USER = {
   FINDPHONENOTME: "/user/find_phone",
   FINDNAME: "/user/find_name",
   RESETPASS: "/user/resetPassword",
+  EDITPROFILE: "/user/editProfile",
 };
 
 export const FRIEND = {

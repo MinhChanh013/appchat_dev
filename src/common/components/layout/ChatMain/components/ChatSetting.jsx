@@ -50,7 +50,7 @@ const ChatSetting = ({ socket, dataListMember, myUser, idRoomChange, nameRoomCha
                 <div className="chatSetting-container__main">
                     <div className="chatSetting-main__infor">
                         {dataRoom && dataRoom.name_room === "isFriend" ?
-                            <MeProfile refetch={refetch} data={data}> <CAvatar image={data && data.avatar} /></MeProfile>
+                            <MeProfile socket={socket} refetch={refetch} data={data}> <CAvatar image={data && data.avatar} /></MeProfile>
                             : <CAvatar />}
                         <div className="chatSetting-infor__name">
                             <h3>

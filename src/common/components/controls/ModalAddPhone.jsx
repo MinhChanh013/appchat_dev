@@ -59,7 +59,7 @@ const ModalAddPhone = ({ socket, myUser, Children }) => {
     })
 
     const muatationAddFriend = useMutation((phone) => {
-        socket.emit("add_friend", { phone: phone, name: `${mutation.data.data.first_name.trim()} ${mutation.data.data.last_name.trim()}` }, myUser && myUser.data)
+        socket.emit("request_Add_Friend", { phone: phone, phoneMe: myUser && myUser.data })
         setGetApiAddFriend(true)
         return requestAddFriend(({ phone: phone, name: `${mutation.data.data.first_name.trim()} ${mutation.data.data.last_name.trim()}` }))
     })

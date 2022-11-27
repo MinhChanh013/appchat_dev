@@ -77,11 +77,16 @@ const CModalAddTeam = ({ id_room, type, child, refetch, socket }) => {
   const mutationCreateGroup = useMutation((value) => {
     let list_member = [];
     right.forEach((course) => {
-      list_member.push({ phone: course.phone });
+      list_member.push({ phone: course.phone, name: course.name });
     });
     if (type === "add_member") {
       requestAddMember({ room_id: id_room, list_member: list_member }).then(
         (course) => {
+          socket.emit("add_member", {
+            room_id: id_room,
+            list_memberNew: list_member,
+            data: course.data,
+          });
           handleClose();
         }
       );

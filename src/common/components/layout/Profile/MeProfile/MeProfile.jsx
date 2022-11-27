@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal';
 import CAvatar from "../../../controls/CAvatar"
 import CButton from "../../../controls/CButton"
 import CIconButton from '../../../controls/CIconButton';
+import EditProfile from './EditMyProfile';
 
 import { VscAccount } from "react-icons/vsc";
 import { GiSmartphone } from "react-icons/gi";
@@ -25,12 +26,19 @@ const style = {
   boxShadow: 24,
 };
 
-const MeProfile = ({ refetch, data, activeModal = false, me, children }) => {
+const MeProfile = ({ socket, refetch, data, activeModal = false, me, children }) => {
 
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
     setOpen(activeModal)
   }, [activeModal])
+
+  React.useEffect(() => {
+    socket.on("receive_editProfile", data => {
+      handleClose()
+    })
+  })
+
   const handleClose = () => { setOpen(false); }
   return (
     <div className='meProfile'>
@@ -76,20 +84,24 @@ const MeProfile = ({ refetch, data, activeModal = false, me, children }) => {
                       <BsGenderTrans />
                       <span>Gender : </span>
                     </div>
-                    <h4>Nam</h4>
+                    <h4>{data && data.gender ? data.gender : "Nam"}</h4>
                   </div>
                   <div className='meProfile-content__infor'>
                     <div className="meProfile-infor__title">
                       <HiOutlineCake />
                       <span>Date of birth : </span>
                     </div>
-                    <h4>10/10/2010</h4>
+                    <h4>{data && new Date(data.dateOfBirth).getDate()}/
+                      {data && new Date(data.dateOfBirth).getMonth() + 1}/
+                      {data && new Date(data.dateOfBirth).getFullYear()}</h4>
                   </div>
                 </div>
               </div>
             </div>
             <div className="meProfile-container__footer">
-              {me ? <CButton icon={<AiOutlineEdit />} children="Edit profile" />
+              {me ?
+                <EditProfile socket={socket} avatar={data && data.avatar} first_name={data && data.first_name} phone={data && data.phone}
+                  last_name={data && data.last_name} dateOfBirth={data && new Date(data.dateOfBirth)} gender={data && data.gender} child={<CButton icon={<AiOutlineEdit />} children="Edit profile" />} />
                 : <CButton icon={<AiOutlineDelete />} children="Delete friend" />}
             </div>
           </div>

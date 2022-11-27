@@ -22,7 +22,6 @@ import SendIcon from '@mui/icons-material/Send';
 import { IoImagesOutline, IoTimeOutline, IoSettingsOutline } from "react-icons/io5";
 import { AiOutlineIdcard } from "react-icons/ai";
 import { BsTextareaT, BsPerson } from "react-icons/bs";
-import { Peer } from "peerjs";
 
 // image
 import sad from "@common/assets/images/angry.png"
@@ -49,6 +48,7 @@ const ChatMain = ({ friendActive, idRoomChange, nameRoomChange, myUser, socket, 
   const { isLoading, data } = useQuery(['getUser'], () => {
     return getProfile()
   })
+  const [lenghtMess, setLenghtMess] = useState(0)
   const [text, setText] = useState('')
   const [isopen, setIsOpen] = useState(true)
   const [messageList, setMessageList] = useState([]);
@@ -56,6 +56,7 @@ const ChatMain = ({ friendActive, idRoomChange, nameRoomChange, myUser, socket, 
   const [accountType, setAccountType] = useState("")
   const [dataListMember, setDataListMember] = useState([])
   const [isRenderListMember, setIsRenderListMember] = useState(true)
+
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
@@ -93,7 +94,7 @@ const ChatMain = ({ friendActive, idRoomChange, nameRoomChange, myUser, socket, 
         }
       }
     });
-  }, [socket, messageList, dataRoom._id])
+  }, [dataRoom._id, socket, messageList])
 
   useEffect(() => {
     socket.on("receive_TypingMess", (data) => {
@@ -183,6 +184,14 @@ const ChatMain = ({ friendActive, idRoomChange, nameRoomChange, myUser, socket, 
             else { newDataListMember.push(course) }
         })
         setDataListMember(newDataListMember)
+      }
+    })
+  })
+
+  useEffect(() => {
+    socket.on("receive_addMember", (roomId, list_Newmember) => {
+      if (roomId === dataRoom._id) {
+        setDataListMember(dataListMember.concat(list_Newmember))
       }
     })
   })
@@ -342,7 +351,7 @@ const ChatMain = ({ friendActive, idRoomChange, nameRoomChange, myUser, socket, 
           <div className="chatmain-header__infor">
             {
               dataRoom && dataRoom.name_room === "isFriend" ?
-                <MeProfile refetch={refetchFriend} data={!isLoadingFriend && !isError && dataProfileFriend.data}>
+                <MeProfile socket={socket} refetch={refetchFriend} data={!isLoadingFriend && !isError && dataProfileFriend.data}>
                   <CAvatar image={dataFriend.avatar} />
                 </MeProfile> : <CAvatar image={dataFriend.avatar} />
             }
@@ -607,7 +616,7 @@ const ChatMain = ({ friendActive, idRoomChange, nameRoomChange, myUser, socket, 
 
             </div>
             <div className='chatmain-type__main'>
-              <MeProfile me><CAvatar image={myUser && myUser.data.avatar} /> </MeProfile>
+              <MeProfile socket={socket} me><CAvatar image={myUser && myUser.data.avatar} /> </MeProfile>
               <div className='chatmain-type__input'>
                 <InputEmoji
                   // value={text}

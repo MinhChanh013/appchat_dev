@@ -120,7 +120,12 @@ const CMenu = ({ CAvatar, socket }) => {
         </Menu>
       </React.Fragment>
       {!isLoading && activeModal && (
-        <MeProfile activeModal={activeModal} me data={data.data} />
+        <MeProfile
+          socket={socket}
+          activeModal={activeModal}
+          me
+          data={data.data}
+        />
       )}
     </div>
   );

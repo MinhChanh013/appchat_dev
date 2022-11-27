@@ -47,10 +47,9 @@ const NavigationShare = ({ dataAllFile, dataAllImage }) => {
                 >
                     <>
                         {dataAllImage && data && data.map((course, index) => {
-                            console.log(course);
                             let newArrImg = course.mess_content.split(",")
                             return (
-                                <>
+                                <div key={index}>
                                     {
                                         newArrImg.map((img, indexImg) => (
                                             indexImg > 0 && <ImageListItem key={indexImg} >
@@ -58,7 +57,7 @@ const NavigationShare = ({ dataAllFile, dataAllImage }) => {
                                             </ImageListItem>
                                         ))
                                     }
-                                </>
+                                </div>
                             )
                         }
                         )}

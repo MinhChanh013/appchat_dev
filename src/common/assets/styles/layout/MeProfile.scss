@@ -81,6 +81,7 @@
       .meProfile-information__content {
         padding-top: 20px;
         height: 250px;
+
         .meProfile-content__infor {
           position: relative;
           margin-bottom: 5px;
@@ -104,6 +105,37 @@
           h4 {
             font-size: 15px;
             font-weight: 400;
+          }
+        }
+
+        &.edit_myProfile {
+          height: auto;
+          padding-top: 0;
+
+          .meProfile-content__infor {
+            display: block;
+            padding: 0;
+
+            .date_ofBirth {
+              margin-bottom: 15px;
+            }
+          }
+          .meEdit-content__function {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            margin-top: 20px;
+
+            .MuiButtonBase-root {
+              padding: 12px 25px;
+              font-weight: 400;
+
+              &#btn-cancel__Edit {
+                background-image: unset;
+                background-color: rgb(236, 101, 101);
+              }
+            }
           }
         }
       }

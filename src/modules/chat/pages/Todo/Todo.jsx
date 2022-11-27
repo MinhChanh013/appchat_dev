@@ -30,23 +30,13 @@ const Todo = ({ myUser, socket }) => {
   })
 
   useEffect(() => {
-    socket.on("receive_addFriend", (data_receive, data_send) => {
-      if (myUser && myUser.data.phone === data_receive.phone) {
-        console.log("da nhan");
-        setIsLoadingRefetch(true)
-        refetch()
-      }
+    socket.on("receive_Request_Add_Friend", (data) => {
+      console.log("da vao");
+      setIsLoadingRefetch(true)
+      refetch()
     })
   })
 
-  useEffect(() => {
-    socket.on("receive_Send", (data_receive, data_send) => {
-      if (myUser && myUser.data.phone === data_send.phone) {
-        setIsLoadingRefetch(true)
-        refetch()
-      }
-    })
-  }, [socket, myUser, refetch])
 
   if (!isLoading && isError) {
     toast.error(error.message)
@@ -58,8 +48,7 @@ const Todo = ({ myUser, socket }) => {
 
 
   const mutationApply = useMutation((value) => {
-    socket.emit("add_friend", { phone: value.phone, name: value.name }, myUser && myUser.data)
-
+    socket.emit("request_Add_Friend", { phone: value.phone, phoneMe: myUser && myUser.data })
     setAplly(true)
     return requestApplyFriend(value)
   })

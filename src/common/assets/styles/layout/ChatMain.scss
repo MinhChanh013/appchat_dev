@@ -189,6 +189,7 @@
         height: 120px;
         backdrop-filter: blur(3px);
         background-color: rgba($color: #fff, $alpha: 0.4);
+        z-index: 999;
 
         .chatmain-type__function {
           height: 38px;
@@ -216,6 +217,10 @@
           .chatmain-type__input {
             width: 100%;
             position: relative;
+
+            .react-emoji-picker--wrapper{
+              z-index: 9999999;
+            }
 
             .type-attach {
               position: absolute;
