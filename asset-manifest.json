@@ -1,30 +1,30 @@
 {
   "files": {
-    "main.css": "/static/css/main.0fb6166c.css",
-    "main.js": "/static/js/main.96af240e.js",
-    "static/media/back_chat.mp4": "/static/media/back_chat.ce47d21d2b34775fbd88.mp4",
-    "static/media/person4.png": "/static/media/person4.5d0d8e8fe53b61cdd212.png",
-    "static/media/person1.png": "/static/media/person1.9cb8c1fb35464ec61ae2.png",
-    "static/media/person2.png": "/static/media/person2.604bf43bcb65a3d131fb.png",
-    "static/media/person3.png": "/static/media/person3.e689794b962c2f7fc083.png",
-    "static/media/edit.gif": "/static/media/edit.75957bb39a92b62df772.gif",
-    "static/media/auth_4.webp": "/static/media/auth_4.c4fa816420cdff9e2779.webp",
-    "static/media/remove.gif": "/static/media/remove.b56a23b65cf81d16d6b3.gif",
-    "static/media/logo.png": "/static/media/logo.a43340d32ec45be8f199.png",
-    "static/media/auth_1.webp": "/static/media/auth_1.06b625c33b34b5b20855.webp",
-    "static/media/auth_5.webp": "/static/media/auth_5.5d8f3b0534ca1b12ab17.webp",
-    "static/media/auth_2.webp": "/static/media/auth_2.770064f65240b078585d.webp",
-    "static/media/reset_key.webp": "/static/media/reset_key.446b9c3365ddbeb82a78.webp",
-    "static/media/auth_7.webp": "/static/media/auth_7.74a9aa407a5043988d1b.webp",
-    "static/media/confirm_err.png": "/static/media/confirm_err.9279c356a45e32d58e61.png",
-    "static/media/confirm_typing.png": "/static/media/confirm_typing.71864b99f151488b80da.png",
-    "static/media/confirm_show.png": "/static/media/confirm_show.84568ca0781200637e4b.png",
-    "index.html": "/index.html",
-    "main.0fb6166c.css.map": "/static/css/main.0fb6166c.css.map",
-    "main.96af240e.js.map": "/static/js/main.96af240e.js.map"
+    "main.css": "/appchat_dev/static/css/main.0fb6166c.css",
+    "main.js": "/appchat_dev/static/js/main.48038d02.js",
+    "static/media/back_chat.mp4": "/appchat_dev/static/media/back_chat.ce47d21d2b34775fbd88.mp4",
+    "static/media/person4.png": "/appchat_dev/static/media/person4.5d0d8e8fe53b61cdd212.png",
+    "static/media/person1.png": "/appchat_dev/static/media/person1.9cb8c1fb35464ec61ae2.png",
+    "static/media/person2.png": "/appchat_dev/static/media/person2.604bf43bcb65a3d131fb.png",
+    "static/media/person3.png": "/appchat_dev/static/media/person3.e689794b962c2f7fc083.png",
+    "static/media/edit.gif": "/appchat_dev/static/media/edit.75957bb39a92b62df772.gif",
+    "static/media/auth_4.webp": "/appchat_dev/static/media/auth_4.c4fa816420cdff9e2779.webp",
+    "static/media/remove.gif": "/appchat_dev/static/media/remove.b56a23b65cf81d16d6b3.gif",
+    "static/media/logo.png": "/appchat_dev/static/media/logo.a43340d32ec45be8f199.png",
+    "static/media/auth_1.webp": "/appchat_dev/static/media/auth_1.06b625c33b34b5b20855.webp",
+    "static/media/auth_5.webp": "/appchat_dev/static/media/auth_5.5d8f3b0534ca1b12ab17.webp",
+    "static/media/auth_2.webp": "/appchat_dev/static/media/auth_2.770064f65240b078585d.webp",
+    "static/media/reset_key.webp": "/appchat_dev/static/media/reset_key.446b9c3365ddbeb82a78.webp",
+    "static/media/auth_7.webp": "/appchat_dev/static/media/auth_7.74a9aa407a5043988d1b.webp",
+    "static/media/confirm_err.png": "/appchat_dev/static/media/confirm_err.9279c356a45e32d58e61.png",
+    "static/media/confirm_typing.png": "/appchat_dev/static/media/confirm_typing.71864b99f151488b80da.png",
+    "static/media/confirm_show.png": "/appchat_dev/static/media/confirm_show.84568ca0781200637e4b.png",
+    "index.html": "/appchat_dev/index.html",
+    "main.0fb6166c.css.map": "/appchat_dev/static/css/main.0fb6166c.css.map",
+    "main.48038d02.js.map": "/appchat_dev/static/js/main.48038d02.js.map"
   },
   "entrypoints": [
     "static/css/main.0fb6166c.css",
-    "static/js/main.96af240e.js"
+    "static/js/main.48038d02.js"
   ]
 }
