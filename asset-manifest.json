@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/appchat_dev/static/css/main.0fb6166c.css",
+    "main.css": "/appchat_dev/static/css/main.6ab90c7e.css",
     "main.js": "/appchat_dev/static/js/main.48038d02.js",
     "static/media/back_chat.mp4": "/appchat_dev/static/media/back_chat.ce47d21d2b34775fbd88.mp4",
     "static/media/person4.png": "/appchat_dev/static/media/person4.5d0d8e8fe53b61cdd212.png",
@@ -20,11 +20,11 @@
     "static/media/confirm_typing.png": "/appchat_dev/static/media/confirm_typing.71864b99f151488b80da.png",
     "static/media/confirm_show.png": "/appchat_dev/static/media/confirm_show.84568ca0781200637e4b.png",
     "index.html": "/appchat_dev/index.html",
-    "main.0fb6166c.css.map": "/appchat_dev/static/css/main.0fb6166c.css.map",
+    "main.6ab90c7e.css.map": "/appchat_dev/static/css/main.6ab90c7e.css.map",
     "main.48038d02.js.map": "/appchat_dev/static/js/main.48038d02.js.map"
   },
   "entrypoints": [
-    "static/css/main.0fb6166c.css",
+    "static/css/main.6ab90c7e.css",
     "static/js/main.48038d02.js"
   ]
 }
