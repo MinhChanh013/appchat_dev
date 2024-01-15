@@ -9,7 +9,7 @@ import { getProfile } from "@/apis/auth.api";
 import { useQuery } from "@tanstack/react-query";
 import "./assets/styles/Chat.scss";
 import io from "socket.io-client";
-const socket = io.connect("https://appchat-be.herokuapp.com");
+const socket = io.connect("https://appchatbackend-production.up.railway.app");
 // const socket = io.connect("http://localhost:4001");
 
 const Chat = () => {
