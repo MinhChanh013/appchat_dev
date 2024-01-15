@@ -2,7 +2,7 @@
   "name": "appchat_dev",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://minhchanh013.github.io/appchat_dev/",
   "dependencies": {
     "@craco/craco": "^6.4.5",
     "@emotion/react": "^11.10.4",
