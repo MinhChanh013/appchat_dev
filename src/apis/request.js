@@ -3,7 +3,7 @@ import axios from "axios";
 export const request_api = () => {
   const request = axios.create({
     // baseURL: "http://localhost:4001",
-    baseURL: "https://appchat-be.herokuapp.com",
+    baseURL: "https://appchatbackend-production.up.railway.app",
   });
 
   let token = document.cookie
